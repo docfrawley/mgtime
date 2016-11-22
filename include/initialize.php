@@ -20,6 +20,6 @@ require_once(LIB_PATH.DS.'functions.php');
 
 // load core objects
 require_once(LIB_PATH.DS.'database.php');
-include_once(LIB_PATH.DS.'loginobject.php');
+//include_once(LIB_PATH.DS.'loginobject.php');
 
 ?>
