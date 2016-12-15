@@ -1,0 +1,34 @@
+
+    <!-- Libs -->
+    <script src="lib/jquery-2.1.4.min.js"></script>
+    <script src="lib/bootstrap.min.js"></script>
+    <script src="lib/angular.min.js"></script>
+    <script src="lib/angular-ui-router.min.js"></script>
+    <script src="lib/moment.js"></script>
+    <script src="lib/bootstrap-datepicker.js"></script>
+
+    <!-- Main Modules -->
+
+    <script src="src/loginapp.module.js"></script>
+    <script src="src/memberapp.module.js"></script>
+      <script src="src/hoursapp.module.js"></script>
+
+
+    <!-- Common Module -->
+    <script src="src/common/common.module.js"></script>
+    <script src="src/common/login.service.js"></script>
+    <script src="src/common/member.service.js"></script>
+    <script src="src/common/hours.service.js"></script>
+
+    <!-- Public Module -->
+    <script src="src/login.routes.js"></script>
+    <script src="src/member.routes.js"></script>
+    <script src="src/hours.routes.js"></script>
+
+    <script src="src/login/register/register.controller.js"></script>
+    <script src="src/member/member.controller.js"></script>
+    <script src="src/hours/hours.controller.js"></script>
+
+
+   </body>
+ </html>

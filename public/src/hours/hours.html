@@ -1,0 +1,165 @@
+<div class="row">
+  <div class="col-md-4">
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <table class="table table-condensed">
+          <tr>
+            <td>
+              Total Hours:
+            </td>
+            <td>
+              {{hctrl.totals[12]}}
+            </td>
+          </tr>
+          <tr>
+            <td>
+              Total First Quarter:
+            </td>
+            <td>
+              {{hctrl.totals[13]}}
+            </td>
+          </tr>
+          <tr><td>January:</td><td>{{hctrl.totals[0]}}</td></tr>
+          <tr><td>February:</td><td>{{hctrl.totals[1]}}</td></tr>
+          <tr><td>March:</td><td>{{hctrl.totals[2]}}</td></tr>
+          <tr><td>Total Second Quarter:</td><td>{{hctrl.totals[14]}}</td></tr>
+          <tr><td>April:</td><td>{{hctrl.totals[3]}}</td></tr>
+          <tr><td>May:</td><td>{{hctrl.totals[4]}}</td></tr>
+          <tr><td>June:</td><td>{{hctrl.totals[5]}}</td></tr>
+          <tr><td>Total Third Quarter:</td><td>{{hctrl.totals[15]}}</td></tr>
+          <tr><td>July:</td><td>{{hctrl.totals[6]}}</td></tr>
+          <tr><td>August:</td><td>{{hctrl.totals[7]}}</td></tr>
+          <tr><td>September:</td><td>{{hctrl.totals[8]}}</td></tr>
+          <tr><td>Total Fourth Quarter:</td><td>{{hctrl.totals[16]}}</td></tr>
+          <tr><td>October:</td><td>{{hctrl.totals[9]}}</td></tr>
+          <tr><td>November:</td><td>{{hctrl.totals[10]}}</td></tr>
+          <tr><td>December:</td><td>{{hctrl.totals[11]}}</td></tr>
+        </table>
+
+      </div>
+    </div>
+  </div>
+  <div class="col-md-8" >
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="panel panel-default">
+          <div class="panel-body">
+            <h4 ng-if="!hctrl.entered">Add new hours here</h4>
+            <h4 ng-if="hctrl.entered">Your hours were added successfully!</h4>
+            <br />
+            <div class="form-group">
+              <label class="col-sm-2 control-label text-left"
+              for="inputEmail">Date:</label>
+              <!-- Special version of Bootstrap that only affects content wrapped in .bootstrap-iso -->
+              <link rel="stylesheet" href="https://formden.com/static/cdn/bootstrap-iso.css" />
+
+              <!--Font Awesome (added because you use icons in your prepend/append)-->
+              <link rel="stylesheet" href="https://formden.com/static/cdn/font-awesome/4.4.0/css/font-awesome.min.css" />
+
+              <div class="bootstrap-iso">
+               <div class="container-fluid">
+                <div class="row">
+                 <div class="col-md-6 col-sm-6 col-xs-12">
+                    <div class="input-group">
+                     <input class="form-control" id="date" name="date"
+                     placeholder="MM/DD/YYYY"
+                     type="text"
+                     ng-model="hctrl.hdate"/>
+                     <div class="input-group-addon">
+                      <span class="fa fa-calendar">
+                      </span>
+                     </div>
+                    </div>
+                 </div>
+                </div>
+               </div>
+             </div><br />
+              <!-- Extra JavaScript/CSS added manually in "Settings" tab -->
+              <!-- Include Date Range Picker -->
+              <script type="text/javascript"
+              src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js">
+              </script>
+              <link rel="stylesheet"
+              href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css"/>
+              <script>
+                  $(document).ready(function(){
+                      var date_input=$('input[name="date"]'); //our date input has the name "date"
+                      var container=$('.bootstrap-iso form').length>0 ? $('.bootstrap-iso form').parent() : "body";
+                      date_input.datepicker({
+                          format: 'mm/dd/yyyy',
+                          container: container,
+                          todayHighlight: true,
+                          autoclose: true,
+                      })
+                  })
+              </script>
+
+              <label class="col-sm-2 control-label text-left"
+              for="inputEmail">Type Hrs: </label>
+              <div class="col-sm-4">
+                <select class="custom-select form-control" ng-model="hctrl.hrstype">
+                  <option value="Mercer County">Mercer County</option>
+                  <option value="Helpline">Helpline</option>
+                  <option value="Continuing Ed">Continuing Ed</option>
+                  <option value="Compost (Trainee)">Compost (Trainee)</option>
+                  <option value="Other (Trainee)">Other (Trainee)</option>
+                </select>
+              </div>
+
+
+              <label class="col-sm-2 control-label text-left"
+              for="inputEmail"> # of Hrs: </label>
+              <div class="col-sm-4">
+              <input class="form-control" type="text"
+               placeholder="Number of Hours" ng-model="hctrl.numhrs"><br />
+              </div>
+              <label class="col-sm-2 control-label text-left"
+              for="inputEmail">Description: </label>
+              <div class="col-sm-10">
+              <input class="form-control" type="text"
+               placeholder="" ng-model="hctrl.description"><br />
+              </div>
+
+              <button class='btn btn-lg btn-success' ng-click="hctrl.submit()">SUBMIT</button>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="panel panel-default">
+          <div class="panel-body">
+            <table class="table table-condensed">
+              <thead>
+                <tr>
+                  <th>date</th>
+                  <th>Type of Hours</th>
+                  <th># of Hours</th>
+                  <th>Description</th>
+                </tr>
+              </thead>
+              <tr ng-repeat="items in hctrl.items">
+                <td>
+                  {{items.hdate}}
+                </td>
+                <td>
+                  {{items.typehrs}}
+                </td>
+                <td>
+                  {{items.numhrs}}
+                </td>
+                <td>
+                  {{items.description}}
+                </td>
+              </tr>
+            </table>
+
+          </div>
+        </div>
+      </div>
+    </div>
+ </div>
+
+</div>

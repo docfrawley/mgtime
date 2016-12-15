@@ -7,6 +7,6 @@ session_unset();
 // destroy the session
 
 session_destroy();
-redirect_to('login.php');
+redirect_to('index.php');
 
 ?>
