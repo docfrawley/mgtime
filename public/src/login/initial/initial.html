@@ -1,27 +1,39 @@
+  <div class="row">
+    <div class="col-sm-12 text-left">
+      Welcome to the site. Please login if you have used the site before
+      or click on REGISTER if this is your first time time.<br /><br/>
 
-    <div class="row row-centered">
-        <div class="col-xs-6 col-centered">
-          <div class="col-sm-12 text-left">
-            Welcome to the site. Please login if you have used the site before
-            or click on REGISTER if this is your first time.
-          </div>
-          <span ng-if="regctrl.failedLogin" >Sorry that info doesn't correspond. Try Again.</span><br>
-          <div class="form-group">
-            <label class="col-sm-2 control-label"
-              for="inputEmail">Username</label>
-            <div class="col-sm-10">
-            <input class="form-control" type="text"
-               placeholder="Username" ng-model="regctrl.username">
-            </div><br>
+    </div>
+    <span ng-if="regctrl.failedLogin" >Sorry that info doesn't correspond. Try Again.</span><br>
+  </div>
 
-            <label class="col-sm-2 control-label"
-              for="inputEmail">Password</label>
-            <div class="col-sm-10">
-            <input class="form-control" type="password"
-               placeholder="Password" ng-model="regctrl.password">
-            </div><br />
+  <div class="row">
+    <div class="form-group">
 
-              <button class='btn btn-lg btn-success' ng-click="regctrl.lsubmit()">SUBMIT</button>
-          </div>
-          <button class='btn btn-lg btn-primary' ui-sref="register">REGISTER</button>
+        <label class="col-sm-2 control-label"
+          for="inputEmail">Username</label>
+        <div class="col-sm-10">
+        <input class="form-control" type="text"
+           placeholder="Username" ng-model="regctrl.username"><br />
         </div>
+
+
+        <label class="col-sm-2 control-label"
+          for="inputEmail">Password</label>
+        <div class="col-sm-10">
+          <input class="form-control" type="password"
+           placeholder="Password" ng-model="regctrl.password"><br/>
+        </div>
+        <div class="col-sm-3">
+          <button class='btn btn-lg btn-success' ng-click="regctrl.lsubmit()">SUBMIT</button>
+        </div>
+
+
+     </div>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-3">
+      <br /><button class='btn btn-lg btn-primary' ui-sref="register">REGISTER</button>
+    </div>
+  </div>

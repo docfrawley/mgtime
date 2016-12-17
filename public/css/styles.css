@@ -1,0 +1,21 @@
+.jumbotron {
+    margin-bottom: 0px;
+    background-image: url(../img/pic7.jpg);
+    background-position: 0% 0%;
+    background-size: cover;
+    background-repeat: no-repeat;
+    color: black;
+}
+
+.jumbotron h1 {
+  color: white;
+}
+
+.panel {
+  opacity: .95;
+}
+
+.col-centered{
+    float: none;
+    margin: 0 auto;
+}

@@ -1,70 +1,106 @@
-<div class="container">
-  <div class="row row-centered">
-      <div class="col-xs-6 col-centered" ng-if="regctrl.nonMember">
-        <div class="col-sm-12 text-left">
+  <div class="row" ng-if="regctrl.nonMember">
+      <div class="col-sm-12  text-left">
           We're excited to have you start using this site to log your hours.
           Please enter your first and last name along with your class year so we can
-          make sure you are in fact a member of mgofmc.
-        </div>
-        <span ng-if="regctrl.nonMember && regctrl.triedRegister" >sorry that info doesn't correspond. Try Again.</span><br>
-        <div class="form-group">
-          <label class="col-sm-3 control-label text-left"
-            for="inputEmail">First Name</label>
-          <div class="col-sm-9">
-          <input class="form-control" type="text"
-             placeholder="First name" ng-model="regctrl.fname">
-          </div>
+          make sure you are in fact a member of master gardeners.
 
-          <label class="col-sm-3 control-label text-left"
-            for="inputEmail">Last Name</label>
-          <div class="col-sm-9">
-          <input class="form-control" type="text"
-             placeholder="Last Name" ng-model="regctrl.lname">
-          </div>
-
-          <label class="col-sm-3 control-label text-left"
-            for="inputEmail">Class Year</label>
-          <div class="col-sm-9">
-          <input class="form-control" type="text"
-             placeholder="Class Year" ng-model="regctrl.class">
-          </div>
-
-          <button class='btn btn-lg btn-success' ng-click="regctrl.submit()">SUBMIT</button>
-        </div>
-        <span ng-if="!regctrl.nonMember && regctrl.triedRegister" >You're a member</span><br>
       </div>
+      <span ng-if="regctrl.nonMember && regctrl.triedRegister" >sorry that info doesn't correspond. Try Again.</span>
+  </div>
 
-      <div class="col-xs-6 col-centered" ng-if="!regctrl.nonMember">
-        <div class="col-sm-12 text-left">
-          Excellent {{regctrl.fname}} {{regctrl.lname}}! Now we need to have you
-          set up a username and password for your account. Please know that your
-          username must be unique. We also need you to provide an email for those
-          times when you forget your username or password. Thanks.<br />
-        </div>
-        <span ng-if="regctrl.nonMember && regctrl.triedRegister" >sorry that info doesn't correspond. Try Again.</span><br>
+  <div class="row" ng-if="regctrl.nonMember">
+      <div class="col-sm-12  text-left">
+
         <div class="form-group">
-          <label class="col-sm-3 control-label text-left"
-            for="inputEmail">Username</label>
-          <div class="col-sm-9">
-          <input class="form-control" type="text"
-             placeholder="Username" ng-model="regctrl.username">
+
+          <div class="row">
+            <label class="col-sm-3"
+              for="inputEmail">First Name</label>
+            <div class="col-sm-9">
+            <input class="form-control" type="text"
+               placeholder="First name" ng-model="regctrl.fname">
+            </div>
           </div>
 
-          <label class="col-sm-3 control-label text-left"
-            for="inputEmail">Password</label>
-          <div class="col-sm-9">
-          <input class="form-control" type="password"
-             placeholder="Password" ng-model="regctrl.password">
+          <div class="row">
+            <label class="col-sm-3"
+              for="inputEmail">Last Name</label>
+            <div class="col-sm-9">
+            <input class="form-control" type="text"
+               placeholder="Last Name" ng-model="regctrl.lname">
+            </div>
           </div>
 
-          <label class="col-sm-3 control-label text-left"
-            for="inputEmail">Email</label>
-          <div class="col-sm-9">
-          <input class="form-control" type="email"
-             placeholder="Email" ng-model="regctrl.email">
+          <div class="row">
+            <label class="col-sm-3"
+              for="inputEmail">Class Year</label>
+            <div class="col-sm-9">
+            <input class="form-control" type="text"
+               placeholder="Class Year" ng-model="regctrl.class">
+            </div>
           </div>
 
-          <button class='btn btn-lg btn-success' ng-click="regctrl.rsubmit()">SUBMIT</button>
+          <div class="row">
+            <div class="col-sm-3">
+              <button class='btn btn-lg btn-success' ng-click="regctrl.submit()">SUBMIT</button>
+            </div>
+          </div>
+
         </div>
+
+    </div>
+  </div>
+
+  <div class="row" ng-if="!regctrl.nonMember">
+    <div class="col-sm-12 col-centered" >
+        Excellent {{regctrl.fname}} {{regctrl.lname}}! Now we need to have you
+        set up a username and password for your account. Please know that your
+        username must be unique. We also need you to provide an email for those
+        times when you forget your username or password. Thanks.<br />
+
+      <span ng-if="regctrl.nonMember && regctrl.triedRegister" >sorry that info doesn't correspond. Try Again.</span><br>
+    </div>
+  </div>
+
+  <div class="row" ng-if="!regctrl.nonMember">
+      <div class="col-sm-12  text-left">
+
+        <div class="form-group">
+
+          <div class="row">
+            <label class="col-sm-3 control-label text-left"
+              for="inputEmail">Username</label>
+            <div class="col-sm-9">
+            <input class="form-control" type="text"
+               placeholder="Username" ng-model="regctrl.username">
+            </div>
+          </div>
+
+          <div class="row">
+            <label class="col-sm-3 control-label text-left"
+              for="inputEmail">Password</label>
+            <div class="col-sm-9">
+            <input class="form-control" type="password"
+               placeholder="Password" ng-model="regctrl.password">
+            </div>
+          </div>
+
+          <div class="row">
+            <label class="col-sm-3 control-label text-left"
+              for="inputEmail">Email</label>
+            <div class="col-sm-9">
+            <input class="form-control" type="email"
+               placeholder="Email" ng-model="regctrl.email">
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-sm-3">
+              <button class='btn btn-lg btn-success' ng-click="regctrl.rsubmit()">SUBMIT</button>
+            </div>
+          </div>
+
+        </div>
+
       </div>
-</div>
+    </div>
