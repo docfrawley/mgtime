@@ -43,7 +43,7 @@
     <div class="row">
       <div class="col-sm-12">
         <div class="panel panel-default">
-          <div class="panel-body">
+          <div class="panel-body" ng-if="hctrl.addhrs">
             <h4 ng-if="!hctrl.entered">Add new hours here</h4>
             <h4 ng-if="hctrl.entered">Your hours were added successfully!</h4>
             <br />
@@ -124,6 +124,99 @@
             </div>
 
           </div>
+          <div class="panel-body" ng-if="!hctrl.addhrs">
+              <div class="col-sm-8 text-left">
+                <h4 ng-if="!hctrl.entered">Edit or Delete this entry</h4>
+                <h4 ng-if="hctrl.entered">Your hours were added successfully!</h4>
+              </div>
+
+              <br/>
+
+            <div class="form-group">
+              <label class="col-sm-2 control-label text-left"
+              for="inputEmail">Date:</label>
+              <!-- Special version of Bootstrap that only affects content wrapped in .bootstrap-iso -->
+              <link rel="stylesheet" href="https://formden.com/static/cdn/bootstrap-iso.css" />
+
+              <!--Font Awesome (added because you use icons in your prepend/append)-->
+              <link rel="stylesheet" href="https://formden.com/static/cdn/font-awesome/4.4.0/css/font-awesome.min.css" />
+
+              <div class="bootstrap-iso">
+               <div class="container-fluid">
+                <div class="row">
+                 <div class="col-md-6 col-sm-6 col-xs-12">
+                    <div class="input-group">
+                     <input class="form-control" id="date" name="date"
+                     placeholder={{hctrl.edItems.hdate}}
+                     type="text"
+                     ng-model="hctrl.edItems.hdate"/>
+                     <div class="input-group-addon">
+                      <span class="fa fa-calendar">
+                      </span>
+                     </div>
+                    </div>
+                 </div>
+                </div>
+               </div>
+             </div><br />
+              <!-- Extra JavaScript/CSS added manually in "Settings" tab -->
+              <!-- Include Date Range Picker -->
+              <script type="text/javascript"
+              src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js">
+              </script>
+              <link rel="stylesheet"
+              href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css"/>
+              <script>
+                  $(document).ready(function(){
+                      var date_input=$('input[name="date"]'); //our date input has the name "date"
+                      var container=$('.bootstrap-iso form').length>0 ? $('.bootstrap-iso form').parent() : "body";
+                      date_input.datepicker({
+                          format: 'mm/dd/yyyy',
+                          container: container,
+                          todayHighlight: true,
+                          autoclose: true,
+                      })
+                  })
+              </script>
+
+              <label class="col-sm-2 control-label text-left"
+              for="inputEmail">Type Hrs: </label>
+              <div class="col-sm-4">
+                <select class="custom-select form-control" ng-model="hctrl.edItems.hrstype">
+                  <option value="Mercer County">Mercer County</option>
+                  <option value="Helpline">Helpline</option>
+                  <option value="Continuing Ed">Continuing Ed</option>
+                  <option value="Compost (Trainee)">Compost (Trainee)</option>
+                  <option value="Other (Trainee)">Other (Trainee)</option>
+                </select>
+              </div>
+
+
+              <label class="col-sm-2 control-label text-left"
+              for="inputEmail"> # of Hrs: </label>
+              <div class="col-sm-4">
+              <input class="form-control" type="text"
+               placeholder={{hctrl.edItems.numhrs}} ng-model="hctrl.edItems.numhrs"><br />
+              </div>
+              <label class="col-sm-2 control-label text-left"
+              for="inputEmail">Description: </label>
+              <div class="col-sm-10">
+              <input class="form-control" type="text"
+               placeholder={{hctrl.edItems.description}} ng-model="hctrl.edItems.description"><br />
+              </div>
+              <div class="col-sm-2">
+                <button class='btn btn-lg btn-success' ng-click="hctrl.hedit()">SUBMIT</button>
+              </div>
+              <div class="col-sm-3 text-left">
+                <button class='btn btn-lg btn-danger' ng-click="hctrl.hdelete()">DELETE</button>
+              </div>
+              <div class="col-sm-7 text-right">
+                <button class='btn btn-lg btn-primary' ng-click="hctrl.backtoadd()">ADD HOURS FORM</button>
+              </div>
+            </div>
+
+          </div>
+
         </div>
       </div>
     </div>
@@ -142,10 +235,10 @@
               </thead>
               <tr ng-repeat="items in hctrl.items">
                 <td>
-                  {{items.hdate}}
+                  <button class='btn btn-sm btn-info' ng-click="hctrl.gomodul($index)">{{items.hdate}}</button>
                 </td>
                 <td>
-                  {{items.typehrs}}
+                  {{items.hrstype}}
                 </td>
                 <td>
                   {{items.numhrs}}

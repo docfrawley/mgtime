@@ -14,6 +14,7 @@ function HoursController(HoursService, items, totals) {
    hctrl.numhrs = 0;
    hctrl.description = "";
    hctrl.entered = false;
+   hctrl.addhrs = true;
 
 
   hctrl.submit = function () {
@@ -42,6 +43,16 @@ function HoursController(HoursService, items, totals) {
             console.log(error);
           });
     };
+
+  hctrl.gomodul = function (index)  {
+    hctrl.addhrs = false;
+    hctrl.edItems = hctrl.items[index];
+    console.log("index: ", index, hctrl.items[index]);
+  };
+
+  hctrl.backtoadd = function () {
+    hctrl.addhrs = true;
+  };
 }
 
 })();
