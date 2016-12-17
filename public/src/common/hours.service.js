@@ -25,6 +25,21 @@ function HoursService($http, ApiPath) {
     return response;
   };
 
+  service.updateHours = function(info) {
+    var response = $http({
+      method: "POST",
+      url: (ApiPath +"updatehrs.php"),
+      data: {
+        hdate:        info.hdate,
+        hrstype:      info.hrstype,
+        numhrs:       info.numhrs,
+        description:  info.description,
+        numid:        info.numid
+      }
+    });
+    return response;
+  };
+
   service.getHoursInfo = function() {
     var response = $http({
       method: "GET",
@@ -46,6 +61,8 @@ function HoursService($http, ApiPath) {
     });
     return response;
   };
+
+
 
 }
 

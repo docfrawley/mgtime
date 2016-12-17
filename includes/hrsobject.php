@@ -16,7 +16,7 @@ class hrsObject {
 		$value = $database->fetch_array($result_set);
     $this->hrsid = $id;
     $this->numhrs = $value['numhrs'];
-    $this->typehrs = $value['hrstype'];
+    $this->hrstype = $value['hrstype'];
     $this->description = $value['description'];
     $this->hdate = $value['hdate'];
 	}
@@ -24,11 +24,23 @@ class hrsObject {
   function set_in_array(){
     $temp_array = array(
       'hdate'       => $this->hdate,
-      'typehrs'     => $this->typehrs,
+      'hrstype'     => $this->hrstype,
       'numhrs'      => $this->numhrs,
-      'description' => $this->description
+      'description' => $this->description,
+      'numid'       => $this->hrsid
     );
     return $temp_array;
+  }
+
+  function update_hours($info){
+    global $database;
+    $sql = "UPDATE hours SET ";
+		$sql .= "hdate='". $info['hdate'] ."', ";
+		$sql .= "hrstype='". $info['hrstype'] ."', ";
+    $sql .= "numhrs='". $info['numhrs'] ."', ";
+		$sql .= "description='". $info['description'] ."' ";
+		$sql .= "WHERE numid='". $this->hrsid. "' ";
+		$database->query($sql);
   }
 
 }

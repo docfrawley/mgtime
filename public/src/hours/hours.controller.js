@@ -47,12 +47,34 @@ function HoursController(HoursService, items, totals) {
   hctrl.gomodul = function (index)  {
     hctrl.addhrs = false;
     hctrl.edItems = hctrl.items[index];
-    console.log("index: ", index, hctrl.items[index]);
+    console.log("hctrl.edItems: ", hctrl.edItems);
   };
 
   hctrl.backtoadd = function () {
     hctrl.addhrs = true;
   };
+
+  hctrl.hedit = function () {
+      HoursService.updateHours(hctrl.edItems)
+          .then(function (response) {
+            hctrl.addhrs = true;
+            console.log("rrindex: ", hctrl.edItems);
+          }).then(function (response) {
+            HoursService.getHoursInfo()
+            .then(function (response) {
+            hctrl.items = response.data;
+          });
+          })
+          .then(function (response) {
+            HoursService.getHourTotals()
+            .then(function (response) {
+            hctrl.totals = response.data;
+          });
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+    };
 }
 
 })();
