@@ -36,6 +36,14 @@ class memberHrs {
 		$database->query($sql);
   }
 
+	function delete_hrs($numid){
+		global $database;
+		$sql = "DELETE FROM hours ";
+	  	$sql .= "WHERE numid=". $numid;
+	  	$sql .= " LIMIT 1";
+	 	$database->query($sql);
+	}
+
 	function get_hours(){
 		$this->set_hrs();
 		return $this->memhrs;

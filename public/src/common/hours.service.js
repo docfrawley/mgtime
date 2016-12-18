@@ -51,6 +51,18 @@ function HoursService($http, ApiPath) {
     return response;
   };
 
+  service.deleteHrs = function(numid) {
+    var response = $http({
+      method: "GET",
+      url: (ApiPath +"loginajaxfiles.php"),
+      params: {
+        task: 'deletehrs',
+        numid: numid
+      }
+    });
+    return response;
+  };
+
   service.getHourTotals = function() {
     var response = $http({
       method: "GET",

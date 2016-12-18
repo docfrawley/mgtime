@@ -47,7 +47,7 @@ function HoursController(HoursService, items, totals) {
   hctrl.gomodul = function (index)  {
     hctrl.addhrs = false;
     hctrl.edItems = hctrl.items[index];
-    console.log("hctrl.edItems: ", hctrl.edItems);
+    console.log("hctrl.eeedItems: ", hctrl.edItems);
   };
 
   hctrl.backtoadd = function () {
@@ -75,6 +75,27 @@ function HoursController(HoursService, items, totals) {
             console.log(error);
           });
     };
+
+    hctrl.hdelete = function () {
+        HoursService.deleteHrs(hctrl.edItems.numid)
+            .then(function (response) {
+              hctrl.addhrs = true;
+            }).then(function (response) {
+              HoursService.getHoursInfo()
+              .then(function (response) {
+              hctrl.items = response.data;
+            });
+            })
+            .then(function (response) {
+              HoursService.getHourTotals()
+              .then(function (response) {
+              hctrl.totals = response.data;
+            });
+            })
+            .catch(function (error) {
+              console.log(error);
+            });
+      };
 }
 
 })();

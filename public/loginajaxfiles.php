@@ -4,6 +4,17 @@ session_start();
 $member_admin = new memadmin();
 $task=isset($_GET['task']) ? $_GET['task'] : "" ;
 
+
+if ($task=='deletehrs'){
+  $numid = $_GET['numid'];
+  $memberhrs = new memberHrs($_SESSION['memberid']);
+  $memberhrs->delete_hrs($numid);
+  $data = array(
+    'success'=>true
+  );
+  echo json_encode($data);
+}
+
 if ($task=='check'){
   $fname=$_GET['fname'];
   $lname = $_GET['lname'];
