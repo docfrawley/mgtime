@@ -36,8 +36,8 @@ if (isset($_SESSION['memberid'])){
               <span class="glyphicon glyphicon-info-sign"></span> Hours</a>
           </li>
           <li >
-            <a href="member.php" class="btn btn-success btn-lg" role="button">
-              <span class="glyphicon glyphicon-certificate"></span> Admin</a>
+            <a href="memadmin.php" class="btn btn-success btn-lg" role="button">
+              <span class="glyphicon glyphicon-certificate"></span>Member Admin</a>
           </li>
         </ul><!-- #nav-list -->
       </div><!-- .collapse .navbar-collapse -->

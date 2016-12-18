@@ -26,7 +26,7 @@ class memberObject {
     $this->uname = $value['username'];
     $this->class = $value['class'];
     $this->status = $value['mgstatus'];
-    $this->admin = $value['admin_status'];
+		$this->admin = isset($value['admin_status']) ? $value['admin_status'] : "" ;
 		$this->memberid = $memberid;
 	}
 
@@ -67,6 +67,14 @@ class memberObject {
 		$sql .= "WHERE id='". $this->memberid. "' ";
 		$database->query($sql);
   }
+
+	function memberAdmin(){
+		return ($this->admin === 'full');
+	}
+
+	function hoursAdmin(){
+		return ($this->admin === 'full' || $this->admin === 'hours');
+	}
 
 }
 ?>

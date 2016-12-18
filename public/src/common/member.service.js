@@ -3,7 +3,7 @@
 
 angular.module('common')
 .service('MemberService', MemberService)
-.constant('ApiPath', 'http://localhost:8888/mgtime/public/');
+.constant('ApiPath', 'http://localhost:8888/mgtime/public/ajax/');
 
 
 MemberService.$inject = ['$http', 'ApiPath'];

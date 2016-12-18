@@ -1,4 +1,4 @@
-<?php require_once("../includes/initialize.php");
+<?php require_once("../../includes/initialize.php");
 session_start();
 
 $member_admin = new memadmin();
