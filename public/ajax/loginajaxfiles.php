@@ -5,6 +5,15 @@ $member_admin = new memadmin();
 $task=isset($_GET['task']) ? $_GET['task'] : "" ;
 
 
+if ($task=='initial_info'){
+  echo json_encode($member_admin->get_pages());
+}
+
+if ($task=='memlist'){
+  $temp_array = $member_admin->get_list($_GET['page']);
+  echo json_encode($temp_array);
+}
+
 if ($task=='deletehrs'){
   $numid = $_GET['numid'];
   $memberhrs = new memberHrs($_SESSION['memberid']);

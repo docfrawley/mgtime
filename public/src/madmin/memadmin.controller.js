@@ -4,23 +4,17 @@
 angular.module('MadminApp')
 .controller('MemadminController',MemadminController);
 
-MemadminController.$inject=['MemadminService'];
-function MemadminController(MemadminService) {
+MemadminController.$inject=['MemadminService', 'info', 'list'];
+function MemadminController(MemadminService, info, list) {
   var mactrl=this;
-  // mctrl.items = info.data;
-  // console.log("hello", info.data);
+
+  mactrl.list = list.data;
+  mactrl.page = 1;
+  mactrl.last = info.data.last;
 
 
 
-  // mctrl.submit = function () {
-  //     MemberService.updateLogin(mctrl.username, mctrl.password, mctrl.email)
-  //         .then(function (response) {
-  //           mctrl.updated = true;
-  //         })
-  //         .catch(function (error) {
-  //           console.log(error);
-  //         });
-  //   };
+
 }
 
 })();

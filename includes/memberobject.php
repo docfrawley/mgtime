@@ -34,6 +34,14 @@ class memberObject {
     return $this->fname." ".$this->lname;
   }
 
+	function get_fname(){
+		return $this->fname;
+	}
+
+	function get_lname(){
+		return $this->lname;
+	}
+
   function get_status(){
     return $this->status;
   }

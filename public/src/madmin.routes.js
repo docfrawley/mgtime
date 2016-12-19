@@ -18,7 +18,15 @@ function RoutesConfig($stateProvider, $urlRouterProvider) {
     url: '/',
     controller: 'MemadminController',
     controllerAs: 'mactrl',
-    templateUrl: 'src/madmin/madmin.html'
+    templateUrl: 'src/madmin/madmin.html',
+    resolve: {
+      info: ['MemadminService',function (MemadminService) {
+        return MemadminService.getInitialInfo();
+      }],
+      list: ['MemadminService',function (MemadminService) {
+        return MemadminService.getList(1);
+      }]
+    }
   });
 
 
