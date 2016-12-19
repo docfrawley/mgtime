@@ -63,7 +63,7 @@ class memadmin {
 
 	function get_pages(){
 		$this->set_array();
-		$temp_array = array();
+		$temp_array = [];
 		$temp_array['last']=ceil(count($this->allmem)/20);
 	  return $temp_array;
 	}

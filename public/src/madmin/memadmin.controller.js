@@ -7,9 +7,10 @@ angular.module('MadminApp')
 MemadminController.$inject=['MemadminService', 'info', 'list'];
 function MemadminController(MemadminService, info, list) {
   var mactrl=this;
-
-  mactrl.list = list.data;
+  console.log("hello");
   mactrl.page = 1;
+  mactrl.list = list.data;
+
   mactrl.last = info.data.last;
 
 
