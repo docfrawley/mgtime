@@ -3,7 +3,7 @@
 
 angular.module('common')
 .service('LoginService', LoginService)
-.constant('ApiPath', 'http://localhost:8888/mgtime/public/');
+.constant('ApiPath', 'http://localhost:8888/mgtime/public/ajax/');
 
 
 LoginService.$inject = ['$http', 'ApiPath'];
