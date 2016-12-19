@@ -34,6 +34,7 @@ class memadmin {
 	}
 
 	function get_list($page=1){
+		$this->set_array();
 		$start = $page*20-20;
 		$temp_array = [];
 		for ($counter=$start; $counter< $page*20; $counter++) {

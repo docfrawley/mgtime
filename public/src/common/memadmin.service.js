@@ -22,7 +22,7 @@ function MembadminService($http, ApiPath) {
     return response;
   };
 
-  service.getInitialInfo = function(page){
+  service.getInitialInfo = function(){
     var response = $http({
       method: "GET",
       url: (ApiPath +"loginajaxfiles.php"),
