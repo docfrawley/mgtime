@@ -2,12 +2,12 @@
 "use strict";
 
 angular.module('common')
-.service('MembadminService', MembadminService)
+.service('MemadminService', MemadminService)
 .constant('ApiPath', 'http://localhost:8888/mgtime/public/ajax/');
 
 
-MembadminService.$inject = ['$http', 'ApiPath'];
-function MembadminService($http, ApiPath) {
+MemadminService.$inject = ['$http', 'ApiPath'];
+function MemadminService($http, ApiPath) {
   var service = this;
 
   service.getList = function(page){

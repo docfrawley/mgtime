@@ -37,17 +37,8 @@ class memadmin {
 		$this->set_array();
 		$start = $page*20-20;
 		$temp_array = [];
-		for ($counter=$start; $counter< $page*20; $counter++) {
-			$next_array = [];
-			$member = new memberObject($this->allmem[$counter]['id']);
-					$next_array['fname']= $member->get_fname();
-					$next_array['lname']= $member->get_lname();
-					$next_array['email']= $member->get_email();
-					$next_array['status']= $member->get_status();
-					$next_array['class']= $member->get_class();
-					$next_array['admin']= $member->get_admin();
-					$next_array['memberid']= $this->allmem[$counter]['id'];
-					array_push($temp_array, $next_array);
+		for ($counter=$start; $counter< $page*20 && $counter<count($this->allmem); $counter++) {
+			array_push($temp_array, $this->allmem[$counter]);
 		}
 		return $temp_array;
 	}
@@ -58,7 +49,7 @@ class memadmin {
     $sql="SELECT * FROM memberinfo ORDER BY lname";
 		$result_set = $database->query($sql);
 		while ($value = $database->fetch_array($result_set)) {
-			array_push($this->allmem, $value['id']);
+			array_push($this->allmem, $value);
 		}
 	}
 

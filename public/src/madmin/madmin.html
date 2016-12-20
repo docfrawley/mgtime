@@ -3,7 +3,7 @@
     <div class="panel panel-default">
       <div class="panel-body">
         <h3>Search for Member</h3>
-        
+
       </div>
     </div>
   </div>
@@ -20,9 +20,51 @@
 <div class="row">
   <div class="col-sm-12">
     <div class="panel panel-default">
-      <div class="panel-body">
-        <h3>List of Members</h3>
+      <div class="panel-body text-center">
+        <h3>Member List</h3><br/>
+        <div class="col-sm-12">
+          <button class='btn btn-lg btn-success'>
+            <span class="glyphicon glyphicon-step-backward"
+            ng-mousedown="mactrl.firstPage()"
+            ng-mouseup="mactrl.getNewPage()"></span></button>
+          <button class='btn btn-lg btn-success'><span class="glyphicon glyphicon-triangle-left"
+            ng-mousedown="mactrl.decreasePage()"
+            ng-mouseup="mactrl.getNewPage()"></span></button>
+          <button class='btn btn-lg btn-success'><span class="glyphicon glyphicon-triangle-right"
+            ng-mousedown="mactrl.increasePage()"
+            ng-mouseup="mactrl.getNewPage()"></span></button>
+          <button class='btn btn-lg btn-success'>
+            <span class="glyphicon glyphicon-step-forward"
+            ng-mousedown="mactrl.lastPage()"
+            ng-mouseup="mactrl.getNewPage()"></span></button>
+        </div>
+        <table class="table table-condensed text-left">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Class</th>
+              <th>Status</th>
+              <th>Admin Level</th>
+            </tr>
+          </thead>
+          <tr ng-repeat="items in mactrl.list">
+            <td>
+              <button class='btn btn-sm btn-info' >{{items.fname}} {{items.lname}}</button>
+            </td>
+            <td>
+              {{items.class}}
+            </td>
+            <td>
+              {{items.mgstatus}}
+            </td>
+            <td>
+              {{items.admin_status}}
+            </td>
+          </tr>
+        </table>
+
       </div>
     </div>
   </div>
+</div>
 </div>
