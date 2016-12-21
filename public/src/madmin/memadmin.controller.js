@@ -7,6 +7,14 @@ angular.module('MadminApp')
 MemadminController.$inject=['MemadminService', 'info', 'list', 'flist', 'hlist'];
 function MemadminController(MemadminService, info, list, flist, hlist) {
   var mactrl=this;
+
+  mactrl.fname = "";
+  mactrl.lname = "";
+  mactrl.aclass = "";
+  mactrl.mgstatus = "";
+  mactrl.adstatus = "";
+  mactrl.added = false;
+
   mactrl.page = 1;
   mactrl.list = list.data;
   mactrl.fulladmin = flist.data;
@@ -50,6 +58,55 @@ function MemadminController(MemadminService, info, list, flist, hlist) {
       });
   };
 
+  mactrl.asubmit = function(){
+    MemadminService.addMember(mactrl.fname, mactrl.lname, mactrl.aclass,
+      mactrl.mgstatus, mactrl.adstatus)
+      .then(function (response){
+        mactrl.fname = "";
+        mactrl.lname = "";
+        mactrl.aclass = "";
+        mactrl.mgstatus = "";
+        mactrl.adstatus = "";
+        mactrl.added = true;
+
+        console.log("response: ", response.data);
+      })
+      .then(function (response) {
+        MemadminService.getList(mactrl.page)
+        .then(function (response) {
+        mactrl.list = response.data;
+        console.log("response: ", response.data);
+      });
+      })
+      .then(function (response) {
+        MemadminService.getInitialInfo()
+        .then(function (response) {
+        mactrl.last = response.data.last;
+        console.log("response: ", response.data);
+      });
+      })
+      .then(function (response) {
+        MemadminService.getFList()
+        .then(function (response) {
+          mactrl.fulladmin = response.data;
+          console.log("response: ", response.data);
+      });
+      })
+      .then(function (response) {
+        MemadminService.getHList()
+        .then(function (response) {
+        mactrl.hrsadmin = response.data;
+        console.log("response: ", response.data);
+      });
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
+
+  mactrl.backToAdd = function ()  {
+    mactrl.added = false;
+  };
 
 }
 

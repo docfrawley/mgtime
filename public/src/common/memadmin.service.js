@@ -55,6 +55,20 @@ function MemadminService($http, ApiPath) {
     return response;
   };
 
+  service.addMember = function(fname, lname, aclass, mgstatus, adstatus) {
+    var response = $http({
+      method: "POST",
+      url: (ApiPath +"addmember.php"),
+      data: {
+        fname:    fname,
+        lname:    lname,
+        aclass:   aclass,
+        mgstatus: mgstatus,
+        adstatus: adstatus
+      }
+    });
+    return response;
+  };
 
 }
 

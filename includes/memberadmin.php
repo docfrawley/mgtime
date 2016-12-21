@@ -16,6 +16,20 @@ class memadmin {
     $this->member = "";
 	}
 
+	function addMember($info){
+		global $database;
+		if ($info['adstatus']=="non") {$info['adstatus']="";}
+    $sql = "INSERT INTO memberinfo (";
+	  	$sql .= "lname, fname, class, mgstatus, admin_status";
+	  	$sql .= ") VALUES ('";
+	  	$sql .= $database->escape_value($info['lname']) ."', '";
+      $sql .= $database->escape_value($info['fname']) ."', '";
+      $sql .= $database->escape_value($info['aclass']) ."', '";
+			$sql .= $database->escape_value($info['mgstatus']) ."', '";
+		  $sql .= $database->escape_value($info['adstatus']) ."')";
+		$database->query($sql);
+	}
+
 	function checkLogin($username, $password){
     global $database;
     $sql="SELECT * FROM memberinfo WHERE username='".$username."' AND password='".$password."'";

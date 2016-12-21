@@ -11,7 +11,55 @@
   <div class="col-sm-9">
     <div class="panel panel-default">
       <div class="panel-body">
-        <h2>Add New Member</h2>
+        <h2 ng-if="!mactrl.added">Add New Member</h2>
+        <h2 ng-if="mactrl.added">New Member Has Been Added</h2>
+        <div class="form-group">
+
+          <div class="row">
+              <div class="col-sm-3">
+                <label>First Name</label><br/>
+                <input class="form-control" type="text"
+                 placeholder="First Name" ng-model="mactrl.fname" ng-click="mactrl.backToAdd()">
+              </div>
+              <div class="col-sm-3">
+                <label>Last Name</label><br/>
+                <input class="form-control" type="text"
+                 placeholder="Last Name" ng-model="mactrl.lname" ng-click="mactrl.backToAdd()">
+              </div>
+              <div class="col-sm-2">
+                <label>Class Year</label><br/>
+                <input class="form-control" type="text"
+                 placeholder="Class Year" ng-model="mactrl.aclass">
+              </div>
+              <div class="col-sm-2">
+                <label>MG Status</label><br/>
+                <select class="custom-select form-control" ng-model="mactrl.mgstatus" ng-click="mactrl.backToAdd()">
+                  <option value="A">Active</option>
+                  <option value="A - Trainee">Active Trainee</option>
+                  <option value="E">Emeritus</option>
+                  <option value="IA">Inactive</option>
+                  <option value="T/NotG">Trainee - Did not Graduate</option>
+                </select>
+              </div>
+              <div class="col-sm-2">
+                <label>Admin Status</label><br/>
+                <select class="custom-select form-control" ng-model="mactrl.adstatus" ng-click="mactrl.backToAdd()">
+                  <option value="non">Non Admin</option>
+                  <option value="full">Full Admin</option>
+                  <option value="hours">Hrs Admin</option>
+                </select><br/>
+              </div>
+           </div>
+
+
+          <div class="row">
+            <div class="col-sm-3">
+              <button class='btn btn-lg btn-success' ng-click="mactrl.asubmit()">SUBMIT</button>
+            </div>
+          </div>
+
+        </div>
+
       </div>
     </div>
   </div>
