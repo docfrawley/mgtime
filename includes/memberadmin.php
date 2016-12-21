@@ -33,6 +33,28 @@ class memadmin {
     }
 	}
 
+	function get_flist(){
+		global $database;
+		$temp_array = array();
+    $sql="SELECT * FROM memberinfo WHERE admin_status='full' ORDER BY lname";
+		$result_set = $database->query($sql);
+		while ($value = $database->fetch_array($result_set)) {
+			array_push($temp_array, $value);
+		}
+		return $temp_array;
+	}
+
+	function get_hlist(){
+		global $database;
+		$temp_array = array();
+    $sql="SELECT * FROM memberinfo WHERE admin_status='hours' ORDER BY lname";
+		$result_set = $database->query($sql);
+		while ($value = $database->fetch_array($result_set)) {
+			array_push($temp_array, $value);
+		}
+		return $temp_array;
+	}
+
 	function get_list($page=1){
 		$this->set_array();
 		$start = $page*20-20;

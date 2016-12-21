@@ -22,6 +22,28 @@ function MemadminService($http, ApiPath) {
     return response;
   };
 
+  service.getFList = function(){
+    var response = $http({
+      method: "GET",
+      url: (ApiPath +"loginajaxfiles.php"),
+      params: {
+        task:   'flist'
+      }
+    });
+    return response;
+  };
+
+  service.getHList = function(){
+    var response = $http({
+      method: "GET",
+      url: (ApiPath +"loginajaxfiles.php"),
+      params: {
+        task:   'hlist'
+      }
+    });
+    return response;
+  };
+
   service.getInitialInfo = function(){
     var response = $http({
       method: "GET",

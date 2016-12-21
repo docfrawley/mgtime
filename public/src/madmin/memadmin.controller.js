@@ -4,11 +4,13 @@
 angular.module('MadminApp')
 .controller('MemadminController',MemadminController);
 
-MemadminController.$inject=['MemadminService', 'info', 'list'];
-function MemadminController(MemadminService, info, list) {
+MemadminController.$inject=['MemadminService', 'info', 'list', 'flist', 'hlist'];
+function MemadminController(MemadminService, info, list, flist, hlist) {
   var mactrl=this;
   mactrl.page = 1;
   mactrl.list = list.data;
+  mactrl.fulladmin = flist.data;
+  mactrl.hrsadmin = hlist.data;
 
   mactrl.last = info.data.last;
   mactrl.range = [];
@@ -42,7 +44,6 @@ function MemadminController(MemadminService, info, list) {
     MemadminService.getList(mactrl.page)
       .then(function (response){
         mactrl.list = response.data;
-        console.log("nlist:", mactrl.page, mactrl.list);
       })
       .catch(function (error) {
         console.log(error);

@@ -4,6 +4,15 @@ session_start();
 $member_admin = new memadmin();
 $task=isset($_GET['task']) ? $_GET['task'] : "" ;
 
+if ($task=='flist'){
+  $temp_array = $member_admin->get_flist();
+  echo json_encode($temp_array);
+}
+
+if ($task=='hlist'){
+  $temp_array = $member_admin->get_hlist();
+  echo json_encode($temp_array);
+}
 
 if ($task=='initial_info'){
   $temp_array = $member_admin->get_pages();
