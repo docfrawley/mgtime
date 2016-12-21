@@ -18,7 +18,7 @@
 </div>
 
 <div class="row">
-  <div class="col-sm-12">
+  <div class="col-sm-10">
     <div class="panel panel-default">
       <div class="panel-body text-center">
         <h3>Member List</h3><br/>
@@ -30,6 +30,10 @@
           <button class='btn btn-lg btn-success'><span class="glyphicon glyphicon-triangle-left"
             ng-mousedown="mactrl.decreasePage()"
             ng-mouseup="mactrl.getNewPage()"></span></button>
+              <span id="hrsadmin"><select ng-model="mactrl.page"
+              ng-change="mactrl.getNewPage()" >
+                <option  ng-repeat="nums in mactrl.range" value="{{nums+1 }} + 1 ">{{nums +1}}</option>
+              </select></span>
           <button class='btn btn-lg btn-success'><span class="glyphicon glyphicon-triangle-right"
             ng-mousedown="mactrl.increasePage()"
             ng-mouseup="mactrl.getNewPage()"></span></button>
@@ -62,7 +66,26 @@
             </td>
           </tr>
         </table>
-
+        <div class="col-sm-12">
+          <button class='btn btn-lg btn-success'>
+            <span class="glyphicon glyphicon-step-backward"
+            ng-mousedown="mactrl.firstPage()"
+            ng-mouseup="mactrl.getNewPage()"></span></button>
+          <button class='btn btn-lg btn-success'><span class="glyphicon glyphicon-triangle-left"
+            ng-mousedown="mactrl.decreasePage()"
+            ng-mouseup="mactrl.getNewPage()"></span></button>
+              <span id="hrsadmin"><select ng-model="mactrl.page"
+              ng-change="mactrl.getNewPage()" >
+                <option  ng-repeat="nums in mactrl.range" value="{{nums}}">{{nums}}</option>
+              </select></span>
+          <button class='btn btn-lg btn-success'><span class="glyphicon glyphicon-triangle-right"
+            ng-mousedown="mactrl.increasePage()"
+            ng-mouseup="mactrl.getNewPage()"></span></button>
+          <button class='btn btn-lg btn-success'>
+            <span class="glyphicon glyphicon-step-forward"
+            ng-mousedown="mactrl.lastPage()"
+            ng-mouseup="mactrl.getNewPage()"></span></button>
+        </div>
       </div>
     </div>
   </div>

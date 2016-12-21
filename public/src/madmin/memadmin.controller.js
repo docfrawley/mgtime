@@ -11,11 +11,13 @@ function MemadminController(MemadminService, info, list) {
   mactrl.list = list.data;
 
   mactrl.last = info.data.last;
-  console.log("last", mactrl.last);
+  mactrl.range = [];
+  for(var i=1;i<=mactrl.last;i++) {
+    mactrl.range.push(i);
+  }
 
   mactrl.firstPage = function ()  {
     mactrl.page = 1;
-    console.log("first", mactrl.page);
   };
 
   mactrl.decreasePage = function ()  {
@@ -24,26 +26,23 @@ function MemadminController(MemadminService, info, list) {
     } else {
       mactrl.page = 1;
     }
-    console.log("decrease", mactrl.page);
   };
 
   mactrl.increasePage = function ()  {
     if (mactrl.page < mactrl.last){
       mactrl.page = parseInt(mactrl.page) + 1;
-      console.log("increase", mactrl.page);
     }
   };
 
   mactrl.lastPage = function ()  {
     mactrl.page = parseInt(mactrl.last);
-    console.log("last", mactrl.page);
   };
 
   mactrl.getNewPage = function(){
     MemadminService.getList(mactrl.page)
       .then(function (response){
         mactrl.list = response.data;
-        console.log("nlist", mactrl.list);
+        console.log("nlist:", mactrl.page, mactrl.list);
       })
       .catch(function (error) {
         console.log(error);

@@ -19,3 +19,9 @@
     float: none;
     margin: 0 auto;
 }
+
+#hrsadmin{
+  border-color:green;
+  border-style: solid;
+  border-width: medium;
+}
