@@ -8,9 +8,9 @@
     </div>
   </div>
 
-  <div class="col-sm-9">
+  <div class="col-sm-9" >
     <div class="panel panel-default">
-      <div class="panel-body">
+      <div class="panel-body" ng-if="mactrl.addhrs">
         <h2 ng-if="!mactrl.added">Add New Member</h2>
         <h2 ng-if="mactrl.added">New Member Has Been Added</h2>
         <div class="form-group">
@@ -29,7 +29,7 @@
               <div class="col-sm-2">
                 <label>Class Year</label><br/>
                 <input class="form-control" type="text"
-                 placeholder="Class Year" ng-model="mactrl.aclass">
+                 placeholder="Class Year" ng-model="mactrl.class">
               </div>
               <div class="col-sm-2">
                 <label>MG Status</label><br/>
@@ -43,7 +43,48 @@
               </div>
               <div class="col-sm-2">
                 <label>Admin Status</label><br/>
-                <select class="custom-select form-control" ng-model="mactrl.adstatus" ng-click="mactrl.backToAdd()">
+                <select class="custom-select form-control" ng-model="mactrl.admin_status" ng-click="mactrl.backToAdd()">
+                  <option value="non">Non Admin</option>
+                  <option value="full">Full Admin</option>
+                  <option value="hours">Hrs Admin</option>
+                </select><br/>
+              </div>
+           </div>
+          <div class="row">
+            <div class="col-sm-3">
+              <button class='btn btn-lg btn-success' ng-click="mactrl.asubmit()">SUBMIT</button>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="panel-body" ng-if="!mactrl.addhrs">
+        <h2 ng-if="!mactrl.edited">Edit {{mactrl.edItems.fname}} {{mactrl.edItems.lname}}</h2>
+        <h2 ng-if="mactrl.edited">Changes have been made</h2>
+        <div class="form-group">
+
+          <div class="row">
+
+              <div class="col-sm-4">
+                <label>Class Year</label><br/>
+                <input class="form-control" type="text"
+                 placeholder="{{mactrl.edItems.aclass}}" ng-model="mactrl.edItems.class">
+              </div>
+              <div class="col-sm-4">
+                <label>MG Status</label><br/>
+                <select class="custom-select form-control" ng-model="mactrl.edItems.mgstatus">
+                  <option value="A">Active</option>
+                  <option value="A - Trainee">Active Trainee</option>
+                  <option value="E">Emeritus</option>
+                  <option value="IA">Inactive</option>
+                  <option value="T/NotG">Trainee - Did not Graduate</option>
+                </select>
+              </div>
+              <div class="col-sm-4">
+                <label>Admin Status</label><br/>
+                <select class="custom-select form-control" ng-model="mactrl.edItems.admin_status">
                   <option value="non">Non Admin</option>
                   <option value="full">Full Admin</option>
                   <option value="hours">Hrs Admin</option>
@@ -54,7 +95,10 @@
 
           <div class="row">
             <div class="col-sm-3">
-              <button class='btn btn-lg btn-success' ng-click="mactrl.asubmit()">SUBMIT</button>
+              <button class='btn btn-lg btn-success' ng-click="mactrl.esubmit()">SUBMIT</button>
+            </div>
+            <div class="col-sm-5">
+              <button class='btn btn-lg btn-warning' ng-click="mactrl.backToAdd()">BACK TO ADD NEW MEMBER</button>
             </div>
           </div>
 
@@ -71,7 +115,7 @@
       <div class="panel-body text-center">
         <h3>Full Admin Members</h3><br/>
         <div class="col-sm-12 text-left" ng-repeat="items in mactrl.fulladmin">
-          {{items.fname}} {{items.lname}}<br/>
+          <button class='btn btn-sm btn-info' ng-click="mactrl.gomodulf($index)" >{{items.fname}} {{items.lname}}</button><br/>
         </div>
       </div>
     </div>
@@ -80,7 +124,7 @@
       <div class="panel-body text-center">
         <h3>Hours Admin Only</h3><br/>
         <div class="col-sm-12 text-left" ng-repeat="items in mactrl.hrsadmin">
-          {{items.fname}} {{items.lname}}<br/>
+          <button class='btn btn-sm btn-info' ng-click="mactrl.gomodulh($index)" >{{items.fname}} {{items.lname}}</button><br/>
         </div><br/>
       </div>
     </div>
@@ -120,7 +164,7 @@
           </thead>
           <tr ng-repeat="items in mactrl.list">
             <td>
-              <button class='btn btn-sm btn-info' >{{items.fname}} {{items.lname}}</button>
+              <button class='btn btn-sm btn-info' ng-click="mactrl.gomodul($index)" >{{items.fname}} {{items.lname}}</button>
             </td>
             <td>
               {{items.class}}

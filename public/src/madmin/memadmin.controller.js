@@ -10,10 +10,12 @@ function MemadminController(MemadminService, info, list, flist, hlist) {
 
   mactrl.fname = "";
   mactrl.lname = "";
-  mactrl.aclass = "";
+  mactrl.class = "";
   mactrl.mgstatus = "";
-  mactrl.adstatus = "";
+  mactrl.admin_status = "";
   mactrl.added = false;
+  mactrl.addhrs = true;
+  mactrl.edited = false;
 
   mactrl.page = 1;
   mactrl.list = list.data;
@@ -59,14 +61,14 @@ function MemadminController(MemadminService, info, list, flist, hlist) {
   };
 
   mactrl.asubmit = function(){
-    MemadminService.addMember(mactrl.fname, mactrl.lname, mactrl.aclass,
-      mactrl.mgstatus, mactrl.adstatus)
+    MemadminService.addMember(mactrl.fname, mactrl.lname, mactrl.class,
+      mactrl.mgstatus, mactrl.admin_status)
       .then(function (response){
         mactrl.fname = "";
         mactrl.lname = "";
-        mactrl.aclass = "";
+        mactrl.class = "";
         mactrl.mgstatus = "";
-        mactrl.adstatus = "";
+        mactrl.admin_status = "";
         mactrl.added = true;
 
         console.log("response: ", response.data);
@@ -104,8 +106,65 @@ function MemadminController(MemadminService, info, list, flist, hlist) {
       });
   };
 
+  mactrl.esubmit = function(){
+    MemadminService.addMember(mactrl.edItems.id, mactrl.edItems.class,
+      mactrl.edItems.mgstatus, mactrl.edItems.admin_status)
+      .then(function (response){
+        mactrl.edited = true;
+        console.log("response: ", response.data);
+      })
+      .then(function (response) {
+        MemadminService.getList(mactrl.page)
+        .then(function (response) {
+        mactrl.list = response.data;
+        console.log("response: ", response.data);
+      });
+      })
+      .then(function (response) {
+        MemadminService.getInitialInfo()
+        .then(function (response) {
+        mactrl.last = response.data.last;
+        console.log("response: ", response.data);
+      });
+      })
+      .then(function (response) {
+        MemadminService.getFList()
+        .then(function (response) {
+          mactrl.fulladmin = response.data;
+          console.log("response: ", response.data);
+      });
+      })
+      .then(function (response) {
+        MemadminService.getHList()
+        .then(function (response) {
+        mactrl.hrsadmin = response.data;
+        console.log("response: ", response.data);
+      });
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
+
   mactrl.backToAdd = function ()  {
     mactrl.added = false;
+    mactrl.addhrs = true;
+  };
+
+  mactrl.gomodul = function (index)  {
+    mactrl.addhrs = false;
+    mactrl.edItems = mactrl.list[index];
+    console.log("list: ", mactrl.edItems);
+  };
+
+  mactrl.gomodulf = function (index)  {
+    mactrl.addhrs = false;
+    mactrl.edItems = mactrl.fulladmin[index];
+  };
+
+  mactrl.gomodulh = function (index)  {
+    mactrl.addhrs = false;
+    mactrl.edItems = mactrl.hrsadmin[index];
   };
 
 }

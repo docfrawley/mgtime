@@ -47,7 +47,6 @@ function HoursController(HoursService, items, totals) {
   hctrl.gomodul = function (index)  {
     hctrl.addhrs = false;
     hctrl.edItems = hctrl.items[index];
-    console.log("hctrl.eeedItems: ", hctrl.edItems);
   };
 
   hctrl.backtoadd = function () {
