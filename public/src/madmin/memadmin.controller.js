@@ -16,6 +16,9 @@ function MemadminController(MemadminService, info, list, flist, hlist) {
   mactrl.added = false;
   mactrl.addhrs = true;
   mactrl.edited = false;
+  mactrl.search_lname = "";
+  mactrl.did_search = false;
+  mactrl.not_multiple = true;
 
   mactrl.page = 1;
   mactrl.list = list.data;
@@ -54,6 +57,29 @@ function MemadminController(MemadminService, info, list, flist, hlist) {
     MemadminService.getList(mactrl.page)
       .then(function (response){
         mactrl.list = response.data;
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
+
+  mactrl.goLook = function(){
+    MemadminService.lookMember(mactrl.search_lname)
+      .then(function (response){
+        mactrl.search_items = response.data;
+        mactrl.did_search = true;
+        if (mactrl.search_items == 0){
+          mactrl.found = false;
+        } else if (mactrl.search_items>1) {
+          mactrl.found_list = response.data;
+          mactrl.found=true;
+          mactrl.not_multiple = false;
+        } else {
+          mactrl.search_lname="";
+          mactrl.edItems = response.data;
+        }
+
+        console.log("response: ", response.data);
       })
       .catch(function (error) {
         console.log(error);
@@ -154,7 +180,6 @@ function MemadminController(MemadminService, info, list, flist, hlist) {
   mactrl.gomodul = function (index)  {
     mactrl.addhrs = false;
     mactrl.edItems = mactrl.list[index];
-    console.log("list: ", mactrl.edItems);
   };
 
   mactrl.gomodulf = function (index)  {
@@ -165,6 +190,11 @@ function MemadminController(MemadminService, info, list, flist, hlist) {
   mactrl.gomodulh = function (index)  {
     mactrl.addhrs = false;
     mactrl.edItems = mactrl.hrsadmin[index];
+  };
+
+  mactrl.gomodull = function (index)  {
+    mactrl.addhrs = false;
+    mactrl.edItems = mactrl.found_list[index];
   };
 
 }
