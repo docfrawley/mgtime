@@ -10,6 +10,18 @@ MemadminService.$inject = ['$http', 'ApiPath'];
 function MemadminService($http, ApiPath) {
   var service = this;
 
+  service.lookMember = function(lname){
+    var response = $http({
+      method: "GET",
+      url: (ApiPath +"loginajaxfiles.php"),
+      params: {
+        task:   'lookupMem',
+        lname:   lname
+      }
+    });
+    return response;
+  };
+
   service.getList = function(page){
     var response = $http({
       method: "GET",
@@ -62,6 +74,20 @@ function MemadminService($http, ApiPath) {
       data: {
         fname:    fname,
         lname:    lname,
+        aclass:   aclass,
+        mgstatus: mgstatus,
+        adstatus: adstatus
+      }
+    });
+    return response;
+  };
+
+  service.editMember = function(id, aclass, mgstatus, adstatus) {
+    var response = $http({
+      method: "POST",
+      url: (ApiPath +"editmember.php"),
+      data: {
+        id:       id,
         aclass:   aclass,
         mgstatus: mgstatus,
         adstatus: adstatus

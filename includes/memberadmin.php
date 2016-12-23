@@ -30,6 +30,17 @@ class memadmin {
 		$database->query($sql);
 	}
 
+	function editMember($info){
+		global $database;
+		if ($info['adstatus']=="non") {$info['adstatus']="";}
+    $sql = "UPDATE memberinfo SET ";
+		$sql .= "class='". $info['aclass'] ."', ";
+		$sql .= "mgstatus='". $info['mgstatus'] ."', ";
+		$sql .= "admin_status='". $info['adstatus'] ."' ";
+		$sql .= "WHERE id='". $info['id']. "' ";
+		$database->query($sql);
+	}
+
 	function checkLogin($username, $password){
     global $database;
     $sql="SELECT * FROM memberinfo WHERE username='".$username."' AND password='".$password."'";

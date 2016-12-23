@@ -133,10 +133,12 @@ function MemadminController(MemadminService, info, list, flist, hlist) {
   };
 
   mactrl.esubmit = function(){
-    MemadminService.addMember(mactrl.edItems.id, mactrl.edItems.class,
+    MemadminService.editMember(mactrl.edItems.id, mactrl.edItems.class,
       mactrl.edItems.mgstatus, mactrl.edItems.admin_status)
       .then(function (response){
         mactrl.edited = true;
+        mactrl.added = false;
+        mactrl.addhrs = true;
         console.log("response: ", response.data);
       })
       .then(function (response) {

@@ -138,7 +138,8 @@
       <div class="panel-body text-center">
         <h3>Full Admin Members</h3><br/>
         <div class="col-sm-12 text-left" ng-repeat="items in mactrl.fulladmin">
-          <button class='btn btn-sm btn-info' ng-click="mactrl.gomodulf($index)" >{{items.fname}} {{items.lname}}</button><br/>
+          <div><button class='btn btn-sm btn-info' ng-click="mactrl.gomodulf($index)">
+            {{items.fname}} {{items.lname}}</button></div><br/>
         </div>
       </div>
     </div>
@@ -147,8 +148,9 @@
       <div class="panel-body text-center">
         <h3>Hours Admin Only</h3><br/>
         <div class="col-sm-12 text-left" ng-repeat="items in mactrl.hrsadmin">
-          <button class='btn btn-sm btn-info' ng-click="mactrl.gomodulh($index)" >{{items.fname}} {{items.lname}}</button><br/>
-        </div><br/>
+          <div><button class='btn btn-sm btn-info' ng-click="mactrl.gomodulh($index)">
+            {{items.fname}} {{items.lname}}</button></div><br/>
+        </div>
       </div>
     </div>
   </div>
