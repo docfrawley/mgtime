@@ -8,7 +8,7 @@
           <div class="row" ng-if="mactrl.not_multiple">
               <div class="col-sm-12">
                 <label ng-if="!mactrl.did_search">Enter Last Name</label><br/>
-                <label ng-if="mactrl.did_search && !mactr.found">Enter Last Name</label><br/>
+                <label ng-if="mactrl.did_search && !mactrl.found">No Match. Please try again.</label><br/>
                 <input class="form-control" type="text"
                  placeholder="Last Name" ng-model="mactrl.search_lname"><br/>
               </div>
@@ -18,11 +18,13 @@
           </div>
 
           <div class="row" ng-if="!mactrl.not_multiple">
-            <p>We found multiple members with that last name. Please click on
-              the appropriate member.</p><br/>
+            <div class="col-sm-12">
+              <label>Please click on the appropriate member.</label><br/>
               <div class="col-sm-12" ng-repeat="items in mactrl.found_list">
-                <button class='btn btn-sm btn-info' ng-click="mactrl.gomodul1($index)">{{items.fname}} {{items.lname}}</button>
+                <div><button class='btn btn-sm btn-info buttonx' ng-click="mactrl.gomodull($index)">
+                  {{items.fname}} {{items.lname}}</button></div><br/>
               </div>
+            </div>
           </div>
 
 
@@ -138,7 +140,7 @@
       <div class="panel-body text-center">
         <h3>Full Admin Members</h3><br/>
         <div class="col-sm-12 text-left" ng-repeat="items in mactrl.fulladmin">
-          <div><button class='btn btn-sm btn-info' ng-click="mactrl.gomodulf($index)">
+          <div><button class='btn btn-sm btn-info buttonx' ng-click="mactrl.gomodulf($index)">
             {{items.fname}} {{items.lname}}</button></div><br/>
         </div>
       </div>
@@ -148,7 +150,7 @@
       <div class="panel-body text-center">
         <h3>Hours Admin Only</h3><br/>
         <div class="col-sm-12 text-left" ng-repeat="items in mactrl.hrsadmin">
-          <div><button class='btn btn-sm btn-info' ng-click="mactrl.gomodulh($index)">
+          <div><button class='btn btn-sm btn-info buttonx' ng-click="mactrl.gomodulh($index)">
             {{items.fname}} {{items.lname}}</button></div><br/>
         </div>
       </div>
@@ -189,13 +191,19 @@
           </thead>
           <tr ng-repeat="items in mactrl.list">
             <td>
-              <button class='btn btn-sm btn-info' ng-click="mactrl.gomodul($index)" >{{items.fname}} {{items.lname}}</button>
+              <button class='btn btn-sm btn-info buttonx'
+              ng-click="mactrl.gomodul($index)" >
+              {{items.fname}} {{items.lname}}</button>
             </td>
             <td>
               {{items.class}}
             </td>
-            <td>
-              {{items.mgstatus}}
+            <td ng-switch="items.mgstatus">
+              <span ng-switch-when="A">Active</span>
+              <span ng-switch-when="A - Trainee">Active Trainee</span>
+              <span ng-switch-when="E">Emeritus</span>
+              <span ng-switch-when="IA">Inactive</span>
+              <span ng-switch-when="T/NotG">Trainee - Did not Graduate</span>
             </td>
             <td>
               {{items.admin_status}}

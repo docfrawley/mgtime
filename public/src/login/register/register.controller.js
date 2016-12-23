@@ -56,7 +56,7 @@ function RegisterController(LoginService, $window) {
                 console.log(items.id);
                 regctrl.memberId = items.id;
                 if (regctrl.memberId>0){
-                  window.location.href = 'member.php';
+                  window.location.href = 'hours.php';
                 } else {
                   regctrl.failedLogin = true;
                 }

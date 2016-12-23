@@ -28,16 +28,16 @@ if (isset($_SESSION['memberid'])){
       <div id="collapsable-nav" class="collapse navbar-collapse">
         <ul id="nav-list" class="nav navbar-right nav-pills">
           <li >
-            <a href="member.php" class="btn btn-success btn-lg" role="button">
-              <span class="glyphicon glyphicon-home"></span> Member Home</a>
+            <a href="member.php" class="btn btn-success btn-sm" role="button">
+              </span> Member Home</a>
           </li>
           <li >
-              <a href="hours.php" class="btn btn-success btn-lg" role="button">
-              <span class="glyphicon glyphicon-info-sign"></span> Hours</a>
+              <a href="hours.php" class="btn btn-success btn-sm" role="button">
+              </span> Hours</a>
           </li>
           <li >
-            <a href="memadmin.php" class="btn btn-success btn-lg" role="button">
-              <span class="glyphicon glyphicon-certificate"></span>Member Admin</a>
+            <a href="memadmin.php" class="btn btn-success btn-sm" role="button">
+              </span>Member Admin</a>
           </li>
         </ul><!-- #nav-list -->
       </div><!-- .collapse .navbar-collapse -->

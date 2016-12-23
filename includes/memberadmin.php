@@ -64,6 +64,7 @@ class memadmin {
     $sql="SELECT * FROM memberinfo WHERE admin_status='full' ORDER BY lname";
 		$result_set = $database->query($sql);
 		while ($value = $database->fetch_array($result_set)) {
+			$t_array = change_status($value);
 			array_push($temp_array, $value);
 		}
 		return $temp_array;
@@ -75,6 +76,7 @@ class memadmin {
     $sql="SELECT * FROM memberinfo WHERE admin_status='hours' ORDER BY lname";
 		$result_set = $database->query($sql);
 		while ($value = $database->fetch_array($result_set)) {
+			$t_array = change_status($value);
 			array_push($temp_array, $value);
 		}
 		return $temp_array;
@@ -96,8 +98,20 @@ class memadmin {
     $sql="SELECT * FROM memberinfo ORDER BY lname";
 		$result_set = $database->query($sql);
 		while ($value = $database->fetch_array($result_set)) {
+			$t_array = change_status($value);
 			array_push($this->allmem, $value);
 		}
+	}
+
+	function lookupMem($lname){
+		global $database;
+		$temp_array = array();
+    $sql="SELECT * FROM memberinfo WHERE lname='".$lname."' ORDER BY fname";
+		$result_set = $database->query($sql);
+		while ($value = $database->fetch_array($result_set)) {
+			array_push($temp_array, $value);
+		}
+		return $temp_array;
 	}
 
 	function get_pages(){

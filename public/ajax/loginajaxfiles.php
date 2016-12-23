@@ -4,6 +4,11 @@ session_start();
 $member_admin = new memadmin();
 $task=isset($_GET['task']) ? $_GET['task'] : "" ;
 
+if ($task=='lookupMem'){
+  $temp_array = $member_admin->lookupMem($_GET['lname']);
+  echo json_encode($temp_array);
+}
+
 if ($task=='flist'){
   $temp_array = $member_admin->get_flist();
   echo json_encode($temp_array);
