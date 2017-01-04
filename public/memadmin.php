@@ -6,7 +6,7 @@ session_start();
 if (isset($_SESSION['memberid'])) {
 include("../includes/menu.php");
 $member = new memberObject($_SESSION['memberid']);
-  if($member->memberAdmin()){
+  if($member->check_full()){
 
 
 ?>

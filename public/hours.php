@@ -2,7 +2,6 @@
 include("../includes/layouts/header.php");
 
 session_start();
-
 if (isset($_SESSION['memberid'])) {
 include("../includes/menu.php");
 $member = new memberObject($_SESSION['memberid']);

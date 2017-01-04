@@ -34,7 +34,9 @@ $member = new memberObject($_SESSION['memberid']);
                     mg status:
                   </td>
                   <td>
-                    <? echo $member->get_status();?>
+                    <? $status = $member->get_status();
+                      
+                    echo change_status($status);?>
                   </td>
                 </tr>
                 <? if ($member->get_admin() !=""){

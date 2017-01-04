@@ -3,13 +3,18 @@ session_start();
 
 $member_admin = new memadmin();
 $params = json_decode(file_get_contents('php://input'),true);
-$member_admin->createLogin($params);
 
+if ($member_admin->check_username($params['uname'])){
+  $member_admin->createLogin($params);
+  $data = array(
+    'success'=>true
+  );
+} else {
+  $data = array(
+    'success'=>false
+  );
+}
 
-
-$data = array(
-  'success'=>true
-);
 
 echo json_encode($data);
 

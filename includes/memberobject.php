@@ -76,11 +76,11 @@ class memberObject {
 		$database->query($sql);
   }
 
-	function memberAdmin(){
+	function check_full(){
 		return ($this->admin === 'full');
 	}
 
-	function hoursAdmin(){
+	function check_hrs(){
 		return ($this->admin === 'full' || $this->admin === 'hours');
 	}
 

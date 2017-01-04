@@ -1,27 +1,31 @@
 <?
 
+function redirect_to($new_location) {
+	$host = $_SERVER['HTTP_HOST'];
+	  header("Location: http://$host/mgtime/public/$new_location");
+	  exit;
+	}
 
 function change_status($info){
-	switch ($info['mgstatus']) {
+	switch ($info) {
 		case 'A':
-			$info['mgstatus']="Active";
+			return "Active";
 			break;
 		case 'A-Trainee':
-			$info['mgstatus']="Active Trainee";
+			return "Active Trainee";
 			break;
 		case 'E':
-			$info['mgstatus']="Emeritus";
+			return "Emeritus";
 			break;
 		case 'IA':
-			$info['mgstatus']="Inactive";
+			return "Inactive";
 			break;
 		case 'T/NotG':
-			$info['mgstatus']="Trainee - Did Not Graduate";
+			return "Trainee - Did Not Graduate";
 			break;
 		default:
 			break;
 	}
-	return $info;
 }
 
   ?>

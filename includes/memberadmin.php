@@ -16,6 +16,13 @@ class memadmin {
     $this->member = "";
 	}
 
+	function check_username($username){
+		global $database;
+    $sql="SELECT * FROM memberinfo WHERE username='".$username."'";
+		$result_set = $database->query($sql);
+		return ($database->num_rows($result_set)==0);
+	}
+
 	function addMember($info){
 		global $database;
 		if ($info['adstatus']=="non") {$info['adstatus']="";}
@@ -64,7 +71,7 @@ class memadmin {
     $sql="SELECT * FROM memberinfo WHERE admin_status='full' ORDER BY lname";
 		$result_set = $database->query($sql);
 		while ($value = $database->fetch_array($result_set)) {
-			$t_array = change_status($value);
+			//$t_array = change_status($value);
 			array_push($temp_array, $value);
 		}
 		return $temp_array;
@@ -76,7 +83,7 @@ class memadmin {
     $sql="SELECT * FROM memberinfo WHERE admin_status='hours' ORDER BY lname";
 		$result_set = $database->query($sql);
 		while ($value = $database->fetch_array($result_set)) {
-			$t_array = change_status($value);
+		//	$t_array = change_status($value);
 			array_push($temp_array, $value);
 		}
 		return $temp_array;
@@ -98,7 +105,7 @@ class memadmin {
     $sql="SELECT * FROM memberinfo ORDER BY lname";
 		$result_set = $database->query($sql);
 		while ($value = $database->fetch_array($result_set)) {
-			$t_array = change_status($value);
+			//$t_array = change_status($value);
 			array_push($this->allmem, $value);
 		}
 	}
@@ -156,7 +163,7 @@ class memadmin {
 		$sql .= "email='". $info['email'] ."' ";
 		$sql .= "WHERE id='". $_SESSION['memberid']. "' ";
 		$database->query($sql);
-		$_SESSION['newUser'] = true;
+	//	$_SESSION['newUser'] = true;
   }
 
 }
