@@ -9,6 +9,8 @@
 
     <!-- Bootstrap -->
     <!-- Latest compiled and minified CSS -->
+<link href='https://fonts.googleapis.com/css?family=Oxygen:400,300,700' rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Lora' rel='stylesheet' type='text/css'>
 <link rel="stylesheet" href="css/bootstrap.min.css">
 <link rel="stylesheet" href="css/datepicker.css">
 <link rel="stylesheet" href="css/styles.css">

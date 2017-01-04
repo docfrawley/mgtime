@@ -29,3 +29,50 @@
 .buttonx{
   width: 200px;
 }
+
+#header-nav {
+  border-radius: 0;
+  border: 0;
+  background-color: #339966;
+}
+
+#header_title a {
+  text-decoration: none;
+  color: white;
+}
+
+#header_title a:hover {
+  text-decoration: none;
+  color: #f2f2f2;
+}
+
+#nav-list {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+#nav-list a {
+  color: white;
+  text-align: center;
+}
+
+#nav-list a:hover {
+  color: white;
+  background-color: #009999;
+}
+#nav-list a span {
+  font-size: 1.2em;
+}
+
+/********** Extra small devices only **********/
+@media (max-width: 767px) {
+
+  #collapsable-nav a { /* Collapsed nav menu text */
+    font-size: 1.2em;
+  }
+  #collapsable-nav a span { /* Collapsed nav menu glyph */
+    font-size: 1em;
+    margin-right: 10px;
+    padding-right: 5px;
+  }
+}

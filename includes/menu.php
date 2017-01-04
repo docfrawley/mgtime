@@ -6,12 +6,11 @@ if (isset($_SESSION['memberid'])){
 
 ?>
   <header>
-    <nav class="navbar navbar-default">
+    <nav id="header-nav" class="navbar navbar-default">
       <div class="container">
-        <br />
         <div class="navbar-header">
 
-          <div>
+          <div id="header_title">
             <a href="member.php"><h1>MGofMC Hours</h1></a>
           </div>
 
@@ -24,30 +23,30 @@ if (isset($_SESSION['memberid'])){
         </div>
 
         <div id="collapsable-nav" class="collapse navbar-collapse">
-          <ul id="nav-list" class="nav navbar-right nav-pills">
+          <ul id="nav-list" class="nav navbar-nav navbar-right">
             <li >
-              <a href="member.php" class="btn btn-success btn-sm" role="button">
-                </span> Member Home</a>
+              <a href="member.php"><span class="glyphicon glyphicon-dashboard">
+              </span><br class="hidden-xs">Member Home</a>
             </li>
             <li >
-                <a href="hours.php" class="btn btn-success btn-sm" role="button">
-                </span> Hours</a>
+                <a href="hours.php"><span class="glyphicon glyphicon-tree-conifer">
+                </span><br class="hidden-xs">Enter Hours</a>
             </li>
             <? if ($member->check_hrs()){ ?>
                 <li >
-                  <a href="#" class="btn btn-success btn-sm" role="button">
-                  </span>Hours Admin</a>
+                  <a href="#"><span class="glyphicon glyphicon-time">
+                  </span><br class="hidden-xs">Hours Admin</a>
                 </li>
             <? }
               if ($member->check_full()){ ?>
                 <li >
-                  <a href="memadmin.php" class="btn btn-success btn-sm" role="button">
-                    </span>Member Admin</a>
+                  <a href="memadmin.php"><span class="glyphicon glyphicon-user">
+                  </span><br class="hidden-xs">Member Admin</a>
                 </li>
           <?  } ?>
             <li >
-              <a href="logout.php" class="btn btn-success btn-sm" role="button">
-              </span>Logout</a>
+              <a href="logout.php"><span class="glyphicon glyphicon-remove-circle">
+              </span><br class="hidden-xs">Logout</a>
             </li>
           </ul><!-- #nav-list -->
         </div><!-- .collapse .navbar-collapse -->
