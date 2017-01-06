@@ -15,6 +15,8 @@ function HoursController(HoursService, items, totals) {
    hctrl.description = "";
    hctrl.entered = false;
    hctrl.addhrs = true;
+   hctrl.edited = false;
+   hctrl.deleted = false;
 
 
   hctrl.submit = function () {
@@ -49,15 +51,19 @@ function HoursController(HoursService, items, totals) {
     hctrl.edItems = hctrl.items[index];
   };
 
-  hctrl.backtoadd = function () {
+  hctrl.backToAdd = function () {
     hctrl.addhrs = true;
+    hctrl.edited = false;
+    hctrl.deleted = false;
+    hctrl.entered = false;
   };
+
 
   hctrl.hedit = function () {
       HoursService.updateHours(hctrl.edItems)
           .then(function (response) {
             hctrl.addhrs = true;
-            console.log("rrindex: ", hctrl.edItems);
+            hctrl.edited = true;
           }).then(function (response) {
             HoursService.getHoursInfo()
             .then(function (response) {
@@ -79,6 +85,7 @@ function HoursController(HoursService, items, totals) {
         HoursService.deleteHrs(hctrl.edItems.numid)
             .then(function (response) {
               hctrl.addhrs = true;
+              hctrl.deleted = true;
             }).then(function (response) {
               HoursService.getHoursInfo()
               .then(function (response) {

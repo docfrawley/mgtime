@@ -1,51 +1,13 @@
 <div class="row">
-  <div class="col-md-4">
-    <div class="panel panel-default">
-      <div class="panel-body">
-        <table class="table table-condensed">
-          <tr>
-            <td>
-              Total Hours:
-            </td>
-            <td>
-              {{hctrl.totals[12]}}
-            </td>
-          </tr>
-          <tr>
-            <td>
-              Total First Quarter:
-            </td>
-            <td>
-              {{hctrl.totals[13]}}
-            </td>
-          </tr>
-          <tr><td>January:</td><td>{{hctrl.totals[0]}}</td></tr>
-          <tr><td>February:</td><td>{{hctrl.totals[1]}}</td></tr>
-          <tr><td>March:</td><td>{{hctrl.totals[2]}}</td></tr>
-          <tr><td>Total Second Quarter:</td><td>{{hctrl.totals[14]}}</td></tr>
-          <tr><td>April:</td><td>{{hctrl.totals[3]}}</td></tr>
-          <tr><td>May:</td><td>{{hctrl.totals[4]}}</td></tr>
-          <tr><td>June:</td><td>{{hctrl.totals[5]}}</td></tr>
-          <tr><td>Total Third Quarter:</td><td>{{hctrl.totals[15]}}</td></tr>
-          <tr><td>July:</td><td>{{hctrl.totals[6]}}</td></tr>
-          <tr><td>August:</td><td>{{hctrl.totals[7]}}</td></tr>
-          <tr><td>September:</td><td>{{hctrl.totals[8]}}</td></tr>
-          <tr><td>Total Fourth Quarter:</td><td>{{hctrl.totals[16]}}</td></tr>
-          <tr><td>October:</td><td>{{hctrl.totals[9]}}</td></tr>
-          <tr><td>November:</td><td>{{hctrl.totals[10]}}</td></tr>
-          <tr><td>December:</td><td>{{hctrl.totals[11]}}</td></tr>
-        </table>
-
-      </div>
-    </div>
-  </div>
   <div class="col-md-8" >
     <div class="row">
       <div class="col-sm-12">
         <div class="panel panel-default">
           <div class="panel-body" ng-if="hctrl.addhrs">
-            <h4 ng-if="!hctrl.entered">Add new hours here</h4>
-            <h4 ng-if="hctrl.entered">Your hours were added successfully!</h4>
+            <div ng-if="!hctrl.entered && !hctrl.edited && !hctrl.deleted"><h4>Add new hours here</h4></div>
+            <div ng-if="hctrl.entered" class="alert alert-success" role="alert">Your hours were added successfully!</div>
+            <div ng-if="hctrl.edited" class="alert alert-success" role="alert">Edits were successful</div>
+            <div ng-if="hctrl.deleted" class="alert alert-success" role="alert">That entry was deleted</div>
             <br />
             <div class="form-group">
               <label class="col-sm-2 control-label text-left"
@@ -64,7 +26,7 @@
                      <input class="form-control" id="date" name="date"
                      placeholder="MM/DD/YYYY"
                      type="text"
-                     ng-model="hctrl.hdate"/>
+                     ng-model="hctrl.hdate" ng-click="hctrl.backToAdd()"/>
                      <div class="input-group-addon">
                       <span class="fa fa-calendar">
                       </span>
@@ -97,7 +59,7 @@
               <label class="col-sm-2 control-label text-left"
               for="inputEmail">Type Hrs: </label>
               <div class="col-sm-4">
-                <select class="custom-select form-control" ng-model="hctrl.hrstype">
+                <select class="custom-select form-control" ng-model="hctrl.hrstype" ng-click="hctrl.backToAdd()">
                   <option value="Mercer County">Mercer County</option>
                   <option value="Helpline">Helpline</option>
                   <option value="Continuing Ed">Continuing Ed</option>
@@ -107,17 +69,17 @@
               </div>
 
 
-              <label class="col-sm-2 control-label text-left"
+              <label class="col-sm-2 control-label text-right"
               for="inputEmail"> # of Hrs: </label>
               <div class="col-sm-4">
               <input class="form-control" type="text"
-               placeholder="Number of Hours" ng-model="hctrl.numhrs"><br />
+               placeholder="Number of Hours" ng-model="hctrl.numhrs" ng-click="hctrl.backToAdd()"><br />
               </div>
               <label class="col-sm-2 control-label text-left"
               for="inputEmail">Description: </label>
               <div class="col-sm-10">
               <input class="form-control" type="text"
-               placeholder="" ng-model="hctrl.description"><br />
+               placeholder="" ng-model="hctrl.description" ng-click="hctrl.backToAdd()"><br />
               </div>
 
               <button class='btn btn-lg btn-success' ng-click="hctrl.submit()">SUBMIT</button>
@@ -128,7 +90,7 @@
           <div class="panel-body" ng-if="!hctrl.addhrs">
               <div class="col-sm-8 text-left">
                 <h4 ng-if="!hctrl.entered">Edit or Delete this entry</h4>
-                <h4 ng-if="hctrl.entered">Your hours were added successfully!</h4>
+
               </div>
 
               <br/>
@@ -193,7 +155,7 @@
               </div>
 
 
-              <label class="col-sm-2 control-label text-left"
+              <label class="col-sm-2 control-label text-right"
               for="inputEmail"> # of Hrs: </label>
               <div class="col-sm-4">
               <input class="form-control" type="text"
@@ -254,6 +216,46 @@
         </div>
       </div>
     </div>
+ </div>
+ <div class="col-md-4">
+   <div class="panel panel-default">
+     <div class="panel-body">
+       <table class="table table-condensed">
+         <tr>
+           <td>
+             Total Hours:
+           </td>
+           <td>
+             {{hctrl.totals[12]}}
+           </td>
+         </tr>
+         <tr>
+           <td>
+             Total First Quarter:
+           </td>
+           <td>
+             {{hctrl.totals[13]}}
+           </td>
+         </tr>
+         <tr><td>January:</td><td>{{hctrl.totals[0]}}</td></tr>
+         <tr><td>February:</td><td>{{hctrl.totals[1]}}</td></tr>
+         <tr><td>March:</td><td>{{hctrl.totals[2]}}</td></tr>
+         <tr><td>Total Second Quarter:</td><td>{{hctrl.totals[14]}}</td></tr>
+         <tr><td>April:</td><td>{{hctrl.totals[3]}}</td></tr>
+         <tr><td>May:</td><td>{{hctrl.totals[4]}}</td></tr>
+         <tr><td>June:</td><td>{{hctrl.totals[5]}}</td></tr>
+         <tr><td>Total Third Quarter:</td><td>{{hctrl.totals[15]}}</td></tr>
+         <tr><td>July:</td><td>{{hctrl.totals[6]}}</td></tr>
+         <tr><td>August:</td><td>{{hctrl.totals[7]}}</td></tr>
+         <tr><td>September:</td><td>{{hctrl.totals[8]}}</td></tr>
+         <tr><td>Total Fourth Quarter:</td><td>{{hctrl.totals[16]}}</td></tr>
+         <tr><td>October:</td><td>{{hctrl.totals[9]}}</td></tr>
+         <tr><td>November:</td><td>{{hctrl.totals[10]}}</td></tr>
+         <tr><td>December:</td><td>{{hctrl.totals[11]}}</td></tr>
+       </table>
+
+     </div>
+   </div>
  </div>
 
 </div>
