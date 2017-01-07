@@ -1,37 +1,48 @@
   <div class="row justify-content-md-center">
     <div ng-if="!regctrl.failedLogin" class="col-sm-12 text-center">
-      Please login if you have used the site before
-      or click on REGISTER if this is your first time time.<br /><br/>
+      <h4>Please login if you have used the site before
+      or click on REGISTER if this is your first time.</h4>
 
     </div>
     <div ng-if="regctrl.failedLogin" class="alert alert-danger" role="alert">
       Sorry we do not recognize that username and/or password. Please try again.
-    <br> Again, if this is your first time on the site you must first REGISTER.</div><br>
+    <br> Again, if this is your first time on the site you must first REGISTER.</div>
   </div>
 
-  <div class="row justify-content-md-center">
+<form name='regForm' novalidate>
+  <div class="row justify-content-md-center buttons">
 
         <label class="col-sm-3 control-label text-right"
-          for="inputEmail">Username</label>
+          for="inputUsername">Username</label>
         <div class="col-sm-8">
-        <input class="form-control" type="text"
-           placeholder="Username" ng-model="regctrl.username"><br />
+        <input class="form-control" type="text" name="username"
+           placeholder="Username" ng-model="regctrl.username" required>
+           <span class="input_warning"
+             ng-if="regForm.username.$error.required && regForm.username.$touched">
+             Please enter your class year
+           </span><br>
         </div>
   </div>
   <div class="row justify-content-md-center">
         <label class="col-sm-3 control-label text-right"
-          for="inputEmail">Password</label>
+          for="inputPassword">Password</label>
         <div class="col-sm-8">
-          <input class="form-control" type="password"
-           placeholder="Password" ng-model="regctrl.password"><br/>
+          <input class="form-control" type="password" name="password"
+           placeholder="Password" ng-model="regctrl.password" required>
+           <span class="input_warning"
+             ng-if="regForm.password.$error.required && regForm.password.$touched">
+             Please enter your password
+           </span><br>
         </div>
   </div>
   <div class="row">
         <div class="col-sm-6">
-          <button class='btn btn-lg btn-success buttons' ng-click="regctrl.lsubmit()">SUBMIT</button>
+          <button class='btn btn-lg btn-success buttons' ng-click="regctrl.lsubmit()"
+          ng-disabled="regForm.$invalid">SUBMIT</button>
         </div>
 
     <div class="col-sm-6">
       <button class='btn btn-lg btn-primary buttons' ui-sref="register">REGISTER</button>
     </div>
   </div>
+</form>

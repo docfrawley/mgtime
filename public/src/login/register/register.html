@@ -1,57 +1,81 @@
   <div class="row" ng-if="regctrl.nonMember">
       <div ng-if="!regctrl.triedRegister" class="col-sm-12  text-left">
-          We're excited to have you start using this site to log your hours.
-          Please enter your first and last name along with your class year so we can
-          make sure you are in fact a member of master gardeners.
+          <h4>Please enter your first and last name along with your class year so we can
+          make sure you are in fact a member of master gardeners.</h4>
 
       </div>
-      <div ng-if="regctrl.nonMember && regctrl.triedRegister"
+      <div ng-if="regctrl.nonMember && regctrl.triedRegister && !regctrl.alreadyRegistered"
       class="alert alert-danger" role="alert">Sorry. What you entered does
         match what we have in our database. Please try again. If you continue to have
         problems, please contact the master gardners' board.
+      </div>
+      <div ng-if="regctrl.alreadyRegistered && regctrl.triedRegister"
+      class="alert alert-danger" role="alert">Our records indicate that you have
+      already registered and have an active username and password. We've provided
+      a button at the bottom of this form for you to return to the initial login
+      page.
       </div>
   </div>
 
   <div class="row buttons" ng-if="regctrl.nonMember">
       <div class="col-sm-12  text-left">
 
+        <form name='regForm' novalidate>
         <div class="form-group">
 
           <div class="row">
-            <label class="col-sm-3"
+            <label class="col-sm-3 text-right"
               for="inputEmail">First Name</label>
             <div class="col-sm-9">
-            <input class="form-control" type="text"
-               placeholder="First name" ng-model="regctrl.fname"><br/>
+            <input class="form-control" type="text" name="fname"
+               placeholder="First name" ng-model="regctrl.fname" required>
+               <span class="input_warning"
+                 ng-if="regForm.fname.$error.required && regForm.fname.$touched">
+                 Please enter your first name
+               </span><br>
             </div>
           </div>
 
           <div class="row">
-            <label class="col-sm-3"
+            <label class="col-sm-3 text-right"
               for="inputEmail">Last Name</label>
             <div class="col-sm-9">
-            <input class="form-control" type="text"
-               placeholder="Last Name" ng-model="regctrl.lname"><br/>
+            <input class="form-control" type="text" name="lname"
+               placeholder="Last Name" ng-model="regctrl.lname" required>
+               <span class="input_warning"
+                 ng-if="regForm.lname.$error.required && regForm.lname.$touched">
+                 Please enter your last name
+               </span><br>
             </div>
           </div>
 
           <div class="row">
-            <label class="col-sm-3"
+            <label class="col-sm-3 text-right"
               for="inputEmail">Class Year</label>
             <div class="col-sm-9">
-            <input class="form-control" type="text"
-               placeholder="Class Year" ng-model="regctrl.class"><br/>
+            <input class="form-control" type="text" name="class"
+               placeholder="Class Year" ng-model="regctrl.class" required>
+               <span class="input_warning"
+                 ng-if="regForm.class.$error.required && regForm.class.$touched">
+                 Please enter your class year
+               </span><br>
             </div>
           </div>
 
           <div class="row">
             <div class="col-sm-3">
-              <button class='btn btn-lg btn-success' ng-click="regctrl.submit()">SUBMIT</button>
+              <button class='btn btn-lg btn-success' ng-click="regctrl.submit()"
+              ng-disabled="regForm.$invalid">SUBMIT</button>
+            </div>
+
+            <div class="col-sm-3" ng-if="regctrl.alreadyRegistered">
+              <button class='btn btn-lg btn-primary' ng-click="regctrl.goLogin()"
+              >RETURN TO LOGIN PAGE</button>
             </div>
           </div>
 
         </div>
-
+      </form>
     </div>
   </div>
 
@@ -68,15 +92,20 @@
 
   <div class="row" ng-if="!regctrl.nonMember">
       <div class="col-sm-12  text-left">
-
+        <form name='getForm' novalidate>
         <div class="form-group">
 
           <div class="row">
             <label class="col-sm-3 control-label text-left"
               for="inputEmail">Username</label>
             <div class="col-sm-9">
-            <input class="form-control" type="text"
-               placeholder="Username" ng-model="regctrl.username">
+            <input class="form-control" type="text" name="username"
+               placeholder="Username" ng-model="regctrl.username" required
+               minlength = 4>
+               <span class="input_warning"
+                 ng-if="(getForm.username.$error.minlength || getForm.username.$error.required) && getForm.username.$touched">
+                 Please enter a username that is at lest 4 characters long.
+               </span><br>
             </div>
           </div>
 
@@ -84,8 +113,13 @@
             <label class="col-sm-3 control-label text-left"
               for="inputEmail">Password</label>
             <div class="col-sm-9">
-            <input class="form-control" type="password"
-               placeholder="Password" ng-model="regctrl.password">
+            <input class="form-control" type="password" name="password"
+               placeholder="Password" ng-model="regctrl.password" required
+               minlength = 4>
+               <span class="input_warning"
+                 ng-if="(getForm.password.$error.minlength || getForm.password.$error.required) && getForm.password.$touched">
+                 Please enter a password that is at lest 4 characters long.
+               </span><br>
             </div>
           </div>
 
@@ -93,18 +127,24 @@
             <label class="col-sm-3 control-label text-left"
               for="inputEmail">Email</label>
             <div class="col-sm-9">
-            <input class="form-control" type="email"
-               placeholder="Email" ng-model="regctrl.email">
+            <input class="form-control" type="email" name="email"
+               placeholder="Email" ng-model="regctrl.email" required>
+               <span class="input_warning"
+                 ng-if="getForm.email.$invalid && getForm.email.$touched">
+                 Please enter an email address in a valid format.
+               </span><br>
             </div>
           </div>
 
           <div class="row">
             <div class="col-sm-3">
-              <button class='btn btn-lg btn-success' ng-click="regctrl.rsubmit()">SUBMIT</button>
+              <button class='btn btn-lg btn-success'
+              ng-disabled="getForm.$invalid"
+              ng-click="regctrl.rsubmit()">SUBMIT</button>
             </div>
           </div>
 
         </div>
-
+      </form>
       </div>
     </div>

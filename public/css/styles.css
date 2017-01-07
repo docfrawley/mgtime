@@ -34,6 +34,18 @@
   margin-top:10px;
 }
 
+.input_warning{
+  color:red;
+}
+
+.ng-touched.ng-valid{
+  border: 1px green solid;
+}
+
+.ng-touched.ng-invalid{
+  border: 1px red solid;
+}
+
 #header-nav {
   border-radius: 0;
   border: 0;

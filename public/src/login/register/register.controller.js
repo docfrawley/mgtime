@@ -14,6 +14,7 @@ function RegisterController(LoginService, $window) {
   regctrl.class = "";
   regctrl.nonMember = true;
   regctrl.triedRegister = false;
+  regctrl.alreadyRegistered = false;
 
   regctrl.username = "";
   regctrl.password = "";
@@ -28,6 +29,8 @@ function RegisterController(LoginService, $window) {
             regctrl.memberId = items.id;
             if (regctrl.memberId>0){
               regctrl.nonMember = false;
+            } else if (regctrl.memberId<0) {
+              regctrl.alreadyRegistered = true;
             }
             regctrl.triedRegister = true;
           })
@@ -47,6 +50,10 @@ function RegisterController(LoginService, $window) {
             .catch(function (error) {
               console.log(error);
             });
+      };
+
+      regctrl.goLogin = function () {
+        window.location.href = 'index.php';
       };
 
       regctrl.lsubmit = function () {

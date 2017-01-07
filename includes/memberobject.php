@@ -84,5 +84,9 @@ class memberObject {
 		return ($this->admin === 'full' || $this->admin === 'hours');
 	}
 
+	function have_registered(){
+		return ($this->uname != "" && $this->pword != "");
+	}
+
 }
 ?>

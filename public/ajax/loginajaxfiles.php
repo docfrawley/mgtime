@@ -44,15 +44,20 @@ if ($task=='check'){
   $fname=$_GET['fname'];
   $lname = $_GET['lname'];
   $year = $_GET['year'];
+  $temp_array=array();
   $status = $member_admin->checkMember($fname, $lname, $year);
     if ($status){
-      $memberid = $member_admin->get_memberid();
-      echo json_encode($memberid);
+      $memberCheck = new memberObject($_SESSION['memberid']);
+      $rstatus = $memberCheck->have_registered();
+      if ($rstatus){
+        $temp_array['id']=-1;
+      } else {
+        $temp_array['id']=$_SESSION['memberid'];
+      }
     } else {
-      $temp_array=array();
       $temp_array['id']=0;
-      echo json_encode($temp_array);
     }
+  echo json_encode($temp_array);
 }
 
 if ($task=='login'){
