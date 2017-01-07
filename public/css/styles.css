@@ -30,6 +30,10 @@
   width: 200px;
 }
 
+.buttons{
+  margin-top:10px;
+}
+
 #header-nav {
   border-radius: 0;
   border: 0;

@@ -10,12 +10,12 @@ include("../includes/layouts/header.php");
 
     <div class="row">
       <div class="col-sm-12 text-center">
-        <h1>Master Gardeners Time Collection</h1><br/>
+        <h1>Master Gardeners Hours Collection</h1><br/>
       </div>
     </div>
 
-    <div class="row">
-      <div class="col-sm-8 col-centered">
+    <div class="row justify-content-md-center">
+      <div class="col-sm-6 col-centered">
         <div class="panel panel-default panel1">
           <div class="panel-body">
             <ui-view></ui-view>

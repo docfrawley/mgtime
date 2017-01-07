@@ -1,14 +1,18 @@
   <div class="row" ng-if="regctrl.nonMember">
-      <div class="col-sm-12  text-left">
+      <div ng-if="!regctrl.triedRegister" class="col-sm-12  text-left">
           We're excited to have you start using this site to log your hours.
           Please enter your first and last name along with your class year so we can
           make sure you are in fact a member of master gardeners.
 
-      </div><br/>
-      <span ng-if="regctrl.nonMember && regctrl.triedRegister" >sorry that info doesn't correspond. Try Again.</span>
-  </div><br/>
+      </div>
+      <div ng-if="regctrl.nonMember && regctrl.triedRegister"
+      class="alert alert-danger" role="alert">Sorry. What you entered does
+        match what we have in our database. Please try again. If you continue to have
+        problems, please contact the master gardners' board.
+      </div>
+  </div>
 
-  <div class="row" ng-if="regctrl.nonMember">
+  <div class="row buttons" ng-if="regctrl.nonMember">
       <div class="col-sm-12  text-left">
 
         <div class="form-group">

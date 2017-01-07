@@ -1,39 +1,37 @@
-  <div class="row">
-    <div class="col-sm-12 text-left">
-      Welcome to the site. Please login if you have used the site before
+  <div class="row justify-content-md-center">
+    <div ng-if="!regctrl.failedLogin" class="col-sm-12 text-center">
+      Please login if you have used the site before
       or click on REGISTER if this is your first time time.<br /><br/>
 
     </div>
-    <span ng-if="regctrl.failedLogin" >Sorry that info doesn't correspond. Try Again.</span><br>
+    <div ng-if="regctrl.failedLogin" class="alert alert-danger" role="alert">
+      Sorry we do not recognize that username and/or password. Please try again.
+    <br> Again, if this is your first time on the site you must first REGISTER.</div><br>
   </div>
 
-  <div class="row">
-    <div class="form-group">
+  <div class="row justify-content-md-center">
 
-        <label class="col-sm-2 control-label"
+        <label class="col-sm-3 control-label text-right"
           for="inputEmail">Username</label>
-        <div class="col-sm-10">
+        <div class="col-sm-8">
         <input class="form-control" type="text"
            placeholder="Username" ng-model="regctrl.username"><br />
         </div>
-
-
-        <label class="col-sm-2 control-label"
+  </div>
+  <div class="row justify-content-md-center">
+        <label class="col-sm-3 control-label text-right"
           for="inputEmail">Password</label>
-        <div class="col-sm-10">
+        <div class="col-sm-8">
           <input class="form-control" type="password"
            placeholder="Password" ng-model="regctrl.password"><br/>
         </div>
-        <div class="col-sm-3">
-          <button class='btn btn-lg btn-success' ng-click="regctrl.lsubmit()">SUBMIT</button>
+  </div>
+  <div class="row">
+        <div class="col-sm-6">
+          <button class='btn btn-lg btn-success buttons' ng-click="regctrl.lsubmit()">SUBMIT</button>
         </div>
 
-
-     </div>
-  </div>
-
-  <div class="row">
-    <div class="col-sm-3">
-      <br /><button class='btn btn-lg btn-primary' ui-sref="register">REGISTER</button>
+    <div class="col-sm-6">
+      <button class='btn btn-lg btn-primary buttons' ui-sref="register">REGISTER</button>
     </div>
   </div>
