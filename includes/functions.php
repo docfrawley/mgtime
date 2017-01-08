@@ -11,7 +11,7 @@ function change_status($info){
 		case 'A':
 			return "Active";
 			break;
-		case 'A-Trainee':
+		case 'A - Trainee':
 			return "Active Trainee";
 			break;
 		case 'E':

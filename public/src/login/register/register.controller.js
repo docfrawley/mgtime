@@ -15,6 +15,7 @@ function RegisterController(LoginService, $window) {
   regctrl.nonMember = true;
   regctrl.triedRegister = false;
   regctrl.alreadyRegistered = false;
+  regctrl.notUnique = false;
 
   regctrl.username = "";
   regctrl.password = "";
@@ -43,8 +44,9 @@ function RegisterController(LoginService, $window) {
         LoginService.processRegistration(regctrl.username, regctrl.password, regctrl.email)
             .then(function (response) {
               if (response.data['success']){
-                console.log('success');
                 window.location.href = 'member.php';
+              } else {
+                regctrl.notUnique = true;
               }
             })
             .catch(function (error) {

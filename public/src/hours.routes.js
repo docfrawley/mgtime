@@ -18,7 +18,7 @@ function RoutesConfig($stateProvider, $urlRouterProvider) {
     url: '/',
     controller: 'HoursController',
     controllerAs: 'hctrl',
-    templateUrl: 'src/hours/hours.html',
+    templateUrl: 'src/hours/hours.php',
     resolve: {
       items: ['HoursService',function (HoursService) {
         return HoursService.getHoursInfo();
@@ -27,7 +27,7 @@ function RoutesConfig($stateProvider, $urlRouterProvider) {
         return HoursService.getHourTotals();
       }]
     }
-    
+
   });
 
 }

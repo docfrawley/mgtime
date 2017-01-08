@@ -1,5 +1,5 @@
 <div class="row">
-  <div class="col-md-8" >
+  <div class="col-md-7" >
     <div class="row">
       <div class="col-sm-12">
         <div class="panel panel-default">
@@ -63,8 +63,11 @@
                   <option value="Mercer County">Mercer County</option>
                   <option value="Helpline">Helpline</option>
                   <option value="Continuing Ed">Continuing Ed</option>
-                  <option value="Compost (Trainee)">Compost (Trainee)</option>
-                  <option value="Other (Trainee)">Other (Trainee)</option>
+                  <? if ($isTrainee){ ?>
+                    <option value="Compost (Trainee)">Compost (Trainee)</option>
+                    <option value="Other (Trainee)">Other (Trainee)</option>
+                  <?}?>
+
                 </select>
               </div>
 
@@ -149,8 +152,10 @@
                   <option value="Mercer County">Mercer County</option>
                   <option value="Helpline">Helpline</option>
                   <option value="Continuing Ed">Continuing Ed</option>
+                  <? if ($isTrainee){ ?>
                   <option value="Compost (Trainee)">Compost (Trainee)</option>
                   <option value="Other (Trainee)">Other (Trainee)</option>
+                  <? } ?>
                 </select>
               </div>
 
@@ -217,41 +222,155 @@
       </div>
     </div>
  </div>
- <div class="col-md-4">
+ <div class="col-md-5">
    <div class="panel panel-default">
      <div class="panel-body">
-       <table class="table table-condensed">
+       <table class="table table-condensed text-right">
+         <thead>
+          <tr>
+            <th></th>
+            <th class="text-right">Mercer County</th>
+            <th class="text-right">Helpline</th>
+            <th class="text-right">Cont. Ed.</th>
+            <? if ($isTrainee){ ?>
+              <th>Compost</th>
+              <th>Other</th>
+            <? } ?>
+            <th class="text-right">TOTAL HOURS</th>
+          </tr>
+        </thead>
          <tr>
-           <td>
-             Total Hours:
-           </td>
-           <td>
-             {{hctrl.totals[12]}}
-           </td>
+           <td>Total Hours:</td>
+           <td>{{hctrl.totals[12]['Mercer County']}}</td>
+           <td>{{hctrl.totals[12]['Helpline']}}</td>
+           <td>{{hctrl.totals[12]['Continuing Ed']}}</td>
+           <? if ($isTrainee){ ?>
+           <td>{{hctrl.totals[12]['Compost']}}</td>
+           <td>{{hctrl.totals[12]['Other']}}</td>
+           <? }?>
+           <td>{{hctrl.totals[12]['Total']}}</td>
          </tr>
          <tr>
-           <td>
-             Total First Quarter:
-           </td>
-           <td>
-             {{hctrl.totals[13]}}
-           </td>
+           <td>January:</td>
+           <td>{{hctrl.totals[0]['Mercer County']}}</td>
+           <td>{{hctrl.totals[0]['Helpline']}}</td>
+           <td>{{hctrl.totals[0]['Continuing Ed']}}</td>
+           <? if ($isTrainee){ ?>
+           <td>{{hctrl.totals[0]['Compost']}}</td>
+           <td>{{hctrl.totals[0]['Other']}}</td>
+           <? }?>
+           <td>{{hctrl.totals[0]['Total']}}</td>
          </tr>
-         <tr><td>January:</td><td>{{hctrl.totals[0]}}</td></tr>
-         <tr><td>February:</td><td>{{hctrl.totals[1]}}</td></tr>
-         <tr><td>March:</td><td>{{hctrl.totals[2]}}</td></tr>
-         <tr><td>Total Second Quarter:</td><td>{{hctrl.totals[14]}}</td></tr>
-         <tr><td>April:</td><td>{{hctrl.totals[3]}}</td></tr>
-         <tr><td>May:</td><td>{{hctrl.totals[4]}}</td></tr>
-         <tr><td>June:</td><td>{{hctrl.totals[5]}}</td></tr>
-         <tr><td>Total Third Quarter:</td><td>{{hctrl.totals[15]}}</td></tr>
-         <tr><td>July:</td><td>{{hctrl.totals[6]}}</td></tr>
-         <tr><td>August:</td><td>{{hctrl.totals[7]}}</td></tr>
-         <tr><td>September:</td><td>{{hctrl.totals[8]}}</td></tr>
-         <tr><td>Total Fourth Quarter:</td><td>{{hctrl.totals[16]}}</td></tr>
-         <tr><td>October:</td><td>{{hctrl.totals[9]}}</td></tr>
-         <tr><td>November:</td><td>{{hctrl.totals[10]}}</td></tr>
-         <tr><td>December:</td><td>{{hctrl.totals[11]}}</td></tr>
+         <tr><td>February:</td>
+           <td>{{hctrl.totals[1]['Mercer County']}}</td>
+           <td>{{hctrl.totals[1]['Helpline']}}</td>
+           <td>{{hctrl.totals[1]['Continuing Ed']}}</td>
+           <? if ($isTrainee){ ?>
+           <td>{{hctrl.totals[1]['Compost']}}</td>
+           <td>{{hctrl.totals[1]['Other']}}</td>
+           <? }?>
+           <td>{{hctrl.totals[1]['Total']}}</td>
+         </tr>
+         <tr><td>March:</td>
+           <td>{{hctrl.totals[2]['Mercer County']}}</td>
+           <td>{{hctrl.totals[2]['Helpline']}}</td>
+           <td>{{hctrl.totals[2]['Continuing Ed']}}</td>
+           <? if ($isTrainee){ ?>
+           <td>{{hctrl.totals[2]['Compost']}}</td>
+           <td>{{hctrl.totals[2]['Other']}}</td>
+           <? }?>
+           <td>{{hctrl.totals[2]['Total']}}</td>
+         </tr>
+         <tr><td>April:</td>
+           <td>{{hctrl.totals[3]['Mercer County']}}</td>
+           <td>{{hctrl.totals[3]['Helpline']}}</td>
+           <td>{{hctrl.totals[3]['Continuing Ed']}}</td>
+           <? if ($isTrainee){ ?>
+           <td>{{hctrl.totals[3]['Compost']}}</td>
+           <td>{{hctrl.totals[3]['Other']}}</td>
+           <? }?>
+           <td>{{hctrl.totals[3]['Total']}}</td>
+         </tr>
+         <tr><td>May:</td>
+           <td>{{hctrl.totals[4]['Mercer County']}}</td>
+           <td>{{hctrl.totals[4]['Helpline']}}</td>
+           <td>{{hctrl.totals[4]['Continuing Ed']}}</td>
+           <? if ($isTrainee){ ?>
+           <td>{{hctrl.totals[4]['Compost']}}</td>
+           <td>{{hctrl.totals[4]['Other']}}</td>
+           <? }?>
+           <td>{{hctrl.totals[4]['Total']}}</td>
+         </tr>
+         <tr><td>June:</td>
+           <td>{{hctrl.totals[5]['Mercer County']}}</td>
+           <td>{{hctrl.totals[5]['Helpline']}}</td>
+           <td>{{hctrl.totals[5]['Continuing Ed']}}</td>
+           <? if ($isTrainee){ ?>
+           <td>{{hctrl.totals[5]['Compost']}}</td>
+           <td>{{hctrl.totals[5]['Other']}}</td>
+           <? }?>
+           <td>{{hctrl.totals[5]['Total']}}</td>
+         </tr>
+         <tr><td>July:</td>
+           <td>{{hctrl.totals[6]['Mercer County']}}</td>
+           <td>{{hctrl.totals[6]['Helpline']}}</td>
+           <td>{{hctrl.totals[6]['Continuing Ed']}}</td>
+           <? if ($isTrainee){ ?>
+           <td>{{hctrl.totals[6]['Compost']}}</td>
+           <td>{{hctrl.totals[6]['Other']}}</td>
+           <? }?>
+           <td>{{hctrl.totals[6]['Total']}}</td>
+         </tr>
+         <tr><td>August:</td>
+           <td>{{hctrl.totals[7]['Mercer County']}}</td>
+           <td>{{hctrl.totals[7]['Helpline']}}</td>
+           <td>{{hctrl.totals[7]['Continuing Ed']}}</td>
+           <? if ($isTrainee){ ?>
+           <td>{{hctrl.totals[7]['Compost']}}</td>
+           <td>{{hctrl.totals[7]['Other']}}</td>
+           <? }?>
+           <td>{{hctrl.totals[7]['Total']}}</td>
+         </tr>
+         <tr><td>September:</td>
+           <td>{{hctrl.totals[8]['Mercer County']}}</td>
+           <td>{{hctrl.totals[8]['Helpline']}}</td>
+           <td>{{hctrl.totals[8]['Continuing Ed']}}</td>
+           <? if ($isTrainee){ ?>
+           <td>{{hctrl.totals[8]['Compost']}}</td>
+           <td>{{hctrl.totals[8]['Other']}}</td>
+           <? }?>
+           <td>{{hctrl.totals[8]['Total']}}</td>
+         </tr>
+         <tr><td>October:</td>
+           <td>{{hctrl.totals[9]['Mercer County']}}</td>
+           <td>{{hctrl.totals[9]['Helpline']}}</td>
+           <td>{{hctrl.totals[9]['Continuing Ed']}}</td>
+           <? if ($isTrainee){ ?>
+           <td>{{hctrl.totals[9]['Compost']}}</td>
+           <td>{{hctrl.totals[9]['Other']}}</td>
+           <? }?>
+           <td>{{hctrl.totals[9]['Total']}}</td>
+         </tr>
+         <tr><td>November:</td>
+           <td>{{hctrl.totals[10]['Mercer County']}}</td>
+           <td>{{hctrl.totals[10]['Helpline']}}</td>
+           <td>{{hctrl.totals[10]['Continuing Ed']}}</td>
+           <? if ($isTrainee){ ?>
+           <td>{{hctrl.totals[10]['Compost']}}</td>
+           <td>{{hctrl.totals[10]['Other']}}</td>
+           <? }?>
+           <td>{{hctrl.totals[10]['Total']}}</td>
+         </tr>
+         <tr><td>December:</td>
+           <td>{{hctrl.totals[11]['Mercer County']}}</td>
+           <td>{{hctrl.totals[11]['Helpline']}}</td>
+           <td>{{hctrl.totals[11]['Continuing Ed']}}</td>
+           <? if ($isTrainee){ ?>
+           <td>{{hctrl.totals[11]['Compost']}}</td>
+           <td>{{hctrl.totals[11]['Other']}}</td>
+           <? }?>
+           <td>{{hctrl.totals[11]['Total']}}</td>
+         </tr>
        </table>
 
      </div>

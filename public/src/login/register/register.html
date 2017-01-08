@@ -79,14 +79,16 @@
     </div>
   </div>
 
-  <div class="row" ng-if="!regctrl.nonMember">
-    <div class="col-sm-12 col-centered" >
+  <div class="row">
+    <div class="col-sm-12 col-centered"  ng-if="!regctrl.notUnique">
         Excellent {{regctrl.fname}} {{regctrl.lname}}! Now we need to have you
         set up a username and password for your account. Please know that your
         username must be unique. We also need you to provide an email for those
         times when you forget your username or password. Thanks.<br />
+    </div>
 
-      <span ng-if="regctrl.nonMember && regctrl.triedRegister" >sorry that info doesn't correspond. Try Again.</span><br>
+    <div  ng-if="regctrl.notUnique" class="alert alert-danger" role="alert">
+      Sorry. That username is already taken. Please select another username.
     </div>
   </div>
 
@@ -111,7 +113,7 @@
 
           <div class="row">
             <label class="col-sm-3 control-label text-left"
-              for="inputEmail">Password</label>
+              for="inputEmail">Password:</label>
             <div class="col-sm-9">
             <input class="form-control" type="password" name="password"
                placeholder="Password" ng-model="regctrl.password" required
@@ -125,7 +127,7 @@
 
           <div class="row">
             <label class="col-sm-3 control-label text-left"
-              for="inputEmail">Email</label>
+              for="inputEmail">Email:</label>
             <div class="col-sm-9">
             <input class="form-control" type="email" name="email"
                placeholder="Email" ng-model="regctrl.email" required>

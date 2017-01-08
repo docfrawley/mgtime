@@ -20,7 +20,9 @@ class memadmin {
 		global $database;
     $sql="SELECT * FROM memberinfo WHERE username='".$username."'";
 		$result_set = $database->query($sql);
-		return ($database->num_rows($result_set)==0);
+		$value= $database->fetch_array($result_set);
+		$member = new memberObject($_SESSION['memberid']);
+		return ($database->num_rows($result_set)===0);
 	}
 
 	function addMember($info){
@@ -56,7 +58,6 @@ class memadmin {
       $this->username = $username;
       $this->password = $password;
       $value= $database->fetch_array($result_set);
-      $_SESSION['loginid'] = $value['id'];
       $_SESSION['memberid'] = $value['id'];
       $this->member = $value['id'];
       return true;

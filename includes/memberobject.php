@@ -88,5 +88,9 @@ class memberObject {
 		return ($this->uname != "" && $this->pword != "");
 	}
 
+	function isTrainee(){
+		return ($this->status=="A - Trainee" || $this->status=="T/NotG");
+	}
+
 }
 ?>

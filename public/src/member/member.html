@@ -1,29 +1,54 @@
-<h4 ng-if="!mctrl.updated">You can change your username, password, and/or email below.</h4>
-<h4 ng-if="mctrl.updated">Updates were successful!</h4>
-<br /><br />
-<div class="form-group">
+<div class="row justify-content-md-center">
+  <div ng-if="!mctrl.triedUpdate" class="col-sm-12 text-center">
+    <h4>You can change your username, password, and/or email below.</h4>
+  </div>
+  <div ng-if="mctrl.updated" class="alert alert-success" role="alert">
+    <h4>Updates were successful!</h4></div>
+    <div ng-if="!mctrl.updated && mctrl.triedUpdate" class="alert alert-danger" role="alert">
+      <h4>That username is already in use. Please select another.</h4></div>
+</div>
+
+<form name='getForm' novalidate>
+<div class="form-group buttons">
   <label class="col-sm-3 control-label text-left"
   for="inputEmail">Username: </label>
   <div class="col-sm-8">
-  <input class="form-control" type="text"
-   placeholder="" ng-model="mctrl.username"><br />
-  </div>
+  <input class="form-control" type="text" name="username"
+   placeholder="" ng-model="mctrl.username"required
+   minlength = 4>
+   <span class="input_warning"
+     ng-if="(getForm.username.$error.minlength || getForm.username.$error.required) && getForm.username.$touched">
+     Please enter a username that is at lest 4 characters long.
+   </span><br>
+ </div>
 
   <label class="col-sm-3 control-label text-left"
   for="inputEmail">Password</label>
-  <div class="col-sm-9">
-  <input class="form-control" type="password"
-   placeholder="" ng-model="mctrl.password"><br />
-  </div>
+  <div class="col-sm-8">
+  <input class="form-control" type="password" name="password"
+   placeholder="" ng-model="mctrl.password" required
+   minlength = 4>
+   <span class="input_warning"
+     ng-if="(getForm.password.$error.minlength || getForm.password.$error.required) && getForm.password.$touched">
+     Please enter a password that is at lest 4 characters long.
+   </span><br>
+</div>
 
 
 
   <label class="col-sm-3 control-label text-left"
   for="inputEmail">Email</label>
   <div class="col-sm-8">
-  <input class="form-control" type="email"
-   placeholder="" ng-model="mctrl.email"><br />
-  </div>
-
-  <button class='btn btn-lg btn-success' ng-click="mctrl.submit()">SUBMIT</button>
+  <input class="form-control" type="email" name="email"
+   placeholder="" ng-model="mctrl.email" required>
+   <span class="input_warning"
+     ng-if="getForm.email.$invalid && getForm.email.$touched">
+     Please enter an email address in a valid format.
+   </span><br>
 </div>
+
+  <button class='btn btn-lg btn-success'
+  ng-disabled="getForm.$invalid"
+  ng-click="mctrl.submit()">SUBMIT</button>
+</div>
+</form>

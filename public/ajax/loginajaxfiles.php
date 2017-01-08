@@ -92,7 +92,7 @@ if ($task=='hours_info'){
 
 if ($task == 'hours_totals'){
   $member = new memberHrs($_SESSION['memberid']);
-  $returnArray = $member->get_totals();
+  $returnArray = $member->get_totalss();
   echo json_encode($returnArray);
 }
 ?>

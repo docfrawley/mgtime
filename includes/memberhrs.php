@@ -49,15 +49,63 @@ class memberHrs {
 		return $this->memhrs;
 	}
 
+	function get_hours_month($whichMonth){
+		global $database;
+    $month_array =  array(
+			"Mercer County" 					=> 0,
+			"Helpline" 								=> 0,
+			"Continuing Ed" 					=> 0,
+			"Compost (Trainee)" 			=> 0,
+			"Other (Trainee)"   			=> 0,
+			"Total"										=> 0
+		);
+		if ($whichMonth<10){
+			$whichMonth="0".$whichMonth;
+		}
+		$date_range1 = $whichMonth."/01/2016";
+		$date_range2 = $whichMonth."/31/2016";
+    $sql="SELECT * FROM hours WHERE memberid='".$this->memberid."'
+		AND hdate>= '".$date_range1."' AND hdate <='".$date_range2."'
+		ORDER BY hdate";
+    $result_set = $database->query($sql);
+		while ($value = $database->fetch_array($result_set)) {
+			$key = $value['hrstype'];
+			$month_array[$key] += $value['numhrs'];
+			$month_array['Total'] +=$value['numhrs'];
+		}
+		return $month_array;
+	}
+
+	function get_totalss(){
+		$this->set_hrs();
+		$months_array = array();
+		for ($month=1; $month<=12; $month++){
+			array_push($months_array, $this->get_hours_month($month));
+		}
+		$total_array =  array(
+			"Mercer County" 					=> 0,
+			"Helpline" 								=> 0,
+			"Continuing Ed" 					=> 0,
+			"Compost (Trainee)" 			=> 0,
+			"Other (Trainee)"   			=> 0,
+			"Total"										=> 0
+		);
+
+		for ($i = 0; $i < count($this->memhrs); $i++) {
+			$key=$this->memhrs[$i]['hrstype'];
+			$total_array[$key] += $this->memhrs[$i]['numhrs'];
+			$total_array['Total'] += $this->memhrs[$i]['numhrs'];
+		}
+		array_push($months_array, $total_array);
+	return $months_array;
+}
+
+
 	function get_totals(){
 		$this->set_hrs();
 		$months_array = array(0,0,0,0,0,0,0,0,0,0,0,0);
 		$current_month=0;
 		$total = 0;
-		$first = 0;
-		$second = 0;
-		$third = 0;
-		$fourth = 0;
 		for ($i = 0; $i < count($this->memhrs); $i++) {
 			list($month, $day, $year) = explode("/", $this->memhrs[$i]['hdate']);
 	    if ($month>($current_month+1)){
@@ -65,28 +113,8 @@ class memberHrs {
 			}
 			$months_array[$current_month] += $this->memhrs[$i]['numhrs'];
 			$total += $this->memhrs[$i]['numhrs'];
-			switch ($month) {
-				case ($month<4):
-					$first += $this->memhrs[$i]['numhrs'];
-					break;
-				case ($month>3 && $month <7):
-					$second += $this->memhrs[$i]['numhrs'];
-					break;
-				case ($month>6 && $month <10):
-					$third += $this->memhrs[$i]['numhrs'];
-					break;
-				case ($month>9):
-					$fourth += $this->memhrs[$i]['numhrs'];
-					break;
-				default:
-					break;
-			}
 		}
 		array_push($months_array, $total);
-		array_push($months_array, $first);
-		array_push($months_array, $second);
-		array_push($months_array, $third);
-		array_push($months_array, $fourth);
 		return $months_array;
 	}
 }

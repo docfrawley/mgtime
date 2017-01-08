@@ -35,7 +35,6 @@ $member = new memberObject($_SESSION['memberid']);
                   </td>
                   <td>
                     <? $status = $member->get_status();
-                      
                     echo change_status($status);?>
                   </td>
                 </tr>

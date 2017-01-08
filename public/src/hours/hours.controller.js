@@ -9,6 +9,7 @@ function HoursController(HoursService, items, totals) {
   var hctrl=this;
    hctrl.items = items.data;
    hctrl.totals = totals.data;
+   console.log("here:", hctrl.totals);
    hctrl.hdate = "";
    hctrl.hrstype = "";
    hctrl.numhrs = 0;
