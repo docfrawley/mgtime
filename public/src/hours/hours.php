@@ -9,6 +9,7 @@
             <div ng-if="hctrl.edited" class="alert alert-success" role="alert">Edits were successful</div>
             <div ng-if="hctrl.deleted" class="alert alert-success" role="alert">That entry was deleted</div>
             <br />
+            <form name='hrsForm' novalidate>
             <div class="form-group">
               <label class="col-sm-2 control-label text-left"
               for="inputEmail">Date:</label>
@@ -23,10 +24,11 @@
                 <div class="row">
                  <div class="col-md-6 col-sm-6 col-xs-12">
                     <div class="input-group">
-                     <input class="form-control" id="date" name="date"
+                     <input class="form-control" id="date"
                      placeholder="MM/DD/YYYY"
-                     type="text"
-                     ng-model="hctrl.hdate" ng-click="hctrl.backToAdd()"/>
+                     type="text" name="hdate"
+                     ng-model="hctrl.hdate" ng-click="hctrl.backToAdd()"
+                     required/>
                      <div class="input-group-addon">
                       <span class="fa fa-calendar">
                       </span>
@@ -35,7 +37,11 @@
                  </div>
                 </div>
                </div>
-             </div><br />
+               <span class="input_warning"
+                 ng-if="hrsForm.hdate.$error.required && hrsForm.hdate.$touched">
+                 Please enter a date for your hours.
+               </span><br>
+            </div>
               <!-- Extra JavaScript/CSS added manually in "Settings" tab -->
               <!-- Include Date Range Picker -->
               <script type="text/javascript"
@@ -59,7 +65,8 @@
               <label class="col-sm-2 control-label text-left"
               for="inputEmail">Type Hrs: </label>
               <div class="col-sm-4">
-                <select class="custom-select form-control" ng-model="hctrl.hrstype" ng-click="hctrl.backToAdd()">
+                <select class="custom-select form-control" ng-model="hctrl.hrstype"
+                        name="hrstype" ng-click="hctrl.backToAdd()" required>
                   <option value="Mercer County">Mercer County</option>
                   <option value="Helpline">Helpline</option>
                   <option value="Continuing Ed">Continuing Ed</option>
@@ -69,37 +76,53 @@
                   <?}?>
 
                 </select>
-              </div>
+                <span class="input_warning"
+                  ng-if="hrsForm.hrstype.$error.required && hrsForm.hrstype.$touched">
+                  Please select type of hours.
+                </span><br>
+             </div>
 
 
               <label class="col-sm-2 control-label text-right"
               for="inputEmail"> # of Hrs: </label>
               <div class="col-sm-4">
-              <input class="form-control" type="text"
-               placeholder="Number of Hours" ng-model="hctrl.numhrs" ng-click="hctrl.backToAdd()"><br />
-              </div>
+              <input class="form-control" type="text" name="numhrs"
+               placeholder="Number of Hours" ng-model="hctrl.numhrs"
+               ng-click="hctrl.backToAdd()" required>
+               <span class="input_warning"
+                 ng-if="hrsForm.numhrs.$error.required && hrsForm.numhrs.$touched">
+                 Please enter number of hours.
+               </span><br>
+            </div>
               <label class="col-sm-2 control-label text-left"
               for="inputEmail">Description: </label>
               <div class="col-sm-10">
-              <input class="form-control" type="text"
-               placeholder="" ng-model="hctrl.description" ng-click="hctrl.backToAdd()"><br />
-              </div>
+              <input class="form-control" type="text" name="description"
+               placeholder="" ng-model="hctrl.description"
+               ng-click="hctrl.backToAdd()" required>
+               <span class="input_warning"
+                 ng-if="hrsForm.description.$error.required && hrsForm.description.$touched">
+                 Please provide a description.
+               </span><br>
+            </div>
 
-              <button class='btn btn-lg btn-success' ng-click="hctrl.submit()">SUBMIT</button>
+              <button class='btn btn-lg btn-success' ng-click="hctrl.submit()"
+                      ng-disabled="hrsForm.$invalid">SUBMIT</button>
             </div>
 
           </div>
-
+        </form>
           <div class="panel-body" ng-if="!hctrl.addhrs">
               <div class="col-sm-8 text-left">
                 <h4 ng-if="!hctrl.entered">Edit or Delete this entry</h4>
 
               </div>
 
-              <br/>
+              <br>
 
-            <div class="form-group">
-              <label class="col-sm-2 control-label text-left"
+              <form name='hrsForm' novalidate>
+              <div class="form-group">
+              <br><label class="col-sm-2 control-label text-left"
               for="inputEmail">Date:</label>
               <!-- Special version of Bootstrap that only affects content wrapped in .bootstrap-iso -->
               <link rel="stylesheet" href="https://formden.com/static/cdn/bootstrap-iso.css" />
@@ -112,19 +135,24 @@
                 <div class="row">
                  <div class="col-md-6 col-sm-6 col-xs-12">
                     <div class="input-group">
-                     <input class="form-control" id="date" name="date"
+                     <input class="form-control" id="date"
                      placeholder={{hctrl.edItems.hdate}}
                      type="text"
-                     ng-model="hctrl.edItems.hdate"/>
+                     ng-model="hctrl.edItems.hdate" name="hdate" required/>
                      <div class="input-group-addon">
                       <span class="fa fa-calendar">
                       </span>
                      </div>
                     </div>
                  </div>
+
                 </div>
                </div>
-             </div><br />
+               <span class="input_warning"
+                 ng-if="hrsForm.hdate.$error.required && hrsForm.hdate.$touched">
+                 Please enter a date for your hours.
+               </span><br>
+            </div>
               <!-- Extra JavaScript/CSS added manually in "Settings" tab -->
               <!-- Include Date Range Picker -->
               <script type="text/javascript"
@@ -148,7 +176,8 @@
               <label class="col-sm-2 control-label text-left"
               for="inputEmail">Type Hrs: </label>
               <div class="col-sm-4">
-                <select class="custom-select form-control" ng-model="hctrl.edItems.hrstype">
+                <select class="custom-select form-control" ng-model="hctrl.edItems.hrstype"
+                        name="hrstype" required>
                   <option value="Mercer County">Mercer County</option>
                   <option value="Helpline">Helpline</option>
                   <option value="Continuing Ed">Continuing Ed</option>
@@ -157,34 +186,53 @@
                   <option value="Other (Trainee)">Other (Trainee)</option>
                   <? } ?>
                 </select>
-              </div>
+                <span class="input_warning"
+                  ng-if="hrsForm.hrstype.$error.required && hrsForm.hrstype.$touched">
+                  Please select type of hours.
+                </span><br>
+             </div>
 
 
               <label class="col-sm-2 control-label text-right"
               for="inputEmail"> # of Hrs: </label>
               <div class="col-sm-4">
-              <input class="form-control" type="text"
-               placeholder={{hctrl.edItems.numhrs}} ng-model="hctrl.edItems.numhrs"><br />
-              </div>
+              <input class="form-control" type="text" name="numhrs"
+               placeholder={{hctrl.edItems.numhrs}}
+               ng-model="hctrl.edItems.numhrs" required>
+               <span class="input_warning"
+                 ng-if="hrsForm.numhrs.$error.required && hrsForm.numhrs.$touched">
+                 Please enter number of hours.
+               </span><br>
+             </div>
+
               <label class="col-sm-2 control-label text-left"
               for="inputEmail">Description: </label>
               <div class="col-sm-10">
-              <input class="form-control" type="text"
-               placeholder={{hctrl.edItems.description}} ng-model="hctrl.edItems.description"><br />
+              <input class="form-control" type="text" name="description"
+               placeholder={{hctrl.edItems.description}}
+               ng-model="hctrl.edItems.description" required>
+               <span class="input_warning"
+                 ng-if="hrsForm.description.$error.required && hrsForm.description.$touched">
+                 Please provide a description.
+               </span><br>
+             </div>
+              <div class="col-sm-3">
+                <button class='btn btn-lg btn-success' ng-click="hctrl.hedit()"
+                        ng-disabled="hrsForm.$invalid">SUBMIT</button>
               </div>
-              <div class="col-sm-2">
-                <button class='btn btn-lg btn-success' ng-click="hctrl.hedit()">SUBMIT</button>
-              </div>
+
               <div class="col-sm-3 text-left">
                 <button class='btn btn-lg btn-danger' ng-click="hctrl.hdelete()">DELETE</button>
               </div>
-              <div class="col-sm-7 text-right">
-                <button class='btn btn-lg btn-primary' ng-click="hctrl.backtoadd()">ADD HOURS FORM</button>
+
+              <div class="col-sm-6 text-right">
+                <button class='btn btn-lg btn-primary' ng-click="hctrl.backToAdd()">ADD HOURS FORM</button>
               </div>
+
             </div>
 
           </div>
-
+        </form>
         </div>
       </div>
     </div>
