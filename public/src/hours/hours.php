@@ -26,7 +26,7 @@
                     <div class="input-group">
                      <input class="form-control" id="date"
                      placeholder="MM/DD/YYYY"
-                     type="text" name="hdate"
+                     type="text" name="date"
                      ng-model="hctrl.hdate" ng-click="hctrl.backToAdd()"
                      required/>
                      <div class="input-group-addon">
@@ -38,7 +38,7 @@
                 </div>
                </div>
                <span class="input_warning"
-                 ng-if="hrsForm.hdate.$error.required && hrsForm.hdate.$touched">
+                 ng-if="hrsForm.date.$error.required && hrsForm.date.$touched">
                  Please enter a date for your hours.
                </span><br>
             </div>
@@ -98,7 +98,7 @@
               for="inputEmail">Description: </label>
               <div class="col-sm-10">
               <input class="form-control" type="text" name="description"
-               placeholder="" ng-model="hctrl.description"
+               placeholder="Description" ng-model="hctrl.description"
                ng-click="hctrl.backToAdd()" required>
                <span class="input_warning"
                  ng-if="hrsForm.description.$error.required && hrsForm.description.$touched">
@@ -106,7 +106,7 @@
                </span><br>
             </div>
 
-              <button class='btn btn-lg btn-success' ng-click="hctrl.submit()"
+              <button class='btn btn-lg btn-success' ng-click="hctrl.submit(hrsForm)"
                       ng-disabled="hrsForm.$invalid">SUBMIT</button>
             </div>
 
@@ -120,7 +120,7 @@
 
               <br>
 
-              <form name='hrsForm' novalidate>
+              <form name='hedForm' novalidate>
               <div class="form-group">
               <br><label class="col-sm-2 control-label text-left"
               for="inputEmail">Date:</label>
@@ -138,7 +138,7 @@
                      <input class="form-control" id="date"
                      placeholder={{hctrl.edItems.hdate}}
                      type="text"
-                     ng-model="hctrl.edItems.hdate" name="hdate" required/>
+                     ng-model="hctrl.edItems.hdate" name="date" required/>
                      <div class="input-group-addon">
                       <span class="fa fa-calendar">
                       </span>
@@ -149,7 +149,7 @@
                 </div>
                </div>
                <span class="input_warning"
-                 ng-if="hrsForm.hdate.$error.required && hrsForm.hdate.$touched">
+                 ng-if="hedForm.date.$error.required && hedForm.date.$touched">
                  Please enter a date for your hours.
                </span><br>
             </div>
@@ -187,7 +187,7 @@
                   <? } ?>
                 </select>
                 <span class="input_warning"
-                  ng-if="hrsForm.hrstype.$error.required && hrsForm.hrstype.$touched">
+                  ng-if="hedForm.hrstype.$error.required && hedForm.hrstype.$touched">
                   Please select type of hours.
                 </span><br>
              </div>
@@ -200,7 +200,7 @@
                placeholder={{hctrl.edItems.numhrs}}
                ng-model="hctrl.edItems.numhrs" required>
                <span class="input_warning"
-                 ng-if="hrsForm.numhrs.$error.required && hrsForm.numhrs.$touched">
+                 ng-if="hedForm.numhrs.$error.required && hedForm.numhrs.$touched">
                  Please enter number of hours.
                </span><br>
              </div>
@@ -212,13 +212,13 @@
                placeholder={{hctrl.edItems.description}}
                ng-model="hctrl.edItems.description" required>
                <span class="input_warning"
-                 ng-if="hrsForm.description.$error.required && hrsForm.description.$touched">
+                 ng-if="hedForm.description.$error.required && hedForm.description.$touched">
                  Please provide a description.
                </span><br>
              </div>
               <div class="col-sm-3">
                 <button class='btn btn-lg btn-success' ng-click="hctrl.hedit()"
-                        ng-disabled="hrsForm.$invalid">SUBMIT</button>
+                        ng-disabled="hedForm.$invalid">SUBMIT</button>
               </div>
 
               <div class="col-sm-3 text-left">

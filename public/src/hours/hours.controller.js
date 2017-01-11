@@ -9,10 +9,9 @@ function HoursController(HoursService, items, totals) {
   var hctrl=this;
    hctrl.items = items.data;
    hctrl.totals = totals.data;
-   console.log("here:", hctrl.totals);
    hctrl.hdate = "";
    hctrl.hrstype = "";
-   hctrl.numhrs = 0;
+   hctrl.numhrs = null;
    hctrl.description = "";
    hctrl.entered = false;
    hctrl.addhrs = true;
@@ -20,15 +19,16 @@ function HoursController(HoursService, items, totals) {
    hctrl.deleted = false;
 
 
-  hctrl.submit = function () {
+  hctrl.submit = function (hrsForm) {
       HoursService.enterHours(hctrl.hdate, hctrl.hrstype, hctrl.numhrs, hctrl.description)
           .then(function (response) {
             hctrl.entered = response.data.success;
             if (hctrl.entered){
               hctrl.hdate = "";
               hctrl.hrstype = "";
-              hctrl.numhrs = 0;
+              hctrl.numhrs = null;
               hctrl.description = "";
+              hrsForm.$setUntouched();
             }
           }).then(function (response) {
             HoursService.getHoursInfo()
@@ -50,6 +50,11 @@ function HoursController(HoursService, items, totals) {
   hctrl.gomodul = function (index)  {
     hctrl.addhrs = false;
     hctrl.edItems = hctrl.items[index];
+    // hctrl.edItems = [];
+    // hctrl.edItems.hdate = hctrl.items[index].hdate;
+    // hctrl.edItems.hrstype = hctrl.items[index].hrstype;
+    // hctrl.edItems.numhrs = hctrl.items[index].numhrs;
+    // hctrl.edItems.description = hctrl.items[index].description;
   };
 
   hctrl.backToAdd = function () {
@@ -57,6 +62,7 @@ function HoursController(HoursService, items, totals) {
     hctrl.edited = false;
     hctrl.deleted = false;
     hctrl.entered = false;
+
   };
 
 
@@ -65,6 +71,8 @@ function HoursController(HoursService, items, totals) {
           .then(function (response) {
             hctrl.addhrs = true;
             hctrl.edited = true;
+            hctrl.entered = false;
+            hctrl.deleted = false;
           }).then(function (response) {
             HoursService.getHoursInfo()
             .then(function (response) {
@@ -87,6 +95,8 @@ function HoursController(HoursService, items, totals) {
             .then(function (response) {
               hctrl.addhrs = true;
               hctrl.deleted = true;
+              hctrl.edited = false;
+              hctrl.entered = false;
             }).then(function (response) {
               HoursService.getHoursInfo()
               .then(function (response) {
