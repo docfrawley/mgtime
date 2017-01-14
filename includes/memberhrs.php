@@ -96,6 +96,7 @@ class memberHrs {
 			$total_array[$key] += $this->memhrs[$i]['numhrs'];
 			$total_array['Total'] += $this->memhrs[$i]['numhrs'];
 		}
+		$total_array['Total']=$total_array['Total']-$total_array['Continuing Ed'];
 		array_push($months_array, $total_array);
 	return $months_array;
 }

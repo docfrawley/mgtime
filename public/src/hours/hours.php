@@ -63,7 +63,7 @@
               </script>
 
               <label class="col-sm-2 control-label text-left"
-              for="inputEmail">Type Hrs: </label>
+              for="inputEmail">Type of Hrs: </label>
               <div class="col-sm-4">
                 <select class="custom-select form-control" ng-model="hctrl.hrstype"
                         name="hrstype" ng-click="hctrl.backToAdd()" required>
@@ -240,6 +240,7 @@
       <div class="col-sm-12">
         <div class="panel panel-default">
           <div class="panel-body">
+            <h4 class="text-center">Edit or Delete Entries by clicking on date</h4>
             <table class="table table-condensed">
               <thead>
                 <tr>
@@ -271,9 +272,72 @@
     </div>
  </div>
  <div class="col-md-5">
+
    <div class="panel panel-default">
-     <div class="panel-body">
-       <table class="table table-condensed text-right">
+     <div class="panel-body text-center">
+       <h4>Yearly Hour Totals for <? echo date('Y'); ?> </h4>
+       <h6 class="text-left">Hrs Requirement: 30 Volunteer Hours consisting of a minumum
+        of 15 hours on Helpline. You are also responsible for 10 hrs of Continuing Ed. </h6>
+
+        <div class="row text-left">
+          <div class="col-sm-4">Volunteer Hours:</div>
+          <div class="col-sm-1 text-right">{{hctrl.totals[12]['Total']}}</div>
+          <div class="col-sm-6"
+            ng-if="hctrl.totals[12]['Total']>=40 && hctrl.totals[12]['Helpline'] >=15">
+            <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+            &nbsp; requirement met
+          </div>
+          <div class="col-sm-6"
+            ng-if="hctrl.totals[12]['Total']>=40 && hctrl.totals[12]['Helpline'] <15">
+            <span class="glyphicon glyphicon-alert" aria-hidden="true"></span>
+            &nbsp; Must have 15 Helpline hrs.
+          </div>
+        </div>
+        <div class="row text-left">
+          <div class="col-sm-4">Mercer County:</div>
+          <div class="col-sm-1 text-right">{{hctrl.totals[12]['Mercer County']}}</div>
+        </div>
+        <div class="row text-left">
+          <div class="col-sm-4">Helpline:</div>
+          <div class="col-sm-1 text-right">{{hctrl.totals[12]['Helpline']}}</div>
+          <div class="col-sm-6"
+            ng-if="hctrl.totals[12]['Helpline']>=15">
+            <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+            &nbsp; requirement met
+          </div>
+        </div>
+        <div class="row text-left">
+          <div class="col-sm-4">Continuing Ed:</div>
+          <div class="col-sm-1 text-right" ng-if="hctrl.totals[12]['Continuing Ed']>10">
+            10</div>
+          <div class="col-sm-1 text-right" ng-if="hctrl.totals[12]['Continuing Ed']<=10">
+            {{hctrl.totals[12]['Continuing Ed']}}</div>
+          <div class="col-sm-6"
+            ng-if="hctrl.totals[12]['Helpline']>=10">
+            <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+            &nbsp; requirement met
+          </div>
+          <div class="col-sm-12" ng-if="hctrl.totals[12]['Continuing Ed']>=10">
+            <br><h6><span class="glyphicon glyphicon-alert"></span>&nbsp;Be advised that you have the
+            maximum number of Continuing Ed hrs allowed. Any additional continuing ed hours
+            you enter will not be counted in your overal total.</h6>
+        </div>
+        <? if ($isTrainee){ ?>
+          <div class="row text-left">
+            <div class="col-sm-4">Compost:</div>
+            <div class="col-sm-1 text-right">{{hctrl.totals[12]['Compost']}}</div>
+          </div>
+          <div class="row text-left">
+            <div class="col-sm-4">Other:</div>
+            <div class="col-sm-1 text-right">{{hctrl.totals[12]['Other']}}</div>
+          </div>
+          <? }?>
+
+        </div>
+        <br>
+
+       <h4 class="text-center"><? echo date('Y'); ?> Monthy Hour Totals</h4><br>
+       <table class="table table-condensed text-right table-striped">
          <thead>
           <tr>
             <th></th>
@@ -287,17 +351,6 @@
             <th class="text-right">TOTAL HOURS</th>
           </tr>
         </thead>
-         <tr>
-           <td>Total Hours:</td>
-           <td>{{hctrl.totals[12]['Mercer County']}}</td>
-           <td>{{hctrl.totals[12]['Helpline']}}</td>
-           <td>{{hctrl.totals[12]['Continuing Ed']}}</td>
-           <? if ($isTrainee){ ?>
-           <td>{{hctrl.totals[12]['Compost']}}</td>
-           <td>{{hctrl.totals[12]['Other']}}</td>
-           <? }?>
-           <td>{{hctrl.totals[12]['Total']}}</td>
-         </tr>
          <tr>
            <td>January:</td>
            <td>{{hctrl.totals[0]['Mercer County']}}</td>
