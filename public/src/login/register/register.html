@@ -81,7 +81,7 @@
 
   <div class="row">
     <div class="col-sm-12 col-centered"
-    ng-if="!regctrl.notUnique && regctrl.triedRegister && !regctrl.alreadyRegistered">
+    ng-show="!regctrl.nonMember">
         Excellent {{regctrl.fname}} {{regctrl.lname}}! Now we need to have you
         set up a username and password for your account. Please know that your
         username must be unique. We also need you to provide an email for those
