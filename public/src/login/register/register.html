@@ -116,12 +116,31 @@
             <label class="col-sm-3 control-label text-left"
               for="inputEmail">Password:</label>
             <div class="col-sm-9">
-            <input class="form-control" type="password" name="password"
+
+
+
+            <input class="form-control" type="password" name="password" id='pw1'
                placeholder="Password" ng-model="regctrl.password" required
                minlength = 4>
                <span class="input_warning"
                  ng-if="(getForm.password.$error.minlength || getForm.password.$error.required) && getForm.password.$touched">
                  Please enter a password that is at lest 4 characters long.
+               </span><br>
+            </div>
+          </div>
+
+          <div class="row">
+            <label class="col-sm-3 control-label text-left"
+              for="inputEmail">Confirm Password:</label>
+            <div class="col-sm-9">
+            <input class="form-control" type="password" name="password2" id='pw2'
+               placeholder="Confirm Password" ng-model="regctrl.password2" required pw-check='pw1'>
+
+
+
+               <span class="input_warning"
+                 ng-show="getForm.$error && getForm.password2.$error.pwmatch && getForm.password.$touched">
+                 Passwords don't match.
                </span><br>
             </div>
           </div>

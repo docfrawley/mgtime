@@ -17,6 +17,11 @@ function HoursController(HoursService, items, totals) {
    hctrl.addhrs = true;
    hctrl.edited = false;
    hctrl.deleted = false;
+   hctrl.ishelpline = false;
+
+   hctrl.checkHelpline = function (){
+     hctrl.ishelpline = (hctrl.hrstype=="Helpline" || hctrl.edItems.hrstype=="Helpline");
+   };
 
 
   hctrl.submit = function (hrsForm) {
@@ -50,6 +55,7 @@ function HoursController(HoursService, items, totals) {
   hctrl.gomodul = function (index)  {
     hctrl.addhrs = false;
     hctrl.edItems = hctrl.items[index];
+    hctrl.ishelpline = hctrl.edItems.hrstype == "Helpline";
     // hctrl.edItems = [];
     // hctrl.edItems.hdate = hctrl.items[index].hdate;
     // hctrl.edItems.hrstype = hctrl.items[index].hrstype;
@@ -62,7 +68,7 @@ function HoursController(HoursService, items, totals) {
     hctrl.edited = false;
     hctrl.deleted = false;
     hctrl.entered = false;
-
+    hctrl.ishelpline = false;
   };
 
 

@@ -4,10 +4,15 @@
       <div class="col-sm-12">
         <div class="panel panel-default">
           <div class="panel-body" ng-if="hctrl.addhrs">
-            <div ng-if="!hctrl.entered && !hctrl.edited && !hctrl.deleted"><h4>Add new hours here</h4></div>
-            <div ng-if="hctrl.entered" class="alert alert-success" role="alert">Your hours were added successfully!</div>
-            <div ng-if="hctrl.edited" class="alert alert-success" role="alert">Edits were successful</div>
-            <div ng-if="hctrl.deleted" class="alert alert-success" role="alert">That entry was deleted</div>
+            <div ng-if="!hctrl.entered && !hctrl.edited && !hctrl.deleted">
+              <h3 class="text-center">Hours Entry Form</h3>
+            </div>
+            <div ng-if="hctrl.entered" class="alert alert-success" role="alert">
+              Your hours were added successfully!</div>
+            <div ng-if="hctrl.edited" class="alert alert-success" role="alert">
+              Edits were successful</div>
+            <div ng-if="hctrl.deleted" class="alert alert-success" role="alert">
+              That entry was deleted</div>
             <br />
             <form name='hrsForm' novalidate>
             <div class="form-group">
@@ -66,7 +71,9 @@
               for="inputEmail">Type of Hrs: </label>
               <div class="col-sm-4">
                 <select class="custom-select form-control" ng-model="hctrl.hrstype"
-                        name="hrstype" ng-click="hctrl.backToAdd()" required>
+                        name="hrstype" ng-click="hctrl.backToAdd()"
+                        ng-change="hctrl.checkHelpline()"
+                        required>
                   <option value="Mercer County">Mercer County</option>
                   <option value="Helpline">Helpline</option>
                   <option value="Continuing Ed">Continuing Ed</option>
@@ -94,6 +101,7 @@
                  Please enter number of hours.
                </span><br>
             </div>
+            <div ng-show="!hctrl.ishelpline">
               <label class="col-sm-2 control-label text-left"
               for="inputEmail">Description: </label>
               <div class="col-sm-10">
@@ -104,6 +112,7 @@
                  ng-if="hrsForm.description.$error.required && hrsForm.description.$touched">
                  Please provide a description.
                </span><br>
+              </div>
             </div>
 
               <button class='btn btn-lg btn-success' ng-click="hctrl.submit(hrsForm)"
@@ -113,16 +122,16 @@
           </div>
         </form>
           <div class="panel-body" ng-if="!hctrl.addhrs">
-              <div class="col-sm-8 text-left">
-                <h4 ng-if="!hctrl.entered">Edit or Delete this entry</h4>
-
+              <div class="col-sm-12 text-center">
+                <h3 ng-if="!hctrl.entered" >
+                  Edit or Delete This Entry</h3><br>
               </div>
 
-              <br>
+
 
               <form name='hedForm' novalidate>
               <div class="form-group">
-              <br><label class="col-sm-2 control-label text-left"
+              <label class="col-sm-2 control-label text-left"
               for="inputEmail">Date:</label>
               <!-- Special version of Bootstrap that only affects content wrapped in .bootstrap-iso -->
               <link rel="stylesheet" href="https://formden.com/static/cdn/bootstrap-iso.css" />
@@ -176,8 +185,11 @@
               <label class="col-sm-2 control-label text-left"
               for="inputEmail">Type Hrs: </label>
               <div class="col-sm-4">
-                <select class="custom-select form-control" ng-model="hctrl.edItems.hrstype"
-                        name="hrstype" required>
+                <select class="custom-select form-control"
+                        ng-model="hctrl.edItems.hrstype"
+                        name="hrstype"
+                        ng-change="hctrl.checkHelpline()"
+                        required>
                   <option value="Mercer County">Mercer County</option>
                   <option value="Helpline">Helpline</option>
                   <option value="Continuing Ed">Continuing Ed</option>
@@ -205,6 +217,7 @@
                </span><br>
              </div>
 
+            <div ng-show="!hctrl.ishelpline">
               <label class="col-sm-2 control-label text-left"
               for="inputEmail">Description: </label>
               <div class="col-sm-10">
@@ -215,10 +228,11 @@
                  ng-if="hedForm.description.$error.required && hedForm.description.$touched">
                  Please provide a description.
                </span><br>
-             </div>
+              </div>
+            </div>
               <div class="col-sm-3">
                 <button class='btn btn-lg btn-success' ng-click="hctrl.hedit()"
-                        ng-disabled="hedForm.$invalid">SUBMIT</button>
+                        ng-disabled="hedForm.$invalid">UPDATE</button>
               </div>
 
               <div class="col-sm-3 text-left">
@@ -226,7 +240,7 @@
               </div>
 
               <div class="col-sm-6 text-right">
-                <button class='btn btn-lg btn-primary' ng-click="hctrl.backToAdd()">ADD HOURS FORM</button>
+                <button class='btn btn-lg btn-primary' ng-click="hctrl.backToAdd()">BACK TO ADD HOURS FORM</button>
               </div>
 
             </div>
@@ -240,11 +254,12 @@
       <div class="col-sm-12">
         <div class="panel panel-default">
           <div class="panel-body">
-            <h4 class="text-center">Edit or Delete Entries by clicking on date</h4>
+            <h3 class="text-center">ANNUAL HOURS</h3><br>
+            <h5 class="text-left">Edit or Delete Entries by clicking on date</h5>
             <table class="table table-condensed">
               <thead>
                 <tr>
-                  <th>date</th>
+                  <th>Date</th>
                   <th>Type of Hours</th>
                   <th># of Hours</th>
                   <th>Description</th>
@@ -336,19 +351,19 @@
         </div>
         <br>
 
-       <h4 class="text-center"><? echo date('Y'); ?> Monthy Hour Totals</h4><br>
+       <h4 class="text-center"><? echo date('Y'); ?> Monthly Hour Totals</h4><br>
        <table class="table table-condensed text-right table-striped">
          <thead>
           <tr>
             <th></th>
-            <th class="text-right">Mercer County</th>
-            <th class="text-right">Helpline</th>
-            <th class="text-right">Cont. Ed.</th>
+            <th class="text-center">Mercer County</th>
+            <th class="text-center">Helpline</th>
+            <th class="text-center">CE</th>
             <? if ($isTrainee){ ?>
               <th>Compost</th>
               <th>Other</th>
             <? } ?>
-            <th class="text-right">TOTAL HOURS</th>
+            <th class="text-center">Total Hours</th>
           </tr>
         </thead>
          <tr>
