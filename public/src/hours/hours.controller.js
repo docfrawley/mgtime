@@ -4,11 +4,12 @@
 angular.module('HoursApp')
 .controller('HoursController',HoursController);
 
-HoursController.$inject=['HoursService', 'items', 'totals'];
-function HoursController(HoursService, items, totals) {
+HoursController.$inject=['HoursService', 'items', 'totals', 'mgstatus'];
+function HoursController(HoursService, items, totals, mgstatus) {
   var hctrl=this;
    hctrl.items = items.data;
    hctrl.totals = totals.data;
+   hctrl.mgstatus = mgstatus.data.mgstatus;
    hctrl.hdate = "";
    hctrl.hrstype = "";
    hctrl.numhrs = null;

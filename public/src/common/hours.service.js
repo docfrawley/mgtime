@@ -11,6 +11,7 @@ function HoursService($http, ApiPath) {
   var service = this;
 
 
+
   service.enterHours = function(hdate, hrstype, numhrs, description) {
     var response = $http({
       method: "POST",
@@ -35,6 +36,17 @@ function HoursService($http, ApiPath) {
         numhrs:       info.numhrs,
         description:  info.description,
         numid:        info.numid
+      }
+    });
+    return response;
+  };
+
+  service.getStatus = function(){
+    var response = $http({
+      method: "GET",
+      url: (ApiPath +"loginajaxfiles.php"),
+      params: {
+        task: 'get_status'
       }
     });
     return response;

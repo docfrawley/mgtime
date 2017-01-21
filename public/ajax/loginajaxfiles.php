@@ -84,6 +84,14 @@ if ($task=='getinfo'){
   echo json_encode($returnArray);
 }
 
+if ($task=='get_status'){
+  $member = new memberObject($_SESSION['memberid']);
+  $returnArray = array(
+    "mgstatus"  => $member->get_status()
+  );
+  echo json_encode($returnArray);
+}
+
 if ($task=='hours_info'){
   $member = new memberHrs($_SESSION['memberid']);
   $returnArray = $member->get_hours();

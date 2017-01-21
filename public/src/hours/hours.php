@@ -1,5 +1,5 @@
 <div class="row">
-  <div class="col-md-7" >
+  <div class="col-md-6" >
     <div class="row">
       <div class="col-sm-12">
         <div class="panel panel-default">
@@ -76,11 +76,10 @@
                         required>
                   <option value="Mercer County">Mercer County</option>
                   <option value="Helpline">Helpline</option>
-                  <option value="Continuing Ed">Continuing Ed</option>
-                  <? if ($isTrainee){ ?>
-                    <option value="Compost (Trainee)">Compost (Trainee)</option>
-                    <option value="Other (Trainee)">Other (Trainee)</option>
-                  <?}?>
+                  <option ng-show="hctrl.mgstatus!='A - Trainee'"
+                          value="Continuing Ed">Continuing Ed</option>
+                  <option ng-show="hctrl.mgstatus=='A - Trainee'"
+                          value="Compost (Trainee)">Compost (Trainee)</option>
 
                 </select>
                 <span class="input_warning"
@@ -192,11 +191,10 @@
                         required>
                   <option value="Mercer County">Mercer County</option>
                   <option value="Helpline">Helpline</option>
-                  <option value="Continuing Ed">Continuing Ed</option>
-                  <? if ($isTrainee){ ?>
-                  <option value="Compost (Trainee)">Compost (Trainee)</option>
-                  <option value="Other (Trainee)">Other (Trainee)</option>
-                  <? } ?>
+                  <option ng-show="hctrl.mgstatus!='A - Trainee'"
+                          value="Continuing Ed">Continuing Ed</option>
+                  <option ng-show="hctrl.mgstatus=='A - Trainee'"
+                          value="Compost (Trainee)">Compost (Trainee)</option>
                 </select>
                 <span class="input_warning"
                   ng-if="hedForm.hrstype.$error.required && hedForm.hrstype.$touched">
@@ -286,205 +284,180 @@
       </div>
     </div>
  </div>
- <div class="col-md-5">
+ <div class="col-md-6">
 
    <div class="panel panel-default">
      <div class="panel-body text-center">
-       <h4>Yearly Hour Totals for <? echo date('Y'); ?> </h4>
-       <h6 class="text-left">Hrs Requirement: 30 Volunteer Hours consisting of a minumum
-        of 15 hours on Helpline. You are also responsible for 10 hrs of Continuing Ed. </h6>
-
-        <div class="row text-left">
-          <div class="col-sm-4">Volunteer Hours:</div>
-          <div class="col-sm-1 text-right">{{hctrl.totals[12]['Total']}}</div>
-          <div class="col-sm-6"
-            ng-if="hctrl.totals[12]['Total']>=40 && hctrl.totals[12]['Helpline'] >=15">
-            <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
-            &nbsp; requirement met
-          </div>
-          <div class="col-sm-6"
-            ng-if="hctrl.totals[12]['Total']>=40 && hctrl.totals[12]['Helpline'] <15">
-            <span class="glyphicon glyphicon-alert" aria-hidden="true"></span>
-            &nbsp; Must have 15 Helpline hrs.
-          </div>
-        </div>
-        <div class="row text-left">
-          <div class="col-sm-4">Mercer County:</div>
-          <div class="col-sm-1 text-right">{{hctrl.totals[12]['Mercer County']}}</div>
-        </div>
-        <div class="row text-left">
-          <div class="col-sm-4">Helpline:</div>
-          <div class="col-sm-1 text-right">{{hctrl.totals[12]['Helpline']}}</div>
-          <div class="col-sm-6"
-            ng-if="hctrl.totals[12]['Helpline']>=15">
-            <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
-            &nbsp; requirement met
-          </div>
-        </div>
-        <div class="row text-left">
-          <div class="col-sm-4">Continuing Ed:</div>
-          <div class="col-sm-1 text-right" ng-if="hctrl.totals[12]['Continuing Ed']>10">
-            10</div>
-          <div class="col-sm-1 text-right" ng-if="hctrl.totals[12]['Continuing Ed']<=10">
-            {{hctrl.totals[12]['Continuing Ed']}}</div>
-          <div class="col-sm-6"
-            ng-if="hctrl.totals[12]['Helpline']>=10">
-            <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
-            &nbsp; requirement met
-          </div>
-          <div class="col-sm-12" ng-if="hctrl.totals[12]['Continuing Ed']>=10">
-            <br><h6><span class="glyphicon glyphicon-alert"></span>&nbsp;Be advised that you have the
-            maximum number of Continuing Ed hrs allowed. Any additional continuing ed hours
-            you enter will not be counted in your overal total.</h6>
-        </div>
-        <? if ($isTrainee){ ?>
-          <div class="row text-left">
-            <div class="col-sm-4">Compost:</div>
-            <div class="col-sm-1 text-right">{{hctrl.totals[12]['Compost']}}</div>
-          </div>
-          <div class="row text-left">
-            <div class="col-sm-4">Other:</div>
-            <div class="col-sm-1 text-right">{{hctrl.totals[12]['Other']}}</div>
-          </div>
-          <? }?>
-
-        </div>
+       <h3>Yearly Hour Totals for <? echo date('Y'); ?> </h3><br>
+       <table class="table table-bordered table-hover">
+          <thead>
+            <tr>
+              <th></th>
+              <th class ="text-center">Requirement</th>
+              <th class ="text-center">Annual</th>
+              <th class ="text-center">Historical</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">Volunteer Hours:</th>
+                <td ng-show="hctrl.mgstatus=='A - Trainee'">60</td>
+                <td ng-show="hctrl.mgstatus!='A - Trainee'">30</td>
+              <td>{{hctrl.totals[12]['Total']}}</td>
+              <td> --- </td>
+            </tr>
+            <tr>
+              <th scope="row">&nbsp;&nbsp;&nbsp;&nbsp;Mercer County</th>
+              <td ng-show="hctrl.mgstatus=='A - Trainee'">25</td>
+              <td ng-show="hctrl.mgstatus!='A - Trainee'">15</td>
+              <td>{{hctrl.totals[12]['Mercer County']}}</td>
+              <td> --- </td>
+            </tr>
+            <tr>
+              <th scope="row">&nbsp;&nbsp;&nbsp;&nbsp;Helpline</th>
+              <td ng-show="hctrl.mgstatus=='A - Trainee'">30</td>
+              <td ng-show="hctrl.mgstatus!='A - Trainee'">15</td>
+              <td>{{hctrl.totals[12]['Helpline']}}</td>
+              <td> --- </td>
+            </tr>
+            <tr ng-show="hctrl.mgstatus!='A - Trainee'">
+                <th scope="row">Continuing Ed (CE)</th>
+                <td>10</td>
+                <td>{{hctrl.totals[12]['Continuing Ed']}}</td>
+                <td> --- </td>
+            </tr>
+            <tr ng-show="hctrl.mgstatus=='A - Trainee'">
+                <th scope="row">&nbsp;&nbsp;&nbsp;&nbsp;Compost</th>
+                <td>5</td>
+                <td>{{hctrl.totals[12]['Continuing Ed']}}</td>
+                <td> --- </td>
+            </tr>
+          </tbody>
+        </table>
         <br>
 
-       <h4 class="text-center"><? echo date('Y'); ?> Monthly Hour Totals</h4><br>
-       <table class="table table-condensed text-right table-striped">
+       <h3 class="text-center"><? echo date('Y'); ?> Monthly Hour Totals</h3><br>
+       <table class="table table-condensed table-striped">
          <thead>
           <tr>
             <th></th>
             <th class="text-center">Mercer County</th>
             <th class="text-center">Helpline</th>
-            <th class="text-center">CE</th>
-            <? if ($isTrainee){ ?>
-              <th>Compost</th>
-              <th>Other</th>
-            <? } ?>
+
+              <th class="text-center"
+                  ng-show="hctrl.mgstatus=='A - Trainee'">Compost</th>
+              <th class="text-center"
+                  ng-show="hctrl.mgstatus!='A - Trainee'">CE</th>
             <th class="text-center">Total Hours</th>
           </tr>
         </thead>
          <tr>
-           <td>January:</td>
+           <td class="text-left">January:</td>
            <td>{{hctrl.totals[0]['Mercer County']}}</td>
            <td>{{hctrl.totals[0]['Helpline']}}</td>
-           <td>{{hctrl.totals[0]['Continuing Ed']}}</td>
-           <? if ($isTrainee){ ?>
-           <td>{{hctrl.totals[0]['Compost']}}</td>
-           <td>{{hctrl.totals[0]['Other']}}</td>
-           <? }?>
+             <td ng-show="hctrl.mgstatus=='A - Trainee'">
+               {{hctrl.totals[0]['Compost']}}</td>
+             <td ng-show="hctrl.mgstatus!='A - Trainee'">
+               {{hctrl.totals[0]['Continuing Ed']}}</td>
            <td>{{hctrl.totals[0]['Total']}}</td>
          </tr>
-         <tr><td>February:</td>
+         <tr><td class="text-left">February:</td>
            <td>{{hctrl.totals[1]['Mercer County']}}</td>
            <td>{{hctrl.totals[1]['Helpline']}}</td>
-           <td>{{hctrl.totals[1]['Continuing Ed']}}</td>
-           <? if ($isTrainee){ ?>
-           <td>{{hctrl.totals[1]['Compost']}}</td>
-           <td>{{hctrl.totals[1]['Other']}}</td>
-           <? }?>
+           <td ng-show="hctrl.mgstatus=='A - Trainee'">
+             {{hctrl.totals[1]['Compost']}}</td>
+           <td ng-show="hctrl.mgstatus!='A - Trainee'">
+             {{hctrl.totals[1]['Continuing Ed']}}</td>
            <td>{{hctrl.totals[1]['Total']}}</td>
          </tr>
-         <tr><td>March:</td>
+         <tr><td class="text-left">March:</td>
            <td>{{hctrl.totals[2]['Mercer County']}}</td>
            <td>{{hctrl.totals[2]['Helpline']}}</td>
-           <td>{{hctrl.totals[2]['Continuing Ed']}}</td>
-           <? if ($isTrainee){ ?>
-           <td>{{hctrl.totals[2]['Compost']}}</td>
-           <td>{{hctrl.totals[2]['Other']}}</td>
-           <? }?>
+           <td ng-show="hctrl.mgstatus=='A - Trainee'">
+             {{hctrl.totals[2]['Compost']}}</td>
+           <td ng-show="hctrl.mgstatus!='A - Trainee'">
+             {{hctrl.totals[2]['Continuing Ed']}}</td>
            <td>{{hctrl.totals[2]['Total']}}</td>
          </tr>
-         <tr><td>April:</td>
+         <tr><td class="text-left">April:</td>
            <td>{{hctrl.totals[3]['Mercer County']}}</td>
            <td>{{hctrl.totals[3]['Helpline']}}</td>
-           <td>{{hctrl.totals[3]['Continuing Ed']}}</td>
-           <? if ($isTrainee){ ?>
-           <td>{{hctrl.totals[3]['Compost']}}</td>
-           <td>{{hctrl.totals[3]['Other']}}</td>
-           <? }?>
+           <td ng-show="hctrl.mgstatus=='A - Trainee'">
+             {{hctrl.totals[3]['Compost']}}</td>
+           <td ng-show="hctrl.mgstatus!='A - Trainee'">
+             {{hctrl.totals[3]['Continuing Ed']}}</td>
            <td>{{hctrl.totals[3]['Total']}}</td>
          </tr>
-         <tr><td>May:</td>
+         <tr><td class="text-left">May:</td>
            <td>{{hctrl.totals[4]['Mercer County']}}</td>
            <td>{{hctrl.totals[4]['Helpline']}}</td>
-           <td>{{hctrl.totals[4]['Continuing Ed']}}</td>
-           <? if ($isTrainee){ ?>
-           <td>{{hctrl.totals[4]['Compost']}}</td>
-           <td>{{hctrl.totals[4]['Other']}}</td>
-           <? }?>
+           <td ng-show="hctrl.mgstatus=='A - Trainee'">
+             {{hctrl.totals[4]['Compost']}}</td>
+           <td ng-show="hctrl.mgstatus!='A - Trainee'">
+             {{hctrl.totals[4]['Continuing Ed']}}</td>
            <td>{{hctrl.totals[4]['Total']}}</td>
          </tr>
-         <tr><td>June:</td>
+         <tr><td class="text-left">June:</td>
            <td>{{hctrl.totals[5]['Mercer County']}}</td>
            <td>{{hctrl.totals[5]['Helpline']}}</td>
-           <td>{{hctrl.totals[5]['Continuing Ed']}}</td>
-           <? if ($isTrainee){ ?>
-           <td>{{hctrl.totals[5]['Compost']}}</td>
-           <td>{{hctrl.totals[5]['Other']}}</td>
-           <? }?>
+           <td ng-show="hctrl.mgstatus=='A - Trainee'">
+             {{hctrl.totals[5]['Compost']}}</td>
+           <td ng-show="hctrl.mgstatus!='A - Trainee'">
+             {{hctrl.totals[5]['Continuing Ed']}}</td>
            <td>{{hctrl.totals[5]['Total']}}</td>
          </tr>
-         <tr><td>July:</td>
+         <tr><td class="text-left">July:</td>
            <td>{{hctrl.totals[6]['Mercer County']}}</td>
            <td>{{hctrl.totals[6]['Helpline']}}</td>
-           <td>{{hctrl.totals[6]['Continuing Ed']}}</td>
-           <? if ($isTrainee){ ?>
-           <td>{{hctrl.totals[6]['Compost']}}</td>
-           <td>{{hctrl.totals[6]['Other']}}</td>
-           <? }?>
+           <td ng-show="hctrl.mgstatus=='A - Trainee'">
+             {{hctrl.totals[6]['Compost']}}</td>
+           <td ng-show="hctrl.mgstatus!='A - Trainee'">
+             {{hctrl.totals[6]['Continuing Ed']}}</td>
            <td>{{hctrl.totals[6]['Total']}}</td>
          </tr>
-         <tr><td>August:</td>
+         <tr><td class="text-left">August:</td>
            <td>{{hctrl.totals[7]['Mercer County']}}</td>
            <td>{{hctrl.totals[7]['Helpline']}}</td>
-           <td>{{hctrl.totals[7]['Continuing Ed']}}</td>
-           <? if ($isTrainee){ ?>
-           <td>{{hctrl.totals[7]['Compost']}}</td>
-           <td>{{hctrl.totals[7]['Other']}}</td>
-           <? }?>
+           <td ng-show="hctrl.mgstatus=='A - Trainee'">
+             {{hctrl.totals[7]['Compost']}}</td>
+           <td ng-show="hctrl.mgstatus!='A - Trainee'">
+             {{hctrl.totals[7]['Continuing Ed']}}</td>
            <td>{{hctrl.totals[7]['Total']}}</td>
          </tr>
-         <tr><td>September:</td>
+         <tr><td class="text-left">September:</td>
            <td>{{hctrl.totals[8]['Mercer County']}}</td>
            <td>{{hctrl.totals[8]['Helpline']}}</td>
-           <td>{{hctrl.totals[8]['Continuing Ed']}}</td>
-           <? if ($isTrainee){ ?>
-           <td>{{hctrl.totals[8]['Compost']}}</td>
-           <td>{{hctrl.totals[8]['Other']}}</td>
-           <? }?>
+           <td ng-show="hctrl.mgstatus=='A - Trainee'">
+             {{hctrl.totals[8]['Compost']}}</td>
+           <td ng-show="hctrl.mgstatus!='A - Trainee'">
+             {{hctrl.totals[8]['Continuing Ed']}}</td>
            <td>{{hctrl.totals[8]['Total']}}</td>
          </tr>
-         <tr><td>October:</td>
+         <tr><td class="text-left">October:</td>
            <td>{{hctrl.totals[9]['Mercer County']}}</td>
            <td>{{hctrl.totals[9]['Helpline']}}</td>
-           <td>{{hctrl.totals[9]['Continuing Ed']}}</td>
-           <? if ($isTrainee){ ?>
-           <td>{{hctrl.totals[9]['Compost']}}</td>
-           <td>{{hctrl.totals[9]['Other']}}</td>
-           <? }?>
+           <td ng-show="hctrl.mgstatus=='A - Trainee'">
+             {{hctrl.totals[9]['Compost']}}</td>
+           <td ng-show="hctrl.mgstatus!='A - Trainee'">
+             {{hctrl.totals[9]['Continuing Ed']}}</td>
            <td>{{hctrl.totals[9]['Total']}}</td>
          </tr>
-         <tr><td>November:</td>
+         <tr><td class="text-left">November:</td>
            <td>{{hctrl.totals[10]['Mercer County']}}</td>
            <td>{{hctrl.totals[10]['Helpline']}}</td>
-           <td>{{hctrl.totals[10]['Continuing Ed']}}</td>
-           <? if ($isTrainee){ ?>
-           <td>{{hctrl.totals[10]['Compost']}}</td>
-           <td>{{hctrl.totals[10]['Other']}}</td>
-           <? }?>
+           <td ng-show="hctrl.mgstatus=='A - Trainee'">
+             {{hctrl.totals[10]['Compost']}}</td>
+           <td ng-show="hctrl.mgstatus!='A - Trainee'">
+             {{hctrl.totals[10]['Continuing Ed']}}</td>
            <td>{{hctrl.totals[10]['Total']}}</td>
          </tr>
-         <tr><td>December:</td>
+         <tr><td class="text-left">December:</td>
            <td>{{hctrl.totals[11]['Mercer County']}}</td>
            <td>{{hctrl.totals[11]['Helpline']}}</td>
-           <td>{{hctrl.totals[11]['Continuing Ed']}}</td>
-           <? if ($isTrainee){ ?>
-           <td>{{hctrl.totals[11]['Compost']}}</td>
-           <td>{{hctrl.totals[11]['Other']}}</td>
-           <? }?>
+           <td ng-show="hctrl.mgstatus=='A - Trainee'">
+             {{hctrl.totals[11]['Compost']}}</td>
+           <td ng-show="hctrl.mgstatus!='A - Trainee'">
+             {{hctrl.totals[11]['Continuing Ed']}}</td>
            <td>{{hctrl.totals[11]['Total']}}</td>
          </tr>
        </table>

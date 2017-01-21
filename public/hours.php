@@ -5,11 +5,10 @@ session_start();
 if (isset($_SESSION['memberid'])) {
 include("../includes/menu.php");
 $member = new memberObject($_SESSION['memberid']);
-$isTrainee = $member->isTrainee();
 ?>
   <div="container">
     <div class="col-sm-12 text-center">
-      <h1>Time Collection for <? echo $member->get_fullname();?></h1><br/>
+      <h1>Time Collection for <? echo $member->get_fullname() ?></h1><br/>
     </div>
   </div>
   <div class="container" ng-app='HoursApp' ng-strict-di>

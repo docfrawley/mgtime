@@ -20,6 +20,10 @@
     margin: 0 auto;
 }
 
+.hrstablepad {
+  padding-left: 5px;
+}
+
 #hrsadmin{
   border-color:green;
   border-style: solid;

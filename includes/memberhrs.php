@@ -14,7 +14,7 @@ class memberHrs {
 	function set_hrs(){
 		global $database;
     $this->memhrs =  array();
-    $sql="SELECT * FROM hours WHERE memberid='".$this->memberid."' ORDER BY hdate";
+    $sql="SELECT * FROM hours WHERE memberid='".$this->memberid."' ORDER BY hdate ASC";
     $result_set = $database->query($sql);
 		while ($value = $database->fetch_array($result_set)) {
       $hrsobject = new hrsObject($value['numid']);

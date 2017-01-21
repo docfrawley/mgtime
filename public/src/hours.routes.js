@@ -25,6 +25,9 @@ function RoutesConfig($stateProvider, $urlRouterProvider) {
       }],
       totals: ['HoursService',function (HoursService) {
         return HoursService.getHourTotals();
+      }],
+      mgstatus: ['HoursService',function (HoursService) {
+        return HoursService.getStatus();
       }]
     }
 
