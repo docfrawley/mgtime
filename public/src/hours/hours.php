@@ -13,6 +13,8 @@
               Edits were successful</div>
             <div ng-if="hctrl.deleted" class="alert alert-success" role="alert">
               That entry was deleted</div>
+              <div ng-show="hctrl.dateGone" class="alert alert-warning" role="alert">
+                The date entered is either past 91 days or has yet to occur.</div>
             <br />
             <form name='hrsForm' novalidate>
             <div class="form-group">
@@ -100,7 +102,7 @@
                  Please enter number of hours.
                </span><br>
             </div>
-            <div ng-show="!hctrl.ishelpline">
+            <div ng-if="!hctrl.ishelpline">
               <label class="col-sm-2 control-label text-left"
               for="inputEmail">Description: </label>
               <div class="col-sm-10">
@@ -122,8 +124,11 @@
         </form>
           <div class="panel-body" ng-if="!hctrl.addhrs">
               <div class="col-sm-12 text-center">
-                <h3 ng-if="!hctrl.entered" >
-                  Edit or Delete This Entry</h3><br>
+                <h3 ng-if="!hctrl.entered && !hctrl.dateGone" >
+                  Edit or Delete This Entry</h3>
+
+                  <div ng-show="hctrl.dateGone" class="alert alert-warning" role="alert">
+                    The date entered is either past 91 days or has yet to occur.</div><br>
               </div>
 
 
@@ -187,7 +192,7 @@
                 <select class="custom-select form-control"
                         ng-model="hctrl.edItems.hrstype"
                         name="hrstype"
-                        ng-change="hctrl.checkHelpline()"
+                        ng-change="hctrl.checkHelplineE()"
                         required>
                   <option value="Mercer County">Mercer County</option>
                   <option value="Helpline">Helpline</option>
@@ -215,7 +220,7 @@
                </span><br>
              </div>
 
-            <div ng-show="!hctrl.ishelpline">
+            <div ng-if="!hctrl.ishelpline">
               <label class="col-sm-2 control-label text-left"
               for="inputEmail">Description: </label>
               <div class="col-sm-10">

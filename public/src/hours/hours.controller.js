@@ -19,9 +19,14 @@ function HoursController(HoursService, items, totals, mgstatus) {
    hctrl.edited = false;
    hctrl.deleted = false;
    hctrl.ishelpline = false;
+   hctrl.dateGone = false;
 
    hctrl.checkHelpline = function (){
-     hctrl.ishelpline = (hctrl.hrstype=="Helpline" || hctrl.edItems.hrstype=="Helpline");
+     hctrl.ishelpline = (hctrl.hrstype=="Helpline");
+   };
+
+   hctrl.checkHelplineE = function (){
+     hctrl.ishelpline = (hctrl.edItems.hrstype=="Helpline");
    };
 
 
@@ -34,7 +39,10 @@ function HoursController(HoursService, items, totals, mgstatus) {
               hctrl.hrstype = "";
               hctrl.numhrs = null;
               hctrl.description = "";
+              hctrl.dateGone = false;
               hrsForm.$setUntouched();
+            } else {
+              hctrl.dateGone = true;
             }
           }).then(function (response) {
             HoursService.getHoursInfo()
@@ -69,17 +77,22 @@ function HoursController(HoursService, items, totals, mgstatus) {
     hctrl.edited = false;
     hctrl.deleted = false;
     hctrl.entered = false;
-    hctrl.ishelpline = false;
+    hctrl.ishelpline = (hctrl.hrstype=="Helpline");
   };
 
 
   hctrl.hedit = function () {
       HoursService.updateHours(hctrl.edItems)
           .then(function (response) {
+            hctrl.edited = response.data.success;
+            if (hctrl.edited){
             hctrl.addhrs = true;
-            hctrl.edited = true;
             hctrl.entered = false;
             hctrl.deleted = false;
+            hctrl.dateGone = false;
+          } else {
+            hctrl.dateGone = true;
+          }
           }).then(function (response) {
             HoursService.getHoursInfo()
             .then(function (response) {
