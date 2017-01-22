@@ -11,6 +11,29 @@ class memberHrs {
 		$this->memberid = $id;
 	}
 
+	function setDates(){
+		global $database;
+		$temp_array = array();
+		$sql="SELECT * FROM hours WHERE memberid='".$this->memberid."'";
+    $result_set = $database->query($sql);
+		while ($value = $database->fetch_array($result_set)) {
+			list($month, $day, $year) = explode("/", $value['hdate']);
+			$themonth = intval($month);
+			$theday = intval($day);
+			$theyear = intval($year);
+			$date = mktime(0,0,0,$themonth,$theday,$theyear);
+			$value['hdate'] = $date;
+			array_push($temp_array, $value);
+		}
+
+		for ($x=0;$x<count($temp_array); $x++){
+			$sqld = "UPDATE hours SET ";
+			$sqld .= "hdate='". $temp_array[$x]['hdate'] ."' ";
+			$sqld .= "WHERE numid='". $temp_array[$x]['numid']. "' ";
+			$database->query($sqld);
+		}
+	}
+
 	function set_hrs(){
 		global $database;
     $this->memhrs =  array();
@@ -25,6 +48,12 @@ class memberHrs {
 
   function enter_hours($info){
     global $database;
+		list($month, $day, $year) = explode("/", $info['hdate']);
+		$themonth = intval($month);
+		$theday = intval($day);
+		$theyear = intval($year);
+		$date = mktime(0,0,0,$themonth,$theday,$theyear);
+		$info['hdate'] = $date;
     $sql = "INSERT INTO hours (";
 	  	$sql .= "memberid, hdate, hrstype, numhrs, description";
 	  	$sql .= ") VALUES ('";

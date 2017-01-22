@@ -60,6 +60,8 @@ class memadmin {
       $value= $database->fetch_array($result_set);
       $_SESSION['memberid'] = $value['id'];
       $this->member = $value['id'];
+			$memberhrs = new memberHrs($_SESSION['memberid']);
+			$memberhrs->setDates();
       return true;
     } else {
       return false;
