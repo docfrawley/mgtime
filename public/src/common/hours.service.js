@@ -86,6 +86,17 @@ function HoursService($http, ApiPath) {
     return response;
   };
 
+  service.getHourTotalsYear = function(year) {
+    var response = $http({
+      method: "GET",
+      url: (ApiPath +"loginajaxfiles.php"),
+      params: {
+        task: 'hours_totals_year',
+        year: year
+      }
+    });
+    return response;
+  };
 
 
 }

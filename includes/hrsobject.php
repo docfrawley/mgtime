@@ -21,6 +21,10 @@ class hrsObject {
     $this->hdate = $value['hdate'];
 	}
 
+  function get_date(){
+    return $this->hdate;
+  }
+
   function set_in_array(){
     $temp_array = array(
       'hdate'       => date('m/d/Y',$this->hdate),

@@ -34,15 +34,19 @@ class memberHrs {
 		}
 	}
 
-	function set_hrs(){
+	function set_hrs($year=2000){
 		global $database;
+		if ($year=2000) {$year=date("Y");}
     $this->memhrs =  array();
     $sql="SELECT * FROM hours WHERE memberid='".$this->memberid."' ORDER BY hdate ASC";
     $result_set = $database->query($sql);
 		while ($value = $database->fetch_array($result_set)) {
       $hrsobject = new hrsObject($value['numid']);
-			$temp_array = $hrsobject->set_in_array();
-			array_push($this->memhrs, $temp_array);
+			$whatYear = date('Y', $hrsobject->get_date());
+			if ($year == $whatYear){
+				$temp_array = $hrsobject->set_in_array();
+				array_push($this->memhrs, $temp_array);
+			}
 		}
 	}
 
@@ -78,7 +82,7 @@ class memberHrs {
 		return $this->memhrs;
 	}
 
-	function get_hours_month($whichMonth){
+	function get_hours_month($whichMonth, $year){
 		global $database;
     $month_array =  array(
 			"Mercer County" 					=> 0,
@@ -88,11 +92,8 @@ class memberHrs {
 			"Other (Trainee)"   			=> 0,
 			"Total"										=> 0
 		);
-		if ($whichMonth<10){
-			$whichMonth="0".$whichMonth;
-		}
-		$date_range1 = $whichMonth."/01/2016";
-		$date_range2 = $whichMonth."/31/2016";
+		$date_range1 = mktime(0,0,0,$whichMonth,1,$year);
+		$date_range2 = mktime(23,59,59,$whichMonth,31,$year);
     $sql="SELECT * FROM hours WHERE memberid='".$this->memberid."'
 		AND hdate>= '".$date_range1."' AND hdate <='".$date_range2."'
 		ORDER BY hdate";
@@ -105,11 +106,12 @@ class memberHrs {
 		return $month_array;
 	}
 
-	function get_totalss(){
-		$this->set_hrs();
+	function get_totalss($year=2000){
+		if ($year=2000){$year=date('Y');}
+		$this->set_hrs($year);
 		$months_array = array();
 		for ($month=1; $month<=12; $month++){
-			array_push($months_array, $this->get_hours_month($month));
+			array_push($months_array, $this->get_hours_month($month, $year));
 		}
 		$total_array =  array(
 			"Mercer County" 					=> 0,
@@ -137,15 +139,22 @@ class memberHrs {
 		$current_month=0;
 		$total = 0;
 		for ($i = 0; $i < count($this->memhrs); $i++) {
-			list($month, $day, $year) = explode("/", $this->memhrs[$i]['hdate']);
-	    if ($month>($current_month+1)){
-				$current_month = $month-1;
+			$date = date('m/d/Y',$this->memhrs[$i]['hdate']);
+			list($month, $day, $year) = explode("/", $date);
+			if ($year == date('Y')) {
+				if ($month>($current_month+1)){
+					$current_month = $month-1;
+				}
+				$months_array[$current_month] += $this->memhrs[$i]['numhrs'];
+				$total += $this->memhrs[$i]['numhrs'];
 			}
-			$months_array[$current_month] += $this->memhrs[$i]['numhrs'];
-			$total += $this->memhrs[$i]['numhrs'];
 		}
 		array_push($months_array, $total);
 		return $months_array;
+	}
+
+	function get_totalsYear($year){
+
 	}
 }
 ?>

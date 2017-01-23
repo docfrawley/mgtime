@@ -103,4 +103,11 @@ if ($task == 'hours_totals'){
   $returnArray = $member->get_totalss();
   echo json_encode($returnArray);
 }
+
+if ($task == 'hours_totals_year'){
+  $member = new memberHrs($_SESSION['memberid']);
+  $returnArray = $member->get_totalsYear($_GET['year']);
+  echo json_encode($returnArray);
+}
+
 ?>
