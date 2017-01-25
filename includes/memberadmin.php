@@ -61,7 +61,7 @@ class memadmin {
       $_SESSION['memberid'] = $value['id'];
       $this->member = $value['id'];
 			$memberhrs = new memberHrs($_SESSION['memberid']);
-			$memberhrs->setDates();
+			//$memberhrs->setDates();
       return true;
     } else {
       return false;

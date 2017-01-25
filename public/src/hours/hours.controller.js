@@ -8,7 +8,9 @@ HoursController.$inject=['HoursService', 'items', 'totals', 'mgstatus'];
 function HoursController(HoursService, items, totals, mgstatus) {
   var hctrl=this;
    hctrl.items = items.data;
+   console.log(hctrl.items);
    hctrl.totals = totals.data;
+   console.log(hctrl.totals);
    hctrl.mgstatus = mgstatus.data.mgstatus;
    hctrl.hdate = "";
    hctrl.hrstype = "";

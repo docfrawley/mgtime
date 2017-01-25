@@ -11,33 +11,33 @@ class memberHrs {
 		$this->memberid = $id;
 	}
 
-	function setDates(){
-		global $database;
-		$temp_array = array();
-		$sql="SELECT * FROM hours WHERE memberid='".$this->memberid."'";
-    $result_set = $database->query($sql);
-		while ($value = $database->fetch_array($result_set)) {
-			list($month, $day, $year) = explode("/", $value['hdate']);
-			$themonth = intval($month);
-			$theday = intval($day);
-			$theyear = intval($year);
-			$date = mktime(0,0,0,$themonth,$theday,$theyear);
-			$value['hdate'] = $date;
-			array_push($temp_array, $value);
-		}
-
-		for ($x=0;$x<count($temp_array); $x++){
-			$sqld = "UPDATE hours SET ";
-			$sqld .= "hdate='". $temp_array[$x]['hdate'] ."' ";
-			$sqld .= "WHERE numid='". $temp_array[$x]['numid']. "' ";
-			$database->query($sqld);
-		}
-	}
+	// function setDates(){
+	// 	global $database;
+	// 	$temp_array = array();
+	// 	$sql="SELECT * FROM hours WHERE memberid='".$this->memberid."'";
+  //   $result_set = $database->query($sql);
+	// 	while ($value = $database->fetch_array($result_set)) {
+	// 		list($month, $day, $year) = explode("/", $value['hdate']);
+	// 		$themonth = intval($month);
+	// 		$theday = intval($day);
+	// 		$theyear = intval($year);
+	// 		$date = mktime(0,0,0,$themonth,$theday,$theyear);
+	// 		$value['hdate'] = $date;
+	// 		array_push($temp_array, $value);
+	// 	}
+	// 
+	// 	for ($x=0;$x<count($temp_array); $x++){
+	// 		$sqld = "UPDATE hours SET ";
+	// 		$sqld .= "hdate='". $temp_array[$x]['hdate'] ."' ";
+	// 		$sqld .= "WHERE numid='". $temp_array[$x]['numid']. "' ";
+	// 		$database->query($sqld);
+	// 	}
+	// }
 
 	function set_hrs($year=2000){
 		global $database;
 		if ($year=2000) {$year=date("Y");}
-    $this->memhrs =  array();
+    $hrs_array =  array();
     $sql="SELECT * FROM hours WHERE memberid='".$this->memberid."' ORDER BY hdate ASC";
     $result_set = $database->query($sql);
 		while ($value = $database->fetch_array($result_set)) {
@@ -45,9 +45,10 @@ class memberHrs {
 			$whatYear = date('Y', $hrsobject->get_date());
 			if ($year == $whatYear){
 				$temp_array = $hrsobject->set_in_array();
-				array_push($this->memhrs, $temp_array);
+				array_push($hrs_array, $temp_array);
 			}
 		}
+		return $hrs_array;
 	}
 
   function enter_hours($info){
@@ -78,8 +79,7 @@ class memberHrs {
 	}
 
 	function get_hours(){
-		$this->set_hrs();
-		return $this->memhrs;
+		return $this->set_hrs();
 	}
 
 	function get_hours_month($whichMonth, $year){
@@ -108,7 +108,7 @@ class memberHrs {
 
 	function get_totalss($year=2000){
 		if ($year=2000){$year=date('Y');}
-		$this->set_hrs($year);
+		$totals_array = $this->set_hrs($year);
 		$months_array = array();
 		for ($month=1; $month<=12; $month++){
 			array_push($months_array, $this->get_hours_month($month, $year));
@@ -122,10 +122,10 @@ class memberHrs {
 			"Total"										=> 0
 		);
 
-		for ($i = 0; $i < count($this->memhrs); $i++) {
-			$key=$this->memhrs[$i]['hrstype'];
-			$total_array[$key] += $this->memhrs[$i]['numhrs'];
-			$total_array['Total'] += $this->memhrs[$i]['numhrs'];
+		for ($i = 0; $i < count($totals_array); $i++) {
+			$key=$totals_array[$i]['hrstype'];
+			$total_array[$key] += $totals_array[$i]['numhrs'];
+			$total_array['Total'] += $totals_array[$i]['numhrs'];
 		}
 		$total_array['Total']=$total_array['Total']-$total_array['Continuing Ed'];
 		array_push($months_array, $total_array);
@@ -134,27 +134,27 @@ class memberHrs {
 
 
 	function get_totals(){
-		$this->set_hrs();
+		$totals_array = $this->set_hrs();
 		$months_array = array(0,0,0,0,0,0,0,0,0,0,0,0);
 		$current_month=0;
 		$total = 0;
-		for ($i = 0; $i < count($this->memhrs); $i++) {
-			$date = date('m/d/Y',$this->memhrs[$i]['hdate']);
+		for ($i = 0; $i < count($totals_array); $i++) {
+			$date = date('m/d/Y',$totals_array[$i]['hdate']);
 			list($month, $day, $year) = explode("/", $date);
 			if ($year == date('Y')) {
 				if ($month>($current_month+1)){
 					$current_month = $month-1;
 				}
-				$months_array[$current_month] += $this->memhrs[$i]['numhrs'];
-				$total += $this->memhrs[$i]['numhrs'];
+				$months_array[$current_month] += $totals_array[$i]['numhrs'];
+				$total += $totals_array[$i]['numhrs'];
 			}
 		}
 		array_push($months_array, $total);
 		return $months_array;
 	}
 
-	function get_totalsYear($year){
-
-	}
+	// function get_totalsYear($year){
+	//
+	// }
 }
 ?>
