@@ -89,7 +89,19 @@
         <h2 ng-if="!mactrl.edited">Edit {{mactrl.edItems.fname}} {{mactrl.edItems.lname}}</h2>
         <h2 ng-if="mactrl.edited">Changes have been made</h2>
         <div class="form-group">
+          <div class="row">
+              <div class="col-sm-6">
+                <label>First Name: </label><br/>
+                <input class="form-control" type="text"
+                 placeholder="{{mactrl.edItems.fname}}" ng-model="mactrl.edItems.fname">
+              </div>
+              <div class="col-sm-6">
+                  <label>Last Name: </label><br/>
+                  <input class="form-control" type="text"
+                   placeholder="{{mactrl.edItems.lname}}" ng-model="mactrl.edItems.lname">
+                </div>
 
+           </div>
           <div class="row">
 
               <div class="col-sm-4">
@@ -120,7 +132,7 @@
 
           <div class="row">
             <div class="col-sm-3">
-              <button class='btn btn-lg btn-success' ng-click="mactrl.esubmit()">SUBMIT</button>
+              <button class='btn btn-lg btn-success' ng-click="mactrl.esubmit()">UPDATE</button>
             </div>
             <div class="col-sm-5">
               <button class='btn btn-lg btn-warning' ng-click="mactrl.backToAdd()">BACK TO ADD NEW MEMBER</button>

@@ -20,16 +20,16 @@ function HoursController(HoursService, items, totals, mgstatus) {
    hctrl.addhrs = true;
    hctrl.edited = false;
    hctrl.deleted = false;
-   hctrl.ishelpline = false;
+  //  hctrl.ishelpline = false;
    hctrl.dateGone = false;
 
-   hctrl.checkHelpline = function (){
-     hctrl.ishelpline = (hctrl.hrstype=="Helpline");
-   };
-
-   hctrl.checkHelplineE = function (){
-     hctrl.ishelpline = (hctrl.edItems.hrstype=="Helpline");
-   };
+  //  hctrl.checkHelpline = function (){
+  //    hctrl.ishelpline = (hctrl.hrstype=="Helpline");
+  //  };
+   //
+  //  hctrl.checkHelplineE = function (){
+  //    hctrl.ishelpline = (hctrl.edItems.hrstype=="Helpline");
+  //  };
 
 
   hctrl.submit = function (hrsForm) {
@@ -79,7 +79,7 @@ function HoursController(HoursService, items, totals, mgstatus) {
     hctrl.edited = false;
     hctrl.deleted = false;
     hctrl.entered = false;
-    hctrl.ishelpline = (hctrl.hrstype=="Helpline");
+    // hctrl.ishelpline = (hctrl.hrstype=="Helpline");
   };
 
 

@@ -1,4 +1,5 @@
 <? include_once("initialize.php");
+require_once 'vendor/autoload.php';
 session_start();
 
 class memadmin {
@@ -43,7 +44,9 @@ class memadmin {
 		global $database;
 		if ($info['adstatus']=="non") {$info['adstatus']="";}
     $sql = "UPDATE memberinfo SET ";
-		$sql .= "class='". $info['aclass'] ."', ";
+		$sql .= "fname='". $info['fname'] ."', ";
+		$sql .= "lname='". $info['lname'] ."', ";
+		$sql .= "class='". $info['class'] ."', ";
 		$sql .= "mgstatus='". $info['mgstatus'] ."', ";
 		$sql .= "admin_status='". $info['adstatus'] ."' ";
 		$sql .= "WHERE id='". $info['id']. "' ";
@@ -145,11 +148,11 @@ class memadmin {
     }
   }
 
-  function get_memberid(){
-		$temp_array = array();
-		$temp_array['id']=$this->member;
-    return $temp_array;
-  }
+  // function get_memberid(){
+	// 	$temp_array = array();
+	// 	$temp_array['id']=$this->member;
+  //   return $temp_array;
+  // }
 
   function checkUserName($username){
     global $database;
@@ -166,8 +169,59 @@ class memadmin {
 		$sql .= "email='". $info['email'] ."' ";
 		$sql .= "WHERE id='". $_SESSION['memberid']. "' ";
 		$database->query($sql);
+		$username = $info['uname'];
+		$password = $info['pword'];
+		$email = $info['email'];
+		$m = new PHPMailer;
+		$m->From = 'hours@mgofmc.org';
+		$m->FromName = "";
+		$m->addReplyTo('hours@mgofmc.org', "Reply Address");
+		$m->Subject = "Master Gardners Info, Part I";
+		$m->Body = "Your username as: ".$username.".";
+		$m->addAddress($email);
+		$m->send();
+
+		$m = new PHPMailer;
+		$m->From = 'hours@mgofmc.org';
+		$m->FromName = "";
+		$m->addReplyTo('hours@mgofmc.org', "Reply Address");
+		$m->Subject = "Master Gardners Info, Part II";
+		$m->Body = "Your password as: ".$password.".";
+		$m->addAddress($email);
+		$m->send();
 	//	$_SESSION['newUser'] = true;
   }
+
+	function check_email($email){
+		global $database;
+    $sql="SELECT * FROM memberinfo WHERE email='".$email."'";
+		$result_set = $database->query($sql);
+		$value = $database->fetch_array($result_set);
+		$isThere = ($database->num_rows($result_set)>0);
+		if ($isThere){
+			$username = $value['username'];
+			$password = $value['password'];
+			$email = $value['email'];
+			$m = new PHPMailer;
+			$m->From = 'hours@mgofmc.org';
+			$m->FromName = "";
+			$m->addReplyTo('hours@mgofmc.org', "Reply Address");
+			$m->Subject = "Master Gardners Info";
+			$m->Body = "Your password is: ".$password.".";
+			$m->addAddress($email);
+			$m->send();
+
+			$m = new PHPMailer;
+			$m->From = 'hours@mgofmc.org';
+			$m->FromName = "";
+			$m->addReplyTo('hours@mgofmc.org', "Reply Address");
+			$m->Subject = "Master Gardners Info, Part II";
+			$m->Body = "Your username is: ".$username.".";
+			$m->addAddress($email);
+			$m->send();
+		}
+		return $isThere;
+	}
 
 }
 ?>

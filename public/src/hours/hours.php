@@ -74,7 +74,6 @@
               <div class="col-sm-4">
                 <select class="custom-select form-control" ng-model="hctrl.hrstype"
                         name="hrstype" ng-click="hctrl.backToAdd()"
-                        ng-change="hctrl.checkHelpline()"
                         required>
                   <option value="Mercer County">Mercer County</option>
                   <option value="Helpline">Helpline</option>
@@ -192,7 +191,6 @@
                 <select class="custom-select form-control"
                         ng-model="hctrl.edItems.hrstype"
                         name="hrstype"
-                        ng-change="hctrl.checkHelplineE()"
                         required>
                   <option value="Mercer County">Mercer County</option>
                   <option value="Helpline">Helpline</option>

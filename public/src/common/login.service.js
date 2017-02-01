@@ -29,7 +29,7 @@ function LoginService($http, ApiPath) {
       method: "GET",
       url: (ApiPath +"loginajaxfiles.php"),
       params: {
-        task:   'login',
+        task:  'login',
         uname: uname,
         pword: pword
       }
@@ -70,6 +70,18 @@ function LoginService($http, ApiPath) {
       params: {
         task: 'mail',
         email: email
+      }
+    });
+    return response;
+  };
+
+  service.sendEmail = function(remail){
+    var response = $http({
+      method: "GET",
+      url: (ApiPath +"loginajaxfiles.php"),
+      params: {
+        task: 'check_email',
+        email: remail
       }
     });
     return response;

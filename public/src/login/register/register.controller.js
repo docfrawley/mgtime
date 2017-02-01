@@ -36,6 +36,10 @@ function RegisterController(LoginService, $window) {
   regctrl.email = "";
 
   regctrl.failedLogin=false;
+  regctrl.forgot = false;
+  regctrl.aboutToEmail = false;
+  regctrl.wasSent = false;
+  regctrl.triedEmail = false;
 
   regctrl.submit = function () {
       LoginService.startRegistration(regctrl.fname, regctrl.lname, regctrl.class)
@@ -76,12 +80,32 @@ function RegisterController(LoginService, $window) {
           LoginService.loginUser(regctrl.username, regctrl.password)
               .then(function (response) {
                 var items = response.data;
-                console.log(items.id);
                 regctrl.memberId = items.id;
                 if (regctrl.memberId>0){
                   window.location.href = 'hours.php';
                 } else {
                   regctrl.failedLogin = true;
+                }
+              })
+              .catch(function (error) {
+                console.log(error);
+              });
+        };
+
+        regctrl.forgotup = function (){
+          regctrl.forgot=!regctrl.forgot;
+          regctrl.aboutToEmail = !regctrl.aboutToEmail;
+        };
+
+
+        regctrl.esubmit = function (){
+          LoginService.sendEmail(regctrl.remail)
+              .then(function (response) {
+                regctrl.wasSent = response.data.success;
+                regctrl.triedEmail = true;
+                if (regctrl.wasSent){
+                  regctrl.forgot=!regctrl.forgot;
+                  regctrl.aboutToEmail = !regctrl.aboutToEmail;
                 }
               })
               .catch(function (error) {

@@ -101,34 +101,29 @@ function MemadminController(MemadminService, info, list, flist, hlist) {
         mactrl.admin_status = "";
         mactrl.added = true;
 
-        console.log("response: ", response.data);
       })
       .then(function (response) {
         MemadminService.getList(mactrl.page)
         .then(function (response) {
         mactrl.list = response.data;
-        console.log("response: ", response.data);
       });
       })
       .then(function (response) {
         MemadminService.getInitialInfo()
         .then(function (response) {
         mactrl.last = response.data.last;
-        console.log("response: ", response.data);
       });
       })
       .then(function (response) {
         MemadminService.getFList()
         .then(function (response) {
           mactrl.fulladmin = response.data;
-          console.log("response: ", response.data);
       });
       })
       .then(function (response) {
         MemadminService.getHList()
         .then(function (response) {
         mactrl.hrsadmin = response.data;
-        console.log("response: ", response.data);
       });
       })
       .catch(function (error) {
@@ -137,40 +132,34 @@ function MemadminController(MemadminService, info, list, flist, hlist) {
   };
 
   mactrl.esubmit = function(){
-    MemadminService.editMember(mactrl.edItems.id, mactrl.edItems.class,
-      mactrl.edItems.mgstatus, mactrl.edItems.admin_status)
+    MemadminService.editMember(mactrl.edItems)
       .then(function (response){
         mactrl.edited = true;
         mactrl.added = false;
-        mactrl.addhrs = true;
         console.log("response: ", response.data);
       })
       .then(function (response) {
         MemadminService.getList(mactrl.page)
         .then(function (response) {
         mactrl.list = response.data;
-        console.log("response: ", response.data);
       });
       })
       .then(function (response) {
         MemadminService.getInitialInfo()
         .then(function (response) {
         mactrl.last = response.data.last;
-        console.log("response: ", response.data);
       });
       })
       .then(function (response) {
         MemadminService.getFList()
         .then(function (response) {
           mactrl.fulladmin = response.data;
-          console.log("response: ", response.data);
       });
       })
       .then(function (response) {
         MemadminService.getHList()
         .then(function (response) {
         mactrl.hrsadmin = response.data;
-        console.log("response: ", response.data);
       });
       })
       .catch(function (error) {
@@ -181,6 +170,7 @@ function MemadminController(MemadminService, info, list, flist, hlist) {
   mactrl.backToAdd = function ()  {
     mactrl.added = false;
     mactrl.addhrs = true;
+    mactrl.edited = false;
   };
 
   mactrl.gomodul = function (index)  {

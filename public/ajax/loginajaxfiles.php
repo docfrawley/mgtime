@@ -64,14 +64,9 @@ if ($task=='login'){
   $uname=$_GET['uname'];
   $pword = $_GET['pword'];
   $status = $member_admin->checkLogin($uname, $pword);
-    if ($status){
-      $memberid = $member_admin->get_memberid();
-      echo json_encode($memberid);
-    } else {
-      $temp_array=array();
-      $temp_array['id']=0;
-      echo json_encode($temp_array);
-    }
+  $temp_array=array();
+  $temp_array['id'] = ($status) ? $_SESSION['memberid'] : 0;
+  echo json_encode($temp_array);
 }
 
 if ($task=='getinfo'){
@@ -107,6 +102,14 @@ if ($task == 'hours_totals'){
 if ($task == 'hours_totals_year'){
   $member = new memberHrs($_SESSION['memberid']);
   $returnArray = $member->get_totalsYear($_GET['year']);
+  echo json_encode($returnArray);
+}
+
+if ($task == 'check_email'){
+  $isThere = $member_admin->check_email($_GET['email']);
+  $returnArray = array(
+    "success"  => $isThere
+  );
   echo json_encode($returnArray);
 }
 

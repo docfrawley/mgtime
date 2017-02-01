@@ -3,7 +3,7 @@ session_start();
 
 $member_admin = new memadmin();
 $params = json_decode(file_get_contents('php://input'),true);
-$member_admin->editMember($params);
+$member_admin->editMember($params['values']);
 
 
 

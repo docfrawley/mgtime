@@ -1,4 +1,5 @@
-  <div class="row justify-content-md-center">
+
+  <div class="row justify-content-md-center" ng-if="!regctrl.forgot">
     <div ng-if="!regctrl.failedLogin" class="col-sm-12 text-center">
       <h4>Please login if you have used the site before
       or click on REGISTER if this is your first time.</h4>
@@ -6,10 +7,14 @@
     </div>
     <div ng-if="regctrl.failedLogin" class="alert alert-danger" role="alert">
       Sorry we do not recognize that username and/or password. Please try again.
-    <br> Again, if this is your first time on the site you must first REGISTER.</div>
-  </div>
+    <br> Again, if this is your first time on the site you must first REGISTER.
+    </div>
+    <div ng-if="regctrl.wasSent" class="alert alert-success" role="alert">
+      We sent you two emails with the username and password to the email address you listed.
+    </div>
+</div>
 
-<form name='regForm' novalidate>
+<form name='regForm'  ng-if="!regctrl.forgot" novalidate>
   <div class="row justify-content-md-center buttons">
 
         <label class="col-sm-3 control-label text-right"
@@ -19,7 +24,7 @@
            placeholder="Username" ng-model="regctrl.username" required>
            <span class="input_warning"
              ng-if="regForm.username.$error.required && regForm.username.$touched">
-             Please enter your class year
+             Please enter your username
            </span><br>
         </div>
   </div>
@@ -35,6 +40,11 @@
            </span><br>
         </div>
   </div>
+  <div class="row justify-content-md-center">
+        <div class="col-sm-8">
+          <a href="#" ng-click="regctrl.forgotup()">forgot username and/or password</a><br>
+        </div>
+  </div>
   <div class="row">
         <div class="col-sm-6">
           <button class='btn btn-lg btn-success buttons' ng-click="regctrl.lsubmit()"
@@ -43,6 +53,39 @@
 
     <div class="col-sm-6">
       <button class='btn btn-lg btn-primary buttons' ui-sref="register">REGISTER</button>
+    </div>
+  </div>
+</form>
+
+<form name='emailForm'  ng-if="regctrl.forgot" novalidate>
+  <div class="row justify-content-md-center buttons">
+    <div ng-show="regctrl.aboutToEmail" class="col-sm-12 text-center">
+      <h4>Please enter the email you use to register for this site.</h4>
+
+    </div>
+    <div ng-if="!regctrl.wasSent && regctrl.triedEmail" class="alert alert-danger" role="alert">
+        That email address does not match any in our database. Please try again.
+    </div>
+        <label class="col-sm-3 control-label text-right"
+          for="inputUsername">Email</label>
+        <div class="col-sm-8">
+        <input class="form-control" type="email" name="remail"
+           placeholder="Email" ng-model="regctrl.remail" required>
+           <span class="input_warning"
+             ng-if="emailForm.remail.$invalid && emailForm.remail.$touched">
+             Please enter your registered email in a valid email format
+           </span><br>
+        </div>
+  </div>
+
+  <div class="row">
+        <div class="col-sm-6">
+          <button class='btn btn-lg btn-success buttons' ng-click="regctrl.esubmit()"
+          ng-disabled="emailForm.$invalid">SUBMIT</button>
+        </div>
+
+    <div class="col-sm-6">
+      <button class='btn btn-lg btn-primary buttons' ng-click="regctrl.forgotup()">BACK TO LOGIN</button>
     </div>
   </div>
 </form>

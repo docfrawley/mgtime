@@ -82,15 +82,12 @@ function MemadminService($http, ApiPath) {
     return response;
   };
 
-  service.editMember = function(id, aclass, mgstatus, adstatus) {
+  service.editMember = function(values) {
     var response = $http({
       method: "POST",
       url: (ApiPath +"editmember.php"),
       data: {
-        id:       id,
-        aclass:   aclass,
-        mgstatus: mgstatus,
-        adstatus: adstatus
+        values: values
       }
     });
     return response;
