@@ -28,6 +28,9 @@ function RoutesConfig($stateProvider, $urlRouterProvider) {
       }],
       mgstatus: ['HoursService',function (HoursService) {
         return HoursService.getStatus();
+      }],
+      ototals: ['HoursService',function (HoursService) {
+        return HoursService.getOveralTotals();
       }]
     }
 

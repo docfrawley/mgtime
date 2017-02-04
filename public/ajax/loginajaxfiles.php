@@ -99,6 +99,12 @@ if ($task == 'hours_totals'){
   echo json_encode($returnArray);
 }
 
+if ($task == 'overall_totals'){
+  $member = new memberHrs($_SESSION['memberid']);
+  $returnArray = $member->overallTotal();
+  echo json_encode($returnArray);
+}
+
 if ($task == 'hours_totals_year'){
   $member = new memberHrs($_SESSION['memberid']);
   $returnArray = $member->get_totalsYear($_GET['year']);

@@ -43,6 +43,7 @@ class memberObject {
 	}
 
   function get_status(){
+		$this->checkStatus();
     return $this->status;
   }
 
@@ -90,6 +91,29 @@ class memberObject {
 
 	function isTrainee(){
 		return ($this->status=="A - Trainee" || $this->status=="T/NotG");
+	}
+
+	function checkStatus(){
+		global $database;
+		$memberhrs = new memberHrs($this->memberid);
+		$total_array = $memberhrs->overallTotal();
+		if (($total_array['Total'] ==1000 || $total_array['Total'] > 1000)
+					&& $this->status != "Active 1000hrs"){
+
+						$sql = "UPDATE memberinfo SET ";
+						$sql .= "mgstatus='Active 1000hrs' ";
+						$sql .= "WHERE id='". $this->memberid. "' ";
+						$database->query($sql);
+						$this->status = 'Active 1000hrs';
+		}
+		if ($total_array['Total'] < 1000 && $this->status == "Active 1000hrs"){
+
+						$sql = "UPDATE memberinfo SET ";
+						$sql .= "mgstatus='A' ";
+						$sql .= "WHERE id='". $this->memberid. "' ";
+						$database->query($sql);
+						$this->status = 'A';
+		}
 	}
 
 }

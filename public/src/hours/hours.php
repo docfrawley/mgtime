@@ -292,6 +292,8 @@
    <div class="panel panel-default">
      <div class="panel-body text-center">
        <h3>Yearly Hour Totals for <? echo date('Y'); ?> </h3><br>
+       <div ng-show="hctrl.congrats" class="alert alert-success" role="alert">
+         You just got your 1000hrs. Congrats. Please note that your requirements have changed.</div><br>
        <table class="table table-bordered table-hover">
           <thead>
             <tr>
@@ -304,30 +306,33 @@
           <tbody>
             <tr>
               <th scope="row">Volunteer Hours:</th>
-                <td ng-show="hctrl.mgstatus=='A - Trainee'">60</td>
-                <td ng-show="hctrl.mgstatus!='A - Trainee'">30</td>
+                <td ng-if="hctrl.mgstatus=='A - Trainee'">60</td>
+                <td ng-if="hctrl.mgstatus=='A'">30</td>
+                <td ng-if="hctrl.mgstatus=='Active 1000hrs'">25</td>
               <td>{{hctrl.totals[12]['Total']}}</td>
-              <td> --- </td>
+              <td> {{hctrl.ototals['Total']}}</td>
             </tr>
             <tr>
               <th scope="row">&nbsp;&nbsp;&nbsp;&nbsp;Mercer County</th>
-              <td ng-show="hctrl.mgstatus=='A - Trainee'">25</td>
-              <td ng-show="hctrl.mgstatus!='A - Trainee'">15</td>
+              <td ng-if="hctrl.mgstatus=='A - Trainee' ||
+                         hctrl.mgstatus=='Active 1000hrs'">25</td>
+              <td ng-if="hctrl.mgstatus=='A'">15</td>
               <td>{{hctrl.totals[12]['Mercer County']}}</td>
-              <td> --- </td>
+              <td>{{hctrl.ototals['Mercer County']}}</td>
             </tr>
             <tr>
               <th scope="row">&nbsp;&nbsp;&nbsp;&nbsp;Helpline</th>
-              <td ng-show="hctrl.mgstatus=='A - Trainee'">30</td>
-              <td ng-show="hctrl.mgstatus!='A - Trainee'">15</td>
+              <td ng-if="hctrl.mgstatus=='A - Trainee'">30</td>
+              <td ng-if="hctrl.mgstatus=='A'">15</td>
+              <td ng-if="hctrl.mgstatus=='Active 1000hrs'"> </td>
               <td>{{hctrl.totals[12]['Helpline']}}</td>
-              <td> --- </td>
+              <td> {{hctrl.ototals['Helpline']}}</td>
             </tr>
             <tr ng-show="hctrl.mgstatus!='A - Trainee'">
                 <th scope="row">Continuing Ed (CE)</th>
                 <td>10</td>
                 <td>{{hctrl.totals[12]['Continuing Ed']}}</td>
-                <td> --- </td>
+                <td> {{hctrl.ototals['Continuing Ed']}}</td>
             </tr>
             <tr ng-show="hctrl.mgstatus=='A - Trainee'">
                 <th scope="row">&nbsp;&nbsp;&nbsp;&nbsp;Compost</th>

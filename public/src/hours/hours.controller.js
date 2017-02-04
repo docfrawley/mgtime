@@ -4,14 +4,16 @@
 angular.module('HoursApp')
 .controller('HoursController',HoursController);
 
-HoursController.$inject=['HoursService', 'items', 'totals', 'mgstatus'];
-function HoursController(HoursService, items, totals, mgstatus) {
+HoursController.$inject=['HoursService', 'items', 'totals', 'mgstatus', 'ototals'];
+function HoursController(HoursService, items, totals, mgstatus, ototals) {
   var hctrl=this;
    hctrl.items = items.data;
-   console.log(hctrl.items);
    hctrl.totals = totals.data;
-   console.log(hctrl.totals);
+   hctrl.ototals = ototals.data;
+
    hctrl.mgstatus = mgstatus.data.mgstatus;
+   console.log("status: ", hctrl.mgstatus);
+   hctrl.initstatus = mgstatus.data.mgstatus;
    hctrl.hdate = "";
    hctrl.hrstype = "";
    hctrl.numhrs = null;
@@ -22,6 +24,7 @@ function HoursController(HoursService, items, totals, mgstatus) {
    hctrl.deleted = false;
   //  hctrl.ishelpline = false;
    hctrl.dateGone = false;
+   hctrl.congrats = false;
 
   //  hctrl.checkHelpline = function (){
   //    hctrl.ishelpline = (hctrl.hrstype=="Helpline");
@@ -56,6 +59,21 @@ function HoursController(HoursService, items, totals, mgstatus) {
             HoursService.getHourTotals()
             .then(function (response) {
             hctrl.totals = response.data;
+          });
+          })
+          .then(function (response) {
+            HoursService.getOveralTotals()
+            .then(function (response) {
+            hctrl.ototals = response.data;
+          });
+          })
+          .then(function (response) {
+            HoursService.getStatus()
+            .then(function (response) {
+            hctrl.mgstatus = response.data.mgstatus;
+            hctrl.congrats=(hctrl.mgstatus == "Active 1000hrs" &&
+                hctrl.initstatus=="A");
+            console.log("status: ", hctrl.mgstatus);
           });
           })
           .catch(function (error) {
@@ -107,6 +125,21 @@ function HoursController(HoursService, items, totals, mgstatus) {
             hctrl.totals = response.data;
           });
           })
+          .then(function (response) {
+            HoursService.getOveralTotals()
+            .then(function (response) {
+            hctrl.ototals = response.data;
+          });
+          })
+          .then(function (response) {
+            HoursService.getStatus()
+            .then(function (response) {
+            hctrl.mgstatus = response.data.mgstatus;
+            hctrl.congrats=(hctrl.mgstatus == "Active 1000hrs" &&
+                hctrl.initstatus=="A");
+            console.log("status: ", hctrl.mgstatus);
+          });
+          })
           .catch(function (error) {
             console.log(error);
           });
@@ -129,6 +162,19 @@ function HoursController(HoursService, items, totals, mgstatus) {
               HoursService.getHourTotals()
               .then(function (response) {
               hctrl.totals = response.data;
+            });
+            })
+            .then(function (response) {
+              HoursService.getOveralTotals()
+              .then(function (response) {
+              hctrl.ototals = response.data;
+            });
+            })
+            .then(function (response) {
+              HoursService.getStatus()
+              .then(function (response) {
+              hctrl.mgstatus = response.data.mgstatus;
+              console.log("status: ", hctrl.mgstatus);
             });
             })
             .catch(function (error) {

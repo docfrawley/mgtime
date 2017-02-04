@@ -11,29 +11,6 @@ class memberHrs {
 		$this->memberid = $id;
 	}
 
-	// function setDates(){
-	// 	global $database;
-	// 	$temp_array = array();
-	// 	$sql="SELECT * FROM hours WHERE memberid='".$this->memberid."'";
-  //   $result_set = $database->query($sql);
-	// 	while ($value = $database->fetch_array($result_set)) {
-	// 		list($month, $day, $year) = explode("/", $value['hdate']);
-	// 		$themonth = intval($month);
-	// 		$theday = intval($day);
-	// 		$theyear = intval($year);
-	// 		$date = mktime(0,0,0,$themonth,$theday,$theyear);
-	// 		$value['hdate'] = $date;
-	// 		array_push($temp_array, $value);
-	// 	}
-	// 
-	// 	for ($x=0;$x<count($temp_array); $x++){
-	// 		$sqld = "UPDATE hours SET ";
-	// 		$sqld .= "hdate='". $temp_array[$x]['hdate'] ."' ";
-	// 		$sqld .= "WHERE numid='". $temp_array[$x]['numid']. "' ";
-	// 		$database->query($sqld);
-	// 	}
-	// }
-
 	function set_hrs($year=2000){
 		global $database;
 		if ($year=2000) {$year=date("Y");}
@@ -153,8 +130,46 @@ class memberHrs {
 		return $months_array;
 	}
 
-	// function get_totalsYear($year){
-	//
-	// }
+	function overallTotal(){
+		global $database;
+		$total_array =  array(
+			"Mercer County" 					=> 0,
+			"Helpline" 								=> 0,
+			"Continuing Ed" 					=> 0,
+			"Total"										=> 0
+		);
+		$sql="SELECT * FROM annualhrs WHERE memberid='".$this->memberid."'";
+    $result_set = $database->query($sql);
+		$value = $database->fetch_array($result_set);
+		if ($value['mercer'] != null){
+			$total_array['Mercer County'] = $value['mercer'];
+		}
+		if ($value['helpline'] != null){
+			$total_array['Helpline'] = $value['helpline'];
+		}
+		if ($value['conted'] != null){
+			$total_array['Continuing Ed'] = $value['conted'];
+		}
+
+    $sql="SELECT * FROM hours WHERE memberid='".$this->memberid."'";
+    $result_set = $database->query($sql);
+		while ($value = $database->fetch_array($result_set)) {
+			switch ($value['hrstype']) {
+				case "Mercer County":
+					$total_array['Mercer County'] += $value['numhrs'];
+					break;
+				case "Helpline":
+					$total_array['Helpline'] += $value['numhrs'];
+					break;
+				case "Continuing Ed":
+					$total_array['Continuing Ed'] += $value['numhrs'];
+					break;
+				default:
+					break;
+			}
+		}
+		$total_array['Total'] = $total_array['Mercer County'] + $total_array['Helpline'];
+		return $total_array;
+	}
 }
 ?>
