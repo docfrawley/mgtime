@@ -133,10 +133,10 @@ class memberHrs {
 	function overallTotal(){
 		global $database;
 		$total_array =  array(
-			"Mercer County" 					=> 0,
-			"Helpline" 								=> 0,
-			"Continuing Ed" 					=> 0,
-			"Total"										=> 0
+			"Mercer County" 					=> 0.0,
+			"Helpline" 								=> 0.0,
+			"Continuing Ed" 					=> 0.0,
+			"Total"										=> 0.0
 		);
 		$sql="SELECT * FROM annualhrs WHERE memberid='".$this->memberid."'";
     $result_set = $database->query($sql);
@@ -151,8 +151,10 @@ class memberHrs {
 			$total_array['Continuing Ed'] = $value['conted'];
 		}
 
-    $sql="SELECT * FROM hours WHERE memberid='".$this->memberid."'";
+    $sql="SELECT * FROM hours WHERE memberid='".$this->memberid."' ORDER BY hdate ASC";
     $result_set = $database->query($sql);
+		$year = 2017;
+		$ceTotal = 0.0;
 		while ($value = $database->fetch_array($result_set)) {
 			switch ($value['hrstype']) {
 				case "Mercer County":
@@ -162,11 +164,23 @@ class memberHrs {
 					$total_array['Helpline'] += $value['numhrs'];
 					break;
 				case "Continuing Ed":
-					$total_array['Continuing Ed'] += $value['numhrs'];
+					if (date('Y', $value['hdate'])>$year){
+						$finalYearTotal = ($ceTotal>10.00) ? 10.00 : $ceTotal;
+						$year = date('Y', $value['hdate']);
+						$total_array['Continuing Ed'] += $finalYearTotal;
+						$ceTotal = $value['numhrs'];
+					} else {
+						$ceTotal += $value['numhrs'];
+					}
 					break;
 				default:
 					break;
 			}
+		}
+		if ($ceTotal > 10.0){
+			$total_array['Continuing Ed'] += 10;
+		} else{
+			$total_array['Continuing Ed'] += $ceTotal;
 		}
 		$total_array['Total'] = $total_array['Mercer County'] + $total_array['Helpline'];
 		return $total_array;

@@ -1,4 +1,5 @@
 <? include_once("initialize.php");
+require_once 'vendor/autoload.php';
 session_start();
 
 class memberObject {
@@ -105,6 +106,15 @@ class memberObject {
 						$sql .= "WHERE id='". $this->memberid. "' ";
 						$database->query($sql);
 						$this->status = 'Active 1000hrs';
+						$m = new PHPMailer;
+						$m->From = ($this->email);
+						$m->FromName = ($this->get_fullname());
+						$m->addReplyTo($this->email, "Reply Address");
+						$m->Subject = "Master Gardeners, Reached 1000hrs ";
+						$m->Body = $this->get_fullname()." has reached 1000hrs.";
+						$m->addAddress('hours@mgofmc.org');
+						$m->send();
+
 		}
 		if ($total_array['Total'] < 1000 && $this->status == "Active 1000hrs"){
 
