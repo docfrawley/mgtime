@@ -12,15 +12,15 @@ function HoursService($http, ApiPath) {
 
 
 
-  service.enterHours = function(hdate, hrstype, numhrs, description) {
+  service.enterHours = function(items) {
     var response = $http({
       method: "POST",
       url: (ApiPath +"enterhrs.php"),
       data: {
-        hdate:        hdate,
-        hrstype:      hrstype,
-        numhrs:       numhrs,
-        description:  description
+        hdate:        items.hdate,
+        hrstype:      items.hrstype,
+        numhrs:       items.numhrs,
+        description:  items.description
       }
     });
     return response;
@@ -104,6 +104,21 @@ function HoursService($http, ApiPath) {
       params: {
         task: 'hours_totals_year',
         year: year
+      }
+    });
+    return response;
+  };
+
+  service.getNumid = function(items) {
+    var response = $http({
+      method: "GET",
+      url: (ApiPath +"loginajaxfiles.php"),
+      params: {
+        task: 'get_numid',
+        hdate:        items.hdate,
+        hrstype:      items.hrstype,
+        numhrs:       items.numhrs,
+        description:  items.description
       }
     });
     return response;

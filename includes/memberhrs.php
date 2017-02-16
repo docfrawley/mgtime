@@ -78,7 +78,9 @@ class memberHrs {
 		while ($value = $database->fetch_array($result_set)) {
 			$key = $value['hrstype'];
 			$month_array[$key] += $value['numhrs'];
-			$month_array['Total'] +=$value['numhrs'];
+			if($key !="Continuing Ed"){
+				$month_array['Total'] +=$value['numhrs'];
+			}
 		}
 		return $month_array;
 	}
@@ -164,26 +166,47 @@ class memberHrs {
 					$total_array['Helpline'] += $value['numhrs'];
 					break;
 				case "Continuing Ed":
-					if (date('Y', $value['hdate'])>$year){
-						$finalYearTotal = ($ceTotal>10.00) ? 10.00 : $ceTotal;
-						$year = date('Y', $value['hdate']);
-						$total_array['Continuing Ed'] += $finalYearTotal;
-						$ceTotal = $value['numhrs'];
-					} else {
-						$ceTotal += $value['numhrs'];
-					}
+					// if (date('Y', $value['hdate'])>$year){
+					// 	$finalYearTotal = ($ceTotal>10.00) ? 10.00 : $ceTotal;
+					// 	$year = date('Y', $value['hdate']);
+					// 	$total_array['Continuing Ed'] += $finalYearTotal;
+					// 	$ceTotal = $value['numhrs'];
+					// } else {
+					// 	$ceTotal += $value['numhrs'];
+					// }
+					$total_array['Continuing Ed'] += $value['numhrs'];;
 					break;
 				default:
 					break;
 			}
 		}
-		if ($ceTotal > 10.0){
-			$total_array['Continuing Ed'] += 10;
-		} else{
-			$total_array['Continuing Ed'] += $ceTotal;
-		}
+		// if ($ceTotal > 10.0){
+		// 	$total_array['Continuing Ed'] += 10;
+		// } else{
+		// 	$total_array['Continuing Ed'] += $ceTotal;
+		// }
 		$total_array['Total'] = $total_array['Mercer County'] + $total_array['Helpline'];
 		return $total_array;
+	}
+
+	function get_numid($hdate, $numhrs, $hrstype, $description){
+		global $database;
+		list($month, $day, $year) = explode("/", $hdate);
+		$themonth = intval($month);
+		$theday = intval($day);
+		$theyear = intval($year);
+		$date = mktime(0,0,0,$themonth,$theday,$theyear);
+		$hdate = $date;
+		$sql="SELECT * FROM hours WHERE
+		memberid ='".$this->memberid."' AND
+		hdate = '".$hdate."' AND
+		hrstype ='".$hrstype."' AND
+		numhrs ='".$numhrs."'AND
+		description ='".$description."'";
+    $result_set = $database->query($sql);
+		$value = $database->fetch_array($result_set);
+		$temp = $value['numid'];
+		return $temp;
 	}
 }
 ?>

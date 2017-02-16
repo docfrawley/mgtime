@@ -9,6 +9,14 @@ if ($task=='lookupMem'){
   echo json_encode($temp_array);
 }
 
+if ($task=='deleteMem'){
+  $member_admin->deleteMember($_GET['memberid']);
+  $data = array(
+    'success'=>true
+  );
+  echo json_encode($data);
+}
+
 if ($task=='flist'){
   $temp_array = $member_admin->get_flist();
   echo json_encode($temp_array);
@@ -115,6 +123,21 @@ if ($task == 'check_email'){
   $isThere = $member_admin->check_email($_GET['email']);
   $returnArray = array(
     "success"  => $isThere
+  );
+  echo json_encode($returnArray);
+}
+
+if ($task=='get_numid'){
+  $hdate = $_GET['hdate'];
+  $numhrs = $_GET['numhrs'];
+  $hrstype = $_GET['hrstype'];
+  $description = $_GET['description'];
+  $member = new memberHrs($_SESSION['memberid']);
+  $numid = $member->get_numid($hdate, $numhrs, $hrstype, $description);
+  $returnArray = array(
+    "numid"=>$numid,
+    "hdate"=>$hdate,
+    "numhrs"=>$numhrs
   );
   echo json_encode($returnArray);
 }

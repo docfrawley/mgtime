@@ -36,8 +36,12 @@
   <div class="col-sm-9" >
     <div class="panel panel-default">
       <div class="panel-body" ng-if="mactrl.addhrs">
-        <h2 ng-if="!mactrl.added">Add New Member</h2>
-        <h2 ng-if="mactrl.added">New Member Has Been Added</h2>
+        <h2 >Add New Member</h2>
+        <div ng-show="mactrl.added" class="alert alert-success" role="alert">
+          New Member Has Been Added</div>
+        <div ng-show="mactrl.deleted" class="alert alert-success" role="alert">
+          Member Has Been Deleted</div>
+
         <div class="form-group">
 
           <div class="row">
@@ -86,8 +90,9 @@
       </div>
 
       <div class="panel-body" ng-if="!mactrl.addhrs">
-        <h2 ng-if="!mactrl.edited">Edit {{mactrl.edItems.fname}} {{mactrl.edItems.lname}}</h2>
-        <h2 ng-if="mactrl.edited">Changes have been made</h2>
+        <h2>Edit {{mactrl.edItems.fname}} {{mactrl.edItems.lname}}</h2>
+        <div ng-show="mactrl.edited" class="alert alert-success" role="alert">
+          Edits were successfully made</div>
         <div class="form-group">
           <div class="row">
               <div class="col-sm-6">
@@ -133,6 +138,9 @@
           <div class="row">
             <div class="col-sm-3">
               <button class='btn btn-lg btn-success' ng-click="mactrl.esubmit()">UPDATE</button>
+            </div>
+            <div class="col-sm-3">
+              <button class='btn btn-lg btn-danger' ng-click="mactrl.dsubmit()">DELETE</button>
             </div>
             <div class="col-sm-5">
               <button class='btn btn-lg btn-warning' ng-click="mactrl.backToAdd()">BACK TO ADD NEW MEMBER</button>

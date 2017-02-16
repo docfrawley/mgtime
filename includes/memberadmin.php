@@ -48,9 +48,17 @@ class memadmin {
 		$sql .= "lname='". $info['lname'] ."', ";
 		$sql .= "class='". $info['class'] ."', ";
 		$sql .= "mgstatus='". $info['mgstatus'] ."', ";
-		$sql .= "admin_status='". $info['adstatus'] ."' ";
+		$sql .= "admin_status='". $info['admin_status'] ."' ";
 		$sql .= "WHERE id='". $info['id']. "' ";
 		$database->query($sql);
+	}
+
+	function deleteMember($memberid){
+		global $database;
+		$sql = "DELETE FROM memberinfo ";
+	  	$sql .= "WHERE id=". $memberid;
+	  	$sql .= " LIMIT 1";
+	 	$database->query($sql);
 	}
 
 	function checkLogin($username, $password){

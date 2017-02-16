@@ -4,7 +4,7 @@
       <div class="col-sm-12">
         <div class="panel panel-default">
           <div class="panel-body" ng-if="hctrl.addhrs">
-            <div ng-if="!hctrl.entered && !hctrl.edited && !hctrl.deleted">
+            <div ng-if="!hctrl.edited && !hctrl.deleted">
               <h3 class="text-center">Hours Entry Form</h3>
             </div>
             <div ng-if="hctrl.entered" class="alert alert-success" role="alert">
@@ -13,8 +13,12 @@
               Edits were successful</div>
             <div ng-if="hctrl.deleted" class="alert alert-success" role="alert">
               That entry was deleted</div>
-              <div ng-show="hctrl.dateGone" class="alert alert-warning" role="alert">
-                The date entered is either past 91 days or has yet to occur.</div>
+              <div ng-show="hctrl.dateGone && !hctrl.previousYear" class="alert alert-warning" role="alert">
+                ERROR: Hour Entry NOT Completed. The date entered is either
+                past 91 days or has yet to occur.</div>
+                <div ng-show="hctrl.dateGone && hctrl.previousYear" class="alert alert-warning" role="alert">
+                  ERROR: Hour Entry NOT Completed. The date entered is from the previous Year and we are
+                  past January 15th such that only entries from this year are allowed.</div>
             <br />
             <form name='hrsForm' novalidate>
             <div class="form-group">
@@ -34,7 +38,7 @@
                      <input class="form-control" id="date"
                      placeholder="MM/DD/YYYY"
                      type="text" name="date"
-                     ng-model="hctrl.hdate" ng-click="hctrl.backToAdd()"
+                     ng-model="hctrl.aitems.hdate" ng-click="hctrl.backToAdd()"
                      required/>
                      <div class="input-group-addon">
                       <span class="fa fa-calendar">
@@ -72,7 +76,7 @@
               <label class="col-sm-2 control-label text-left"
               for="inputEmail">Type of Hrs: </label>
               <div class="col-sm-4">
-                <select class="custom-select form-control" ng-model="hctrl.hrstype"
+                <select class="custom-select form-control" ng-model="hctrl.aitems.hrstype"
                         name="hrstype" ng-click="hctrl.backToAdd()"
                         required>
                   <option value="Mercer County">Mercer County</option>
@@ -94,19 +98,19 @@
               for="inputEmail"> # of Hrs: </label>
               <div class="col-sm-4">
               <input class="form-control" type="text" name="numhrs"
-               placeholder="Number of Hours" ng-model="hctrl.numhrs"
+               placeholder="Number of Hours" ng-model="hctrl.aitems.numhrs"
                ng-click="hctrl.backToAdd()" required>
                <span class="input_warning"
                  ng-if="hrsForm.numhrs.$error.required && hrsForm.numhrs.$touched">
                  Please enter number of hours.
                </span><br>
             </div>
-            <div ng-if="!hctrl.ishelpline">
+            <div>
               <label class="col-sm-2 control-label text-left"
               for="inputEmail">Description: </label>
               <div class="col-sm-10">
               <input class="form-control" type="text" name="description"
-               placeholder="Description" ng-model="hctrl.description"
+               placeholder="Description" ng-model="hctrl.aitems.description"
                ng-click="hctrl.backToAdd()" required>
                <span class="input_warning"
                  ng-if="hrsForm.description.$error.required && hrsForm.description.$touched">
@@ -127,7 +131,8 @@
                   Edit or Delete This Entry</h3>
 
                   <div ng-show="hctrl.dateGone" class="alert alert-warning" role="alert">
-                    The date entered is either past 91 days or has yet to occur.</div><br>
+                    ERROR: Hour Entry NOT Completed. The date entered is either
+                    past 91 days or has yet to occur.</div><br>
               </div>
 
 
@@ -218,7 +223,7 @@
                </span><br>
              </div>
 
-            <div ng-if="!hctrl.ishelpline">
+            <div>
               <label class="col-sm-2 control-label text-left"
               for="inputEmail">Description: </label>
               <div class="col-sm-10">
@@ -231,6 +236,7 @@
                </span><br>
               </div>
             </div>
+            <div class="row">
               <div class="col-sm-3">
                 <button class='btn btn-lg btn-success' ng-click="hctrl.hedit()"
                         ng-disabled="hedForm.$invalid">UPDATE</button>
@@ -240,14 +246,48 @@
                 <button class='btn btn-lg btn-danger' ng-click="hctrl.hdelete()">DELETE</button>
               </div>
 
-              <div class="col-sm-6 text-right">
-                <button class='btn btn-lg btn-primary' ng-click="hctrl.backToAdd()">BACK TO ADD HOURS FORM</button>
+              <div class="col-sm-6 text-left">
+                <button class='btn btn-lg btn-primary' ng-click="hctrl.backToAdd()">BACK TO ENTRY FORM</button>
               </div>
-
+            </div>
             </div>
 
           </div>
         </form>
+        </div>
+      </div>
+    </div>
+    <div class="row" ng-if="hctrl.showlast">
+      <div class="col-sm-12">
+        <div class="panel panel-default">
+          <div class="panel-body">
+            <h3 class="text-center">LAST ENTRY</h3><br>
+            <h5 class="text-left">Edit or Delete Entry by clicking on date</h5>
+            <table class="table table-condensed">
+              <thead>
+                <tr>
+                  <th>Date</th>
+                  <th>Type of Hours</th>
+                  <th># of Hours</th>
+                  <th>Description</th>
+                </tr>
+              </thead>
+              <tr>
+                <td>
+                  <button class='btn btn-sm btn-info' ng-click="hctrl.gomodulL()">{{hctrl.litems.hdate}}</button>
+                </td>
+                <td>
+                  {{hctrl.litems.hrstype}}
+                </td>
+                <td>
+                  {{hctrl.litems.numhrs}}
+                </td>
+                <td>
+                  {{hctrl.litems.description}}
+                </td>
+              </tr>
+            </table>
+          </div>
         </div>
       </div>
     </div>
@@ -310,7 +350,7 @@
                 <td ng-if="hctrl.mgstatus=='A'">30</td>
                 <td ng-if="hctrl.mgstatus=='Active 1000hrs'">25</td>
               <td>{{hctrl.totals[12]['Total']}}</td>
-              <td> {{hctrl.ototals['Total']}}</td>
+              <td> <strong>{{hctrl.ototals['Total']}}</strong></td>
             </tr>
             <tr>
               <th scope="row">&nbsp;&nbsp;&nbsp;&nbsp;Mercer County</th>
@@ -354,119 +394,25 @@
 
               <th class="text-center"
                   ng-show="hctrl.mgstatus=='A - Trainee'">Compost</th>
-              <th class="text-center"
-                  ng-show="hctrl.mgstatus!='A - Trainee'">CE</th>
-            <th class="text-center">Total Hours</th>
+
+            <th class="text-center">Volunteer Hours</th>
+
+            <th class="text-center"
+                ng-show="hctrl.mgstatus!='A - Trainee'">CE</th>
           </tr>
         </thead>
-         <tr>
-           <td class="text-left">January:</td>
-           <td>{{hctrl.totals[0]['Mercer County']}}</td>
-           <td>{{hctrl.totals[0]['Helpline']}}</td>
+          <tr ng-repeat="(key, value) in hctrl.months">
+
+           <td class="text-left">{{value}}:</td>
+           <td>{{hctrl.totals[key]['Mercer County']}}</td>
+           <td>{{hctrl.totals[key]['Helpline']}}</td>
              <td ng-show="hctrl.mgstatus=='A - Trainee'">
-               {{hctrl.totals[0]['Compost']}}</td>
-             <td ng-show="hctrl.mgstatus!='A - Trainee'">
-               {{hctrl.totals[0]['Continuing Ed']}}</td>
-           <td>{{hctrl.totals[0]['Total']}}</td>
-         </tr>
-         <tr><td class="text-left">February:</td>
-           <td>{{hctrl.totals[1]['Mercer County']}}</td>
-           <td>{{hctrl.totals[1]['Helpline']}}</td>
-           <td ng-show="hctrl.mgstatus=='A - Trainee'">
-             {{hctrl.totals[1]['Compost']}}</td>
+               {{hctrl.totals[key]['Compost']}}</td>
+
+           <td><strong>{{hctrl.totals[key]['Total']}}</strong></td>
+
            <td ng-show="hctrl.mgstatus!='A - Trainee'">
-             {{hctrl.totals[1]['Continuing Ed']}}</td>
-           <td>{{hctrl.totals[1]['Total']}}</td>
-         </tr>
-         <tr><td class="text-left">March:</td>
-           <td>{{hctrl.totals[2]['Mercer County']}}</td>
-           <td>{{hctrl.totals[2]['Helpline']}}</td>
-           <td ng-show="hctrl.mgstatus=='A - Trainee'">
-             {{hctrl.totals[2]['Compost']}}</td>
-           <td ng-show="hctrl.mgstatus!='A - Trainee'">
-             {{hctrl.totals[2]['Continuing Ed']}}</td>
-           <td>{{hctrl.totals[2]['Total']}}</td>
-         </tr>
-         <tr><td class="text-left">April:</td>
-           <td>{{hctrl.totals[3]['Mercer County']}}</td>
-           <td>{{hctrl.totals[3]['Helpline']}}</td>
-           <td ng-show="hctrl.mgstatus=='A - Trainee'">
-             {{hctrl.totals[3]['Compost']}}</td>
-           <td ng-show="hctrl.mgstatus!='A - Trainee'">
-             {{hctrl.totals[3]['Continuing Ed']}}</td>
-           <td>{{hctrl.totals[3]['Total']}}</td>
-         </tr>
-         <tr><td class="text-left">May:</td>
-           <td>{{hctrl.totals[4]['Mercer County']}}</td>
-           <td>{{hctrl.totals[4]['Helpline']}}</td>
-           <td ng-show="hctrl.mgstatus=='A - Trainee'">
-             {{hctrl.totals[4]['Compost']}}</td>
-           <td ng-show="hctrl.mgstatus!='A - Trainee'">
-             {{hctrl.totals[4]['Continuing Ed']}}</td>
-           <td>{{hctrl.totals[4]['Total']}}</td>
-         </tr>
-         <tr><td class="text-left">June:</td>
-           <td>{{hctrl.totals[5]['Mercer County']}}</td>
-           <td>{{hctrl.totals[5]['Helpline']}}</td>
-           <td ng-show="hctrl.mgstatus=='A - Trainee'">
-             {{hctrl.totals[5]['Compost']}}</td>
-           <td ng-show="hctrl.mgstatus!='A - Trainee'">
-             {{hctrl.totals[5]['Continuing Ed']}}</td>
-           <td>{{hctrl.totals[5]['Total']}}</td>
-         </tr>
-         <tr><td class="text-left">July:</td>
-           <td>{{hctrl.totals[6]['Mercer County']}}</td>
-           <td>{{hctrl.totals[6]['Helpline']}}</td>
-           <td ng-show="hctrl.mgstatus=='A - Trainee'">
-             {{hctrl.totals[6]['Compost']}}</td>
-           <td ng-show="hctrl.mgstatus!='A - Trainee'">
-             {{hctrl.totals[6]['Continuing Ed']}}</td>
-           <td>{{hctrl.totals[6]['Total']}}</td>
-         </tr>
-         <tr><td class="text-left">August:</td>
-           <td>{{hctrl.totals[7]['Mercer County']}}</td>
-           <td>{{hctrl.totals[7]['Helpline']}}</td>
-           <td ng-show="hctrl.mgstatus=='A - Trainee'">
-             {{hctrl.totals[7]['Compost']}}</td>
-           <td ng-show="hctrl.mgstatus!='A - Trainee'">
-             {{hctrl.totals[7]['Continuing Ed']}}</td>
-           <td>{{hctrl.totals[7]['Total']}}</td>
-         </tr>
-         <tr><td class="text-left">September:</td>
-           <td>{{hctrl.totals[8]['Mercer County']}}</td>
-           <td>{{hctrl.totals[8]['Helpline']}}</td>
-           <td ng-show="hctrl.mgstatus=='A - Trainee'">
-             {{hctrl.totals[8]['Compost']}}</td>
-           <td ng-show="hctrl.mgstatus!='A - Trainee'">
-             {{hctrl.totals[8]['Continuing Ed']}}</td>
-           <td>{{hctrl.totals[8]['Total']}}</td>
-         </tr>
-         <tr><td class="text-left">October:</td>
-           <td>{{hctrl.totals[9]['Mercer County']}}</td>
-           <td>{{hctrl.totals[9]['Helpline']}}</td>
-           <td ng-show="hctrl.mgstatus=='A - Trainee'">
-             {{hctrl.totals[9]['Compost']}}</td>
-           <td ng-show="hctrl.mgstatus!='A - Trainee'">
-             {{hctrl.totals[9]['Continuing Ed']}}</td>
-           <td>{{hctrl.totals[9]['Total']}}</td>
-         </tr>
-         <tr><td class="text-left">November:</td>
-           <td>{{hctrl.totals[10]['Mercer County']}}</td>
-           <td>{{hctrl.totals[10]['Helpline']}}</td>
-           <td ng-show="hctrl.mgstatus=='A - Trainee'">
-             {{hctrl.totals[10]['Compost']}}</td>
-           <td ng-show="hctrl.mgstatus!='A - Trainee'">
-             {{hctrl.totals[10]['Continuing Ed']}}</td>
-           <td>{{hctrl.totals[10]['Total']}}</td>
-         </tr>
-         <tr><td class="text-left">December:</td>
-           <td>{{hctrl.totals[11]['Mercer County']}}</td>
-           <td>{{hctrl.totals[11]['Helpline']}}</td>
-           <td ng-show="hctrl.mgstatus=='A - Trainee'">
-             {{hctrl.totals[11]['Compost']}}</td>
-           <td ng-show="hctrl.mgstatus!='A - Trainee'">
-             {{hctrl.totals[11]['Continuing Ed']}}</td>
-           <td>{{hctrl.totals[11]['Total']}}</td>
+             {{hctrl.totals[key]['Continuing Ed']}}</td>
          </tr>
        </table>
 

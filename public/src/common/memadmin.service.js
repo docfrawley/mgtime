@@ -22,6 +22,18 @@ function MemadminService($http, ApiPath) {
     return response;
   };
 
+  service.deleteMember = function(memberid){
+    var response = $http({
+      method: "GET",
+      url: (ApiPath +"loginajaxfiles.php"),
+      params: {
+        task:   'deleteMem',
+        memberid:  memberid
+      }
+    });
+    return response;
+  };
+
   service.getList = function(page){
     var response = $http({
       method: "GET",

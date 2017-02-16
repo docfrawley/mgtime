@@ -10,14 +10,16 @@ function HoursController(HoursService, items, totals, mgstatus, ototals) {
    hctrl.items = items.data;
    hctrl.totals = totals.data;
    hctrl.ototals = ototals.data;
-
+   hctrl.months = ['January', 'February', 'March', 'April', 'May', 'June',
+                  'July', 'August', 'September', 'October', 'November',
+                  'December'];
    hctrl.mgstatus = mgstatus.data.mgstatus;
-   console.log("status: ", hctrl.mgstatus);
    hctrl.initstatus = mgstatus.data.mgstatus;
-   hctrl.hdate = "";
-   hctrl.hrstype = "";
-   hctrl.numhrs = null;
-   hctrl.description = "";
+   hctrl.aitems = [];
+   hctrl.aitems.hdate = "";
+   hctrl.aitems.hrstype = "";
+   hctrl.aitems.numhrs = null;
+   hctrl.aitems.description = "";
    hctrl.entered = false;
    hctrl.addhrs = true;
    hctrl.edited = false;
@@ -25,31 +27,41 @@ function HoursController(HoursService, items, totals, mgstatus, ototals) {
   //  hctrl.ishelpline = false;
    hctrl.dateGone = false;
    hctrl.congrats = false;
-
-  //  hctrl.checkHelpline = function (){
-  //    hctrl.ishelpline = (hctrl.hrstype=="Helpline");
-  //  };
-   //
-  //  hctrl.checkHelplineE = function (){
-  //    hctrl.ishelpline = (hctrl.edItems.hrstype=="Helpline");
-  //  };
+   hctrl.previousYear = false;
+   hctrl.showlast = false;
+   hctrl.litems = [];
 
 
   hctrl.submit = function (hrsForm) {
-      HoursService.enterHours(hctrl.hdate, hctrl.hrstype, hctrl.numhrs, hctrl.description)
+      HoursService.enterHours(hctrl.aitems)
           .then(function (response) {
             hctrl.entered = response.data.success;
+            console.log('first result: ', hctrl.entered);
             if (hctrl.entered){
-              hctrl.hdate = "";
-              hctrl.hrstype = "";
-              hctrl.numhrs = null;
-              hctrl.description = "";
+              hctrl.litems.hdate = hctrl.aitems.hdate;
+              hctrl.litems.hrstype = hctrl.aitems.hrstype;
+              hctrl.litems.numhrs = hctrl.aitems.numhrs;
+              hctrl.litems.description = hctrl.aitems.description;
+              hctrl.aitems.hdate = "";
+              hctrl.aitems.hrstype = "";
+              hctrl.aitems.numhrs = null;
+              hctrl.aitems.description = "";
               hctrl.dateGone = false;
               hrsForm.$setUntouched();
+              hctrl.showlast = true;
             } else {
               hctrl.dateGone = true;
+              hctrl.previousYear = response.data.previousYear;
+              console.log('result: ', hctrl.previousYear);
             }
           }).then(function (response) {
+            HoursService.getNumid(hctrl.litems)
+            .then(function (response) {
+            hctrl.litems.numid = response.data.numid;
+            console.log("array: ", response.data);
+          });
+          })
+          .then(function (response) {
             HoursService.getHoursInfo()
             .then(function (response) {
             hctrl.items = response.data;
@@ -73,7 +85,6 @@ function HoursController(HoursService, items, totals, mgstatus, ototals) {
             hctrl.mgstatus = response.data.mgstatus;
             hctrl.congrats=(hctrl.mgstatus == "Active 1000hrs" &&
                 hctrl.initstatus=="A");
-            console.log("status: ", hctrl.mgstatus);
           });
           })
           .catch(function (error) {
@@ -84,12 +95,12 @@ function HoursController(HoursService, items, totals, mgstatus, ototals) {
   hctrl.gomodul = function (index)  {
     hctrl.addhrs = false;
     hctrl.edItems = hctrl.items[index];
-    hctrl.ishelpline = hctrl.edItems.hrstype == "Helpline";
-    // hctrl.edItems = [];
-    // hctrl.edItems.hdate = hctrl.items[index].hdate;
-    // hctrl.edItems.hrstype = hctrl.items[index].hrstype;
-    // hctrl.edItems.numhrs = hctrl.items[index].numhrs;
-    // hctrl.edItems.description = hctrl.items[index].description;
+  };
+
+  hctrl.gomodulL = function ()  {
+    hctrl.addhrs = false;
+    hctrl.edItems = hctrl.litems;
+    console.log('edits: ', hctrl.edItems);
   };
 
   hctrl.backToAdd = function () {
@@ -97,7 +108,8 @@ function HoursController(HoursService, items, totals, mgstatus, ototals) {
     hctrl.edited = false;
     hctrl.deleted = false;
     hctrl.entered = false;
-    // hctrl.ishelpline = (hctrl.hrstype=="Helpline");
+    hctrl.previousYear = false;
+    hctrl.dateGone = false;
   };
 
 
@@ -106,14 +118,24 @@ function HoursController(HoursService, items, totals, mgstatus, ototals) {
           .then(function (response) {
             hctrl.edited = response.data.success;
             if (hctrl.edited){
+            hctrl.litems = hctrl.edItems;
             hctrl.addhrs = true;
             hctrl.entered = false;
             hctrl.deleted = false;
             hctrl.dateGone = false;
+            hctrl.showlast = true;
+            hctrl.litems = hctrl.edItems;
           } else {
             hctrl.dateGone = true;
           }
-          }).then(function (response) {
+        }).then(function (response) {
+            HoursService.getNumid(hctrl.litems)
+            .then(function (response) {
+            hctrl.litems.numid = response.data.numid;
+            console.log("array: ", response.data);
+          });
+          })
+          .then(function (response) {
             HoursService.getHoursInfo()
             .then(function (response) {
             hctrl.items = response.data;
@@ -137,7 +159,6 @@ function HoursController(HoursService, items, totals, mgstatus, ototals) {
             hctrl.mgstatus = response.data.mgstatus;
             hctrl.congrats=(hctrl.mgstatus == "Active 1000hrs" &&
                 hctrl.initstatus=="A");
-            console.log("status: ", hctrl.mgstatus);
           });
           })
           .catch(function (error) {
@@ -152,6 +173,7 @@ function HoursController(HoursService, items, totals, mgstatus, ototals) {
               hctrl.deleted = true;
               hctrl.edited = false;
               hctrl.entered = false;
+              hctrl.showlast = false;
             }).then(function (response) {
               HoursService.getHoursInfo()
               .then(function (response) {
@@ -174,7 +196,6 @@ function HoursController(HoursService, items, totals, mgstatus, ototals) {
               HoursService.getStatus()
               .then(function (response) {
               hctrl.mgstatus = response.data.mgstatus;
-              console.log("status: ", hctrl.mgstatus);
             });
             })
             .catch(function (error) {

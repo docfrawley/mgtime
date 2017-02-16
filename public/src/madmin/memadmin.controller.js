@@ -19,6 +19,7 @@ function MemadminController(MemadminService, info, list, flist, hlist) {
   mactrl.search_lname = "";
   mactrl.did_search = false;
   mactrl.not_multiple = true;
+  mactrl.deleted = false;
 
   mactrl.page = 1;
 
@@ -131,6 +132,42 @@ function MemadminController(MemadminService, info, list, flist, hlist) {
       });
   };
 
+  mactrl.dsubmit = function(){
+    MemadminService.deleteMember(mactrl.edItems.id)
+      .then(function (response){
+        mactrl.deleted = true;
+        mactrl.addhrs = true;
+        mactrl.added = false;
+      })
+      .then(function (response) {
+        MemadminService.getList(mactrl.page)
+        .then(function (response) {
+        mactrl.list = response.data;
+      });
+      })
+      .then(function (response) {
+        MemadminService.getInitialInfo()
+        .then(function (response) {
+        mactrl.last = response.data.last;
+      });
+      })
+      .then(function (response) {
+        MemadminService.getFList()
+        .then(function (response) {
+          mactrl.fulladmin = response.data;
+      });
+      })
+      .then(function (response) {
+        MemadminService.getHList()
+        .then(function (response) {
+        mactrl.hrsadmin = response.data;
+      });
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
+
   mactrl.esubmit = function(){
     MemadminService.editMember(mactrl.edItems)
       .then(function (response){
@@ -171,6 +208,7 @@ function MemadminController(MemadminService, info, list, flist, hlist) {
     mactrl.added = false;
     mactrl.addhrs = true;
     mactrl.edited = false;
+    mactrl.deleted = false;
   };
 
   mactrl.gomodul = function (index)  {
