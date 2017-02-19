@@ -28,7 +28,7 @@ if ($task=='hlist'){
 }
 
 if ($task=='initial_info'){
-  $temp_array = $member_admin->get_pages();
+  $temp_array = $member_admin->get_initial_info();
   echo json_encode($temp_array);
 }
 

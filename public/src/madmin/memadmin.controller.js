@@ -20,6 +20,7 @@ function MemadminController(MemadminService, info, list, flist, hlist) {
   mactrl.did_search = false;
   mactrl.not_multiple = true;
   mactrl.deleted = false;
+  mactrl.filterOn = false;
 
   mactrl.page = 1;
 
@@ -29,9 +30,18 @@ function MemadminController(MemadminService, info, list, flist, hlist) {
   mactrl.hrsadmin = hlist.data;
 
   mactrl.last = info.data.last;
+  mactrl.classRange = [];
+  var thisYear = new Date().getFullYear();
+  for (var x=info.data.firstyear; x<= thisYear;x++){
+    mactrl.classRange.push(x);
+  }
   mactrl.range = [];
   for(var i=1;i<=mactrl.last;i++) {
     mactrl.range.push(i);
+  }
+
+  mactrl.showFilter= function () {
+    mactrl.filterOn = !mactrl.filterOn;
   }
 
   mactrl.firstPage = function ()  {
@@ -91,7 +101,7 @@ function MemadminController(MemadminService, info, list, flist, hlist) {
       });
   };
 
-  mactrl.asubmit = function(){
+  mactrl.asubmit = function(addForm){
     MemadminService.addMember(mactrl.fname, mactrl.lname, mactrl.class,
       mactrl.mgstatus, mactrl.admin_status)
       .then(function (response){
@@ -101,7 +111,7 @@ function MemadminController(MemadminService, info, list, flist, hlist) {
         mactrl.mgstatus = "";
         mactrl.admin_status = "";
         mactrl.added = true;
-
+        addForm.$setUntouched();
       })
       .then(function (response) {
         MemadminService.getList(mactrl.page)
@@ -130,6 +140,12 @@ function MemadminController(MemadminService, info, list, flist, hlist) {
       .catch(function (error) {
         console.log(error);
       });
+  };
+
+  mactrl.dprepare = function (){
+    if (confirm("Are you sure you want to delete this member?") == true) {
+        mactrl.dsubmit();
+    }
   };
 
   mactrl.dsubmit = function(){

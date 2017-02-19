@@ -42,33 +42,55 @@
         <div ng-show="mactrl.deleted" class="alert alert-success" role="alert">
           Member Has Been Deleted</div>
 
+        <form name='addForm' novalidate>
         <div class="form-group">
 
           <div class="row">
               <div class="col-sm-3">
                 <label>First Name</label><br/>
-                <input class="form-control" type="text"
-                 placeholder="First Name" ng-model="mactrl.fname" ng-click="mactrl.backToAdd()">
+                <input class="form-control" type="text" name="firstname"
+                 placeholder="First Name" ng-model="mactrl.fname"
+                 ng-click="mactrl.backToAdd()" required>
+                 <span class="input_warning"
+                   ng-if="addForm.firstname.$error.required && addForm.firstname.$touched">
+                   Please enter first name
+                 </span><br>
               </div>
               <div class="col-sm-3">
                 <label>Last Name</label><br/>
-                <input class="form-control" type="text"
-                 placeholder="Last Name" ng-model="mactrl.lname" ng-click="mactrl.backToAdd()">
+                <input class="form-control" type="text" name="lastname"
+                 placeholder="Last Name" ng-model="mactrl.lname"
+                 ng-click="mactrl.backToAdd()" required>
+                 <span class="input_warning"
+                   ng-if="addForm.lastname.$error.required && addForm.lastname.$touched">
+                   Please enter last name
+                 </span><br>
               </div>
               <div class="col-sm-2">
                 <label>Class Year</label><br/>
-                <input class="form-control" type="text"
-                 placeholder="Class Year" ng-model="mactrl.class">
+                <input class="form-control" type="text" name="classyear"
+                 placeholder="Class Year" ng-model="mactrl.class" required>
+                 <span class="input_warning"
+                   ng-if="addForm.classyear.$error.required && addForm.classyear.$touched">
+                   Please enter class
+                 </span><br>
               </div>
               <div class="col-sm-2">
                 <label>MG Status</label><br/>
-                <select class="custom-select form-control" ng-model="mactrl.mgstatus" ng-click="mactrl.backToAdd()">
+                <select class="custom-select form-control"
+                        ng-model="mactrl.mgstatus"
+                        ng-click="mactrl.backToAdd()"
+                        name="mgofmcstatus" required>
                   <option value="A">Active</option>
                   <option value="A - Trainee">Active Trainee</option>
                   <option value="E">Emeritus</option>
                   <option value="IA">Inactive</option>
                   <option value="T/NotG">Trainee - Did not Graduate</option>
                 </select>
+                <span class="input_warning"
+                  ng-if="addForm.mgofmcstatus.$error.required && addForm.mgofmcstatus.$touched">
+                  Please enter mg status
+                </span><br>
               </div>
               <div class="col-sm-2">
                 <label>Admin Status</label><br/>
@@ -81,29 +103,41 @@
            </div>
           <div class="row">
             <div class="col-sm-3">
-              <button class='btn btn-lg btn-success' ng-click="mactrl.asubmit()">SUBMIT</button>
+              <button class='btn btn-lg btn-success' ng-click="mactrl.asubmit(addForm)"
+              ng-disabled="addForm.$invalid">SUBMIT</button>
             </div>
           </div>
 
         </div>
-
+      </form>
       </div>
 
       <div class="panel-body" ng-if="!mactrl.addhrs">
         <h2>Edit {{mactrl.edItems.fname}} {{mactrl.edItems.lname}}</h2>
         <div ng-show="mactrl.edited" class="alert alert-success" role="alert">
           Edits were successfully made</div>
+        <form name="editForm" novalidate>
         <div class="form-group">
           <div class="row">
               <div class="col-sm-6">
                 <label>First Name: </label><br/>
-                <input class="form-control" type="text"
-                 placeholder="{{mactrl.edItems.fname}}" ng-model="mactrl.edItems.fname">
+                <input class="form-control" type="text" name="firstname"
+                 placeholder="{{mactrl.edItems.fname}}"
+                 ng-model="mactrl.edItems.fname" required>
+                 <span class="input_warning"
+                   ng-if="editForm.firstname.$error.required && editForm.firstname.$touched">
+                   Please enter first name
+                 </span><br>
               </div>
               <div class="col-sm-6">
                   <label>Last Name: </label><br/>
-                  <input class="form-control" type="text"
-                   placeholder="{{mactrl.edItems.lname}}" ng-model="mactrl.edItems.lname">
+                  <input class="form-control" type="text" name="lastname"
+                   placeholder="{{mactrl.edItems.lname}}"
+                   ng-model="mactrl.edItems.lname" required>
+                   <span class="input_warning"
+                     ng-if="editForm.lastname.$error.required && editForm.lastname.$touched">
+                     Please enter last name
+                   </span><br>
                 </div>
 
            </div>
@@ -111,18 +145,28 @@
 
               <div class="col-sm-4">
                 <label>Class Year</label><br/>
-                <input class="form-control" type="text"
-                 placeholder="{{mactrl.edItems.aclass}}" ng-model="mactrl.edItems.class">
+                <input class="form-control" type="text" name='classyear'
+                 placeholder="{{mactrl.edItems.aclass}}"
+                 ng-model="mactrl.edItems.class" required>
+                 <span class="input_warning"
+                   ng-if="editForm.classyear.$error.required && editForm.classyear.$touched">
+                   Please enter class year
+                 </span><br>
               </div>
               <div class="col-sm-4">
                 <label>MG Status</label><br/>
-                <select class="custom-select form-control" ng-model="mactrl.edItems.mgstatus">
+                <select class="custom-select form-control" name="mgofmcstatus"
+                ng-model="mactrl.edItems.mgstatus" required>
                   <option value="A">Active</option>
                   <option value="A - Trainee">Active Trainee</option>
                   <option value="E">Emeritus</option>
                   <option value="IA">Inactive</option>
                   <option value="T/NotG">Trainee - Did not Graduate</option>
                 </select>
+                <span class="input_warning"
+                  ng-if="editForm.mgofmcstatus.$error.required && editForm.mgofmcstatus.$touched">
+                  Please enter mg status
+                </span><br>
               </div>
               <div class="col-sm-4">
                 <label>Admin Status</label><br/>
@@ -137,10 +181,11 @@
 
           <div class="row">
             <div class="col-sm-3">
-              <button class='btn btn-lg btn-success' ng-click="mactrl.esubmit()">UPDATE</button>
+              <button class='btn btn-lg btn-success' ng-click="mactrl.esubmit()"
+              ng-disabled="editForm.$invalid">UPDATE</button>
             </div>
             <div class="col-sm-3">
-              <button class='btn btn-lg btn-danger' ng-click="mactrl.dsubmit()">DELETE</button>
+              <button class='btn btn-lg btn-danger' ng-click="mactrl.dprepare()">DELETE</button>
             </div>
             <div class="col-sm-5">
               <button class='btn btn-lg btn-warning' ng-click="mactrl.backToAdd()">BACK TO ADD NEW MEMBER</button>
@@ -148,7 +193,7 @@
           </div>
 
         </div>
-
+      </form>
       </div>
     </div>
   </div>
@@ -178,9 +223,109 @@
   </div>
   <div class="col-sm-9">
     <div class="panel panel-default">
-      <div class="panel-body text-center">
-        <h3>Member List</h3><br/>
-        <div class="col-sm-12">
+      <div class="panel-body">
+        <div class="row">
+          <div class="col-sm-12 text-center">
+            <h2>Full Member List</h2>
+          </div>
+        </div>
+        <br/>
+        <div class='row'>
+          <div class="col-sm-8 text-right">
+            <button class='btn btn-lg btn-success'>
+              <span class="glyphicon glyphicon-step-backward"
+              ng-mousedown="mactrl.firstPage()"
+              ng-mouseup="mactrl.getNewPage()"></span></button>
+            <button class='btn btn-lg btn-success'><span class="glyphicon glyphicon-triangle-left"
+              ng-mousedown="mactrl.decreasePage()"
+              ng-mouseup="mactrl.getNewPage()"></span></button>
+                <span id="hrsadmin"><select ng-model="mactrl.page"
+                ng-change="mactrl.getNewPage()" >
+                  <option  ng-repeat="nums in mactrl.range" value="{{nums}}">{{nums}}</option>
+                </select></span>
+            <button class='btn btn-lg btn-success'><span class="glyphicon glyphicon-triangle-right"
+              ng-mousedown="mactrl.increasePage()"
+              ng-mouseup="mactrl.getNewPage()"></span></button>
+            <button class='btn btn-lg btn-success'>
+              <span class="glyphicon glyphicon-step-forward"
+              ng-mousedown="mactrl.lastPage()"
+              ng-mouseup="mactrl.getNewPage()"></span></button>
+          </div>
+
+          <div class="col-sm-2 text-right">
+            <button class='btn btn-md btn-warning'
+            ng-click="mactrl.showFilter()">FILTER LIST</button>
+          </div>
+
+          <div class="col-sm-2 text-right" ng-if='mactrl.filterOn'>
+            <button class='btn btn-md btn-primary'
+            ng-click="mactrl.showFilter()">FULL LIST</button>
+          </div>
+
+        </div>
+        <div ng-show='mactrl.filterOn'><br><br>
+          <div class='row'>
+            <div class='col-sm-3 text-right'>
+              <label>Filter body by Class: </label>
+            </div>
+            <div class='col-sm-2 text-left'>
+              <span class="memadmin"><select ng-model="mactrl.getYear"
+              ng-change="mactrl.getClassYear()" >
+                <option  ng-repeat="nums in mactrl.classRange" value="{{nums}}">{{nums}}</option>
+              </select></span>
+            </div>
+            <div class='col-sm-3 text-right'>
+              <label>Filter by MG Status: </label>
+            </div>
+            <div class='col-sm-4 text-left'>
+              <span class="memadmin"><select ng-model="mactrl.getMgstatus"
+                ng-change="mactrl.getMgstatus()">
+                <option value="A">Active</option>
+                <option value="A - Trainee">Active Trainee</option>
+                <option value="E">Emeritus</option>
+                <option value="IA">Inactive</option>
+                <option value="T/NotG">Trainee - Did not Graduate</option>
+              </select></span><br><br>
+            </div>
+          </div>
+        </div>
+
+        <div class='row'>
+          <div class='col-sm-12'>
+            <table class="table table-condensed text-left">
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Class</th>
+                  <th>Status</th>
+                  <th>Admin Level</th>
+                </tr>
+              </thead>
+              <tr ng-repeat="items in mactrl.list">
+                <td>
+                  <button class='btn btn-sm btn-info buttonx'
+                  ng-click="mactrl.gomodul($index)" >
+                  {{items.fname}} {{items.lname}}</button>
+                </td>
+                <td>
+                  {{items.class}}
+                </td>
+                <td ng-switch="items.mgstatus">
+                  <span ng-switch-when="A">Active</span>
+                  <span ng-switch-when="A - Trainee">Active Trainee</span>
+                  <span ng-switch-when="E">Emeritus</span>
+                  <span ng-switch-when="IA">Inactive</span>
+                  <span ng-switch-when="T/NotG">Trainee - Did not Graduate</span>
+                </td>
+                <td>
+                  {{items.admin_status}}
+                </td>
+              </tr>
+            </table>
+          </div>
+        </div>
+        <div class='row'>
+        <div class="col-sm-12 text-center">
           <button class='btn btn-lg btn-success'>
             <span class="glyphicon glyphicon-step-backward"
             ng-mousedown="mactrl.firstPage()"
@@ -200,56 +345,7 @@
             ng-mousedown="mactrl.lastPage()"
             ng-mouseup="mactrl.getNewPage()"></span></button>
         </div>
-        <table class="table table-condensed text-left">
-          <thead>
-            <tr>
-              <th>Name</th>
-              <th>Class</th>
-              <th>Status</th>
-              <th>Admin Level</th>
-            </tr>
-          </thead>
-          <tr ng-repeat="items in mactrl.list">
-            <td>
-              <button class='btn btn-sm btn-info buttonx'
-              ng-click="mactrl.gomodul($index)" >
-              {{items.fname}} {{items.lname}}</button>
-            </td>
-            <td>
-              {{items.class}}
-            </td>
-            <td ng-switch="items.mgstatus">
-              <span ng-switch-when="A">Active</span>
-              <span ng-switch-when="A - Trainee">Active Trainee</span>
-              <span ng-switch-when="E">Emeritus</span>
-              <span ng-switch-when="IA">Inactive</span>
-              <span ng-switch-when="T/NotG">Trainee - Did not Graduate</span>
-            </td>
-            <td>
-              {{items.admin_status}}
-            </td>
-          </tr>
-        </table>
-        <div class="col-sm-12">
-          <button class='btn btn-lg btn-success'>
-            <span class="glyphicon glyphicon-step-backward"
-            ng-mousedown="mactrl.firstPage()"
-            ng-mouseup="mactrl.getNewPage()"></span></button>
-          <button class='btn btn-lg btn-success'><span class="glyphicon glyphicon-triangle-left"
-            ng-mousedown="mactrl.decreasePage()"
-            ng-mouseup="mactrl.getNewPage()"></span></button>
-              <span id="hrsadmin"><select ng-model="mactrl.page"
-              ng-change="mactrl.getNewPage()" >
-                <option  ng-repeat="nums in mactrl.range" value="{{nums}}">{{nums}}</option>
-              </select></span>
-          <button class='btn btn-lg btn-success'><span class="glyphicon glyphicon-triangle-right"
-            ng-mousedown="mactrl.increasePage()"
-            ng-mouseup="mactrl.getNewPage()"></span></button>
-          <button class='btn btn-lg btn-success'>
-            <span class="glyphicon glyphicon-step-forward"
-            ng-mousedown="mactrl.lastPage()"
-            ng-mouseup="mactrl.getNewPage()"></span></button>
-        </div>
+      </div>
       </div>
     </div>
   </div>

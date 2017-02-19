@@ -142,6 +142,21 @@ class memadmin {
 	  return $temp_array;
 	}
 
+	function get_initial_info(){
+		global $database;
+		$temp_array = [];
+		$sql="SELECT * FROM memberinfo ORDER BY class ASC LIMIT 1";
+		$result_set = $database->query($sql);
+		$value = $database->fetch_array($result_set);
+		$temp_array['firstyear'] = 1994;
+		if ($value['class']>0 && $value['class'] != $temp_array['firstyear']){
+			$temp_array['firstyear'] = $value['class'];
+		}
+		$this->set_array();
+		$temp_array['last']=ceil(count($this->allmem)/20);
+	  return $temp_array;
+	}
+
   function checkMember($fname, $lname, $year){
     global $database;
     $sql="SELECT * FROM memberinfo WHERE fname='".$fname."' AND lname='".$lname."' AND class='".$year."'";

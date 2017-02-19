@@ -30,6 +30,12 @@
   border-width: medium;
 }
 
+.memadmin{
+  border-color:black;
+  border-style: solid;
+  border-width: thin;
+}
+
 .buttonx{
   width: 200px;
 }
