@@ -226,12 +226,27 @@
       <div class="panel-body">
         <div class="row">
           <div class="col-sm-12 text-center">
-            <h2>Full Member List</h2>
+            <div ng-if="mactrl.filter=='full'"><h2>Full Member List</h2></div>
+            <div ng-if="mactrl.filter=='class'"><h2>Member List for {{mactrl.filterwhich}}</h2></div>
+            <div ng-if="mactrl.filter=='mgstatus'" ng-switch="mactrl.Mgstatus">
+            <h2 ng-switch-when="A"> Member List for MG Status: Active</h2>
+            <h2 ng-switch-when="A - Trainee">Member List for MG Status: Active Trainee</h2>
+            <h2 ng-switch-when="E">Member List for MG Status: Emeritus</h2>
+            <h2 ng-switch-when="IA">Member List for MG Status: Inactive</h2>
+            <h2 ng-switch-when="T/NotG">Member List for MG Status: Trainee - Did not Graduate</h2></div>
           </div>
         </div>
         <br/>
         <div class='row'>
-          <div class="col-sm-8 text-right">
+          <div class="col-sm-4 text-left" ng-if='mactrl.filterOn'>
+            <button class='btn btn-md btn-primary'
+            ng-click="mactrl.backToFull()">FULL LIST</button>
+          </div>
+          <div class="col-sm-4 text-left" ng-if='!mactrl.filterOn'>
+            <button class='btn btn-md btn-warning'
+            ng-click="mactrl.showFilter()">FILTER LIST</button>
+          </div>
+          <div class="col-sm-8 text-left" ng-if='mactrl.last>1'>
             <button class='btn btn-lg btn-success'>
               <span class="glyphicon glyphicon-step-backward"
               ng-mousedown="mactrl.firstPage()"
@@ -252,15 +267,9 @@
               ng-mouseup="mactrl.getNewPage()"></span></button>
           </div>
 
-          <div class="col-sm-2 text-right">
-            <button class='btn btn-md btn-warning'
-            ng-click="mactrl.showFilter()">FILTER LIST</button>
-          </div>
 
-          <div class="col-sm-2 text-right" ng-if='mactrl.filterOn'>
-            <button class='btn btn-md btn-primary'
-            ng-click="mactrl.showFilter()">FULL LIST</button>
-          </div>
+
+
 
         </div>
         <div ng-show='mactrl.filterOn'><br><br>
@@ -278,7 +287,7 @@
               <label>Filter by MG Status: </label>
             </div>
             <div class='col-sm-4 text-left'>
-              <span class="memadmin"><select ng-model="mactrl.getMgstatus"
+              <span class="memadmin"><select ng-model="mactrl.Mgstatus"
                 ng-change="mactrl.getMgstatus()">
                 <option value="A">Active</option>
                 <option value="A - Trainee">Active Trainee</option>
@@ -325,7 +334,7 @@
           </div>
         </div>
         <div class='row'>
-        <div class="col-sm-12 text-center">
+        <div class="col-sm-12 text-center" ng-if='mactrl.last>1'>
           <button class='btn btn-lg btn-success'>
             <span class="glyphicon glyphicon-step-backward"
             ng-mousedown="mactrl.firstPage()"

@@ -34,13 +34,28 @@ function MemadminService($http, ApiPath) {
     return response;
   };
 
-  service.getList = function(page){
+  service.getList = function(filter, filterwhich, page){
     var response = $http({
       method: "GET",
       url: (ApiPath +"loginajaxfiles.php"),
       params: {
         task:   'memlist',
-        page:   page
+        filter:       filter,
+        filterwhich:  filterwhich,
+        page:         page
+      }
+    });
+    return response;
+  };
+
+  service.getLast = function(filter, filterwhich){
+    var response = $http({
+      method: "GET",
+      url: (ApiPath +"loginajaxfiles.php"),
+      params: {
+        task:   'getLast',
+        filter:       filter,
+        filterwhich:  filterwhich
       }
     });
     return response;

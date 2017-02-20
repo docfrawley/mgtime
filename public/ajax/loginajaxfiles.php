@@ -34,7 +34,16 @@ if ($task=='initial_info'){
 
 if ($task=='memlist'){
   $page = $_GET['page'];
-  $temp_array = $member_admin->get_list($page);
+  $filter = $_GET['filter'];
+  $filterwhich=$_GET['filterwhich'];
+  $temp_array = $member_admin->get_list($filter, $filterwhich, $page);
+  echo json_encode($temp_array);
+}
+
+if ($task=='getLast'){
+  $filter = $_GET['filter'];
+  $filterwhich=$_GET['filterwhich'];
+  $temp_array = $member_admin->get_last($filter, $filterwhich);
   echo json_encode($temp_array);
 }
 

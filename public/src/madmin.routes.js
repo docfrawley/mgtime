@@ -24,7 +24,7 @@ function RoutesConfig($stateProvider, $urlRouterProvider) {
         return MemadminService.getInitialInfo();
       }],
       list: ['MemadminService',function (MemadminService) {
-        return MemadminService.getList(1);
+        return MemadminService.getList('full', 'full', 1);
       }],
       flist: ['MemadminService',function (MemadminService) {
         return MemadminService.getFList();

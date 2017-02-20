@@ -23,7 +23,8 @@ function MemadminController(MemadminService, info, list, flist, hlist) {
   mactrl.filterOn = false;
 
   mactrl.page = 1;
-
+  mactrl.filter='full';
+  mactrl.filterwhich='full';
   mactrl.list = list.data;
 
   mactrl.fulladmin = flist.data;
@@ -41,7 +42,58 @@ function MemadminController(MemadminService, info, list, flist, hlist) {
   }
 
   mactrl.showFilter= function () {
-    mactrl.filterOn = !mactrl.filterOn;
+    mactrl.filterOn = true;
+  };
+
+  mactrl.backToFull = function(){
+    mactrl.filterOn=false;
+    mactrl.filter='full';
+    mactrl.filterwhich='full';
+    mactrl.Mgstatus = '';
+    mactrl.getYear = '';
+    mactrl.page=1;
+    mactrl.getNewPage();
+    mactrl.getNewLast();
+  }
+
+  mactrl.getClassYear = function () {
+    mactrl.filter='class';
+    mactrl.filterwhich=mactrl.getYear;
+    mactrl.Mgstatus = '';
+    mactrl.page=1;
+    mactrl.getNewPage();
+    mactrl.getNewLast();
+  };
+
+  mactrl.getMgstatus = function(){
+    mactrl.filter='mgstatus';
+    mactrl.getYear = "";
+    mactrl.filterwhich=mactrl.Mgstatus;
+    mactrl.page=1;
+    mactrl.getNewPage();
+    mactrl.getNewLast();
+  };
+
+  mactrl.getFull = function(){
+    mactrl.filter='full';
+    mactrl.filterwhich='full';
+    mactrl.page=1;
+    mactrl.getNewPage();
+    mactrl.getNewLast();
+  };
+
+  mactrl.getNewLast = function () {
+    MemadminService.getLast(mactrl.filter, mactrl.filterwhich)
+      .then(function (response){
+        mactrl.last = response.data.last;
+        mactrl.range = [];
+        for(var i=1;i<=mactrl.last;i++) {
+          mactrl.range.push(i);
+        }
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
   }
 
   mactrl.firstPage = function ()  {
@@ -67,7 +119,7 @@ function MemadminController(MemadminService, info, list, flist, hlist) {
   };
 
   mactrl.getNewPage = function(){
-    MemadminService.getList(mactrl.page)
+    MemadminService.getList(mactrl.filter, mactrl.filterwhich, mactrl.page)
       .then(function (response){
         mactrl.list = response.data;
       })

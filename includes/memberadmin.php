@@ -103,13 +103,47 @@ class memadmin {
 		return $temp_array;
 	}
 
-	function get_list($page=1){
-		$this->set_array();
-		$start = $page*20-20;
+	function get_list($filter='full', $filterwhich='full', $page=1){
+		global $database;
 		$temp_array = [];
-		for ($counter=$start; $counter< $page*20 && $counter<count($this->allmem); $counter++) {
-			array_push($temp_array, $this->allmem[$counter]);
+		if ($filter=='full'){
+			$this->set_array();
+			$first_array = $this->allmem;
+			$index = 20;
+		} else{
+			if ($filter=='class'){
+				$sql="SELECT * FROM memberinfo WHERE class = '".$filterwhich."' ORDER BY lname";
+			} else {
+				$sql="SELECT * FROM memberinfo WHERE mgstatus = '".$filterwhich."' ORDER BY lname";
+			}
+			$index = 25;
+			$first_array = [];
+			$result_set = $database->query($sql);
+			while ($value = $database->fetch_array($result_set)) {
+				array_push($first_array, $value);
+			}
 		}
+		$start = $page*$index-$index;
+		for ($counter=$start; $counter< $page*$index && $counter<count($first_array); $counter++) {
+			array_push($temp_array, $first_array[$counter]);
+		}
+		return $temp_array;
+	}
+
+	function get_last($filter='full', $filterwhich='full'){
+		global $database;
+		if ($filter=='full'){
+			return $this->get_pages();
+		} elseif ($filter='class') {
+			$sql="SELECT COUNT(*) AS totalnum FROM memberinfo WHERE class = '".$filterwhich."'";
+			$result_set = $database->query($sql);
+			$value = $database->fetch_array($result_set);
+		} else {
+			$sql="SELECT COUNT(*) AS totalnum FROM memberinfo WHERE mgstatus = '".$filterwhich."'";
+			$result_set = $database->query($sql);
+			$value = $database->fetch_array($result_set);
+		}
+		$temp_array['last']=ceil($value['totalnum']/30);
 		return $temp_array;
 	}
 
