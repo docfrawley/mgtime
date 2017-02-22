@@ -307,6 +307,10 @@
                   <th>Name</th>
                   <th>Class</th>
                   <th>Status</th>
+                  <th ng-if="mactrl.Mgstatus == 'A - Trainee'">
+                    <button class='btn btn-sm btn-info' ng-click="mactrl.checkall()" >Check All</button>
+                    <button class='btn btn-sm btn-warning' ng-click="mactrl.changeChecked()">MAKE ACTIVE</button>
+                  </th>
                   <th>Admin Level</th>
                 </tr>
               </thead>
@@ -325,6 +329,14 @@
                   <span ng-switch-when="E">Emeritus</span>
                   <span ng-switch-when="IA">Inactive</span>
                   <span ng-switch-when="T/NotG">Trainee - Did not Graduate</span>
+                </td>
+                <td ng-if="mactrl.Mgstatus == 'A - Trainee' && !mactrl.makeAllChecked">
+                  <input  type="checkbox" value="{{items.id}}"
+                  ng-click="mactrl.changeInList(items.id)">
+                </td>
+                <td ng-if="mactrl.Mgstatus == 'A - Trainee' && mactrl.makeAllChecked">
+                  <input  type="checkbox" value="{items.id}"  checked
+                  ng-click="mactrl.changeInList(items.id)">
                 </td>
                 <td>
                   {{items.admin_status}}

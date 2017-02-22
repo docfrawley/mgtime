@@ -21,6 +21,8 @@ function MemadminController(MemadminService, info, list, flist, hlist) {
   mactrl.not_multiple = true;
   mactrl.deleted = false;
   mactrl.filterOn = false;
+  mactrl.makeAllChecked=false;
+  mactrl.checkedArray=[];
 
   mactrl.page = 1;
   mactrl.filter='full';
@@ -40,6 +42,35 @@ function MemadminController(MemadminService, info, list, flist, hlist) {
   for(var i=1;i<=mactrl.last;i++) {
     mactrl.range.push(i);
   }
+
+  mactrl.checkall = function() {
+    if (mactrl.checkedArray.length == mactrl.list.length){
+      mactrl.checkedArray = [];
+      mactrl.makeAllChecked= false;
+    } else {
+      mactrl.makeAllChecked= true;
+      for(let i=0; i<mactrl.list.length; i++){
+        mactrl.checkedArray[i]=mactrl.list[i].id;
+      }
+
+    }
+
+    console.log('checkedArray: ', mactrl.checkedArray);
+  };
+
+  mactrl.changeChecked = function (){
+    console.log("what I got: ", mactrl.checkedArray);
+  };
+
+  mactrl.changeInList = function(id){
+    var theIndex = mactrl.checkedArray.indexOf(id);
+    if (theIndex>-1){
+      mactrl.checkedArray.splice(theIndex,1);
+    } else {
+      mactrl.checkedArray.push(id);
+    }
+    console.log("checkedArray:", mactrl.checkedArray);
+  };
 
   mactrl.showFilter= function () {
     mactrl.filterOn = true;
