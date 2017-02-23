@@ -53,6 +53,16 @@ class memadmin {
 		$database->query($sql);
 	}
 
+	function changeToActive($group){
+		global $database;
+		for ($i=0; $i < count($group); $i++) {
+			$sql = "UPDATE memberinfo SET ";
+			$sql .= "mgstatus='A' ";
+			$sql .= "WHERE id='". $group[$i]['id']. "' ";
+			$database->query($sql);
+		}
+	}
+
 	function deleteMember($memberid){
 		global $database;
 		$sql = "DELETE FROM memberinfo ";

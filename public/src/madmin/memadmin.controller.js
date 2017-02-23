@@ -23,6 +23,8 @@ function MemadminController(MemadminService, info, list, flist, hlist) {
   mactrl.filterOn = false;
   mactrl.makeAllChecked=false;
   mactrl.checkedArray=[];
+  mactrl.checkedArrayIsZero = false;
+  mactrl.allToActive = false;
 
   mactrl.page = 1;
   mactrl.filter='full';
@@ -50,30 +52,52 @@ function MemadminController(MemadminService, info, list, flist, hlist) {
     } else {
       mactrl.makeAllChecked= true;
       for(let i=0; i<mactrl.list.length; i++){
-        mactrl.checkedArray[i]=mactrl.list[i].id;
+        mactrl.checkedArray[i]=mactrl.list[i];
       }
-
     }
+    console.log('show array: ', mactrl.checkedArray);
+   };
 
-    console.log('checkedArray: ', mactrl.checkedArray);
-  };
+   mactrl.resetFilters = function(){
+     mactrl.checkedArrayIsZero = false;
+     mactrl.allToActive = false;
+     mactrl.checkedArray=[];
+   }
 
   mactrl.changeChecked = function (){
-    console.log("what I got: ", mactrl.checkedArray);
+    if (mactrl.checkedArray.length > 0){
+      MemadminService.changeToActive(mactrl.checkedArray)
+        .then(function (response){
+          console.log("what back: ", response.data);
+          mactrl.page=1;
+          mactrl.getNewPage();
+          mactrl.getNewLast();
+          mactrl.allToActive = true;
+          mactrl.checkedArray=[];
+          console.log('now: ',mactrl.checkedArray);
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    } else {
+      mactrl.checkedArrayIsZero = true;
+    }
+
   };
 
-  mactrl.changeInList = function(id){
-    var theIndex = mactrl.checkedArray.indexOf(id);
+  mactrl.changeInList = function(items){
+    var theIndex = mactrl.checkedArray.indexOf(items);
     if (theIndex>-1){
       mactrl.checkedArray.splice(theIndex,1);
     } else {
-      mactrl.checkedArray.push(id);
+      mactrl.checkedArray.push(items);
     }
     console.log("checkedArray:", mactrl.checkedArray);
   };
 
   mactrl.showFilter= function () {
     mactrl.filterOn = true;
+    mactrl.checkedArray=[];
   };
 
   mactrl.backToFull = function(){
@@ -83,8 +107,10 @@ function MemadminController(MemadminService, info, list, flist, hlist) {
     mactrl.Mgstatus = '';
     mactrl.getYear = '';
     mactrl.page=1;
+    mactrl.checkedArray=[];
     mactrl.getNewPage();
     mactrl.getNewLast();
+    mactrl.resetFilters();
   }
 
   mactrl.getClassYear = function () {
@@ -197,7 +223,7 @@ function MemadminController(MemadminService, info, list, flist, hlist) {
         addForm.$setUntouched();
       })
       .then(function (response) {
-        MemadminService.getList(mactrl.page)
+        MemadminService.getList(mactrl.filter, mactrl.filterwhich, mactrl.page)
         .then(function (response) {
         mactrl.list = response.data;
       });
@@ -239,7 +265,7 @@ function MemadminController(MemadminService, info, list, flist, hlist) {
         mactrl.added = false;
       })
       .then(function (response) {
-        MemadminService.getList(mactrl.page)
+        MemadminService.getList(mactrl.filter, mactrl.filterwhich, mactrl.page)
         .then(function (response) {
         mactrl.list = response.data;
       });
@@ -272,10 +298,9 @@ function MemadminController(MemadminService, info, list, flist, hlist) {
       .then(function (response){
         mactrl.edited = true;
         mactrl.added = false;
-        console.log("response: ", response.data);
       })
       .then(function (response) {
-        MemadminService.getList(mactrl.page)
+        MemadminService.getList(mactrl.filter, mactrl.filterwhich, mactrl.page)
         .then(function (response) {
         mactrl.list = response.data;
       });

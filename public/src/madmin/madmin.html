@@ -234,6 +234,11 @@
             <h2 ng-switch-when="E">Member List for MG Status: Emeritus</h2>
             <h2 ng-switch-when="IA">Member List for MG Status: Inactive</h2>
             <h2 ng-switch-when="T/NotG">Member List for MG Status: Trainee - Did not Graduate</h2></div>
+
+            <div ng-show="mactrl.allToActive" class="alert alert-success" role="alert">
+              Trainies have been switched to Active</div>
+              <div ng-show="mactrl.checkedArrayIsZero" class="alert alert-warning" role="alert">
+                You need to have at least Trainie checked to switch to Active</div>
           </div>
         </div>
         <br/>
@@ -279,7 +284,7 @@
             </div>
             <div class='col-sm-2 text-left'>
               <span class="memadmin"><select ng-model="mactrl.getYear"
-              ng-change="mactrl.getClassYear()" >
+              ng-change="mactrl.getClassYear()" ng-click="mactrl.resetFilters()">
                 <option  ng-repeat="nums in mactrl.classRange" value="{{nums}}">{{nums}}</option>
               </select></span>
             </div>
@@ -288,7 +293,7 @@
             </div>
             <div class='col-sm-4 text-left'>
               <span class="memadmin"><select ng-model="mactrl.Mgstatus"
-                ng-change="mactrl.getMgstatus()">
+                ng-change="mactrl.getMgstatus()" ng-click="mactrl.resetFilters()">
                 <option value="A">Active</option>
                 <option value="A - Trainee">Active Trainee</option>
                 <option value="E">Emeritus</option>
@@ -331,12 +336,12 @@
                   <span ng-switch-when="T/NotG">Trainee - Did not Graduate</span>
                 </td>
                 <td ng-if="mactrl.Mgstatus == 'A - Trainee' && !mactrl.makeAllChecked">
-                  <input  type="checkbox" value="{{items.id}}"
-                  ng-click="mactrl.changeInList(items.id)">
+                  <input  type="checkbox" value="{{items}}"
+                  ng-click="mactrl.changeInList(items)">
                 </td>
                 <td ng-if="mactrl.Mgstatus == 'A - Trainee' && mactrl.makeAllChecked">
-                  <input  type="checkbox" value="{items.id}"  checked
-                  ng-click="mactrl.changeInList(items.id)">
+                  <input  type="checkbox" value="{items}"  checked
+                  ng-click="mactrl.changeInList(items)">
                 </td>
                 <td>
                   {{items.admin_status}}

@@ -109,6 +109,17 @@ function MemadminService($http, ApiPath) {
     return response;
   };
 
+  service.changeToActive =  function(checkedArray){
+    var response = $http({
+      method: "POST",
+      url: (ApiPath +"makeActive.php"),
+      data: {
+        group:  checkedArray
+      }
+    });
+    return response;
+  };
+
   service.editMember = function(values) {
     var response = $http({
       method: "POST",
