@@ -297,6 +297,9 @@
           <div class="panel-body">
             <h3 class="text-center">ANNUAL HOURS</h3><br>
             <h5 class="text-left">Edit or Delete Entries by clicking on date</h5>
+            <div ng-show="hctrl.pastLimit" class="alert alert-warning" role="alert">
+              You can only edit entries with dates less than 91 days ago</div><br>
+
             <table class="table table-condensed">
               <thead>
                 <tr>

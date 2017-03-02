@@ -98,6 +98,7 @@ function MemadminController(MemadminService, info, list, flist, hlist) {
   mactrl.showFilter= function () {
     mactrl.filterOn = true;
     mactrl.checkedArray=[];
+    mactrl.backToAdd();
   };
 
   mactrl.backToFull = function(){
@@ -111,6 +112,7 @@ function MemadminController(MemadminService, info, list, flist, hlist) {
     mactrl.getNewPage();
     mactrl.getNewLast();
     mactrl.resetFilters();
+    mactrl.backToAdd();
   }
 
   mactrl.getClassYear = function () {

@@ -25,6 +25,7 @@ function HoursController(HoursService, items, totals, mgstatus, ototals) {
    hctrl.edited = false;
    hctrl.deleted = false;
   //  hctrl.ishelpline = false;
+   hctrl.pastLimit = false;
    hctrl.dateGone = false;
    hctrl.congrats = false;
    hctrl.previousYear = false;
@@ -93,14 +94,29 @@ function HoursController(HoursService, items, totals, mgstatus, ototals) {
     };
 
   hctrl.gomodul = function (index)  {
-    hctrl.addhrs = false;
-    hctrl.edItems = hctrl.items[index];
+    hctrl.pastLimit = false;
+    var dLimit = new Date();
+    dLimit.setDate(dLimit.getDate() - 91);
+    var thisDate = new Date(hctrl.items[index]['hdate']);
+    if (thisDate >= dLimit){
+      hctrl.addhrs = false;
+      hctrl.edItems = hctrl.items[index];
+    } else {
+      hctrl.pastLimit = true;
+    }
   };
 
   hctrl.gomodulL = function ()  {
-    hctrl.addhrs = false;
-    hctrl.edItems = hctrl.litems;
-    console.log('edits: ', hctrl.edItems);
+    hctrl.pastLimit = false;
+    var dLimit = new Date();
+    dLimit.setDate(dLimit.getDate() - 91);
+    var thisDate = new Date(hctrl.items[index]['hdate']);
+    if (thisDate >= dLimit){
+      hctrl.addhrs = false;
+      hctrl.edItems = hctrl.litems;
+    } else {
+      hctrl.pastLimit = true;
+    }
   };
 
   hctrl.backToAdd = function () {
@@ -110,6 +126,7 @@ function HoursController(HoursService, items, totals, mgstatus, ototals) {
     hctrl.entered = false;
     hctrl.previousYear = false;
     hctrl.dateGone = false;
+    hctrl.pastLimit = false;
   };
 
 

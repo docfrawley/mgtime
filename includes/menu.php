@@ -34,7 +34,7 @@ if (isset($_SESSION['memberid'])){
             </li>
             <? if ($member->check_hrs()){ ?>
                 <li >
-                  <a href="#"><span class="glyphicon glyphicon-time">
+                  <a href="hrsadmin.php"><span class="glyphicon glyphicon-time">
                   </span><br class="hidden-xs">Hours Admin</a>
                 </li>
             <? }

@@ -290,5 +290,61 @@ class memadmin {
 		return $isThere;
 	}
 
+	function get_total_mgs(){
+		$this->set_array();
+		$reg_array =  array(
+			"A" 							=> 0,
+			"A - Trainee" 		=> 0,
+			"E" 							=> 0,
+			"IA" 							=> 0,
+			"T/NotG"  				=> 0,
+			"Active 1000hrs" 	=> 0
+		);
+		foreach ($this->allmem as $value) {
+			$key = $value['mgstatus'];
+			$reg_array[$key]++;
+		}
+		return $reg_array;
+	}
+
+	function get_registered(){
+		$this->set_array();
+		$reg_array =  array(
+			"A" 							=> 0,
+			"A - Trainee" 		=> 0,
+			"E" 							=> 0,
+			"IA" 							=> 0,
+			"T/NotG"  				=> 0,
+			"Active 1000hrs" 	=> 0
+		);
+		foreach ($this->allmem as $value) {
+			if ($value['username'] != ""){
+				$key = $value['mgstatus'];
+				$reg_array[$key]++;
+			}
+		}
+		return $reg_array;
+	}
+
+	function get_entered_hrs(){
+		$this->set_array();
+		$hrs_array =  array(
+			"A" 							=> 0,
+			"A - Trainee" 		=> 0,
+			"E" 							=> 0,
+			"IA" 							=> 0,
+			"T/NotG"  				=> 0,
+			"Active 1000hrs" 	=> 0
+		);
+		foreach ($this->allmem as $value) {
+			$member = new memberHrs($value['id']);
+			if ($member->num_entries() >0 ){
+				$key = $value['mgstatus'];
+				$hrs_array[$key]++;
+			}
+		}
+		return $hrs_array;
+	}
+
 }
 ?>

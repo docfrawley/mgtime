@@ -11,6 +11,17 @@ class memberHrs {
 		$this->memberid = $id;
 	}
 
+	function num_entries(){
+		global $database;
+		$temp = 0;
+		$sql="SELECT * FROM hours WHERE memberid='".$this->memberid."'";
+    $result_set = $database->query($sql);
+		while ($value = $database->fetch_array($result_set)) {
+			$temp++;
+		}
+		return $temp;
+	}
+
 	function set_hrs($year=2000){
 		global $database;
 		if ($year=2000) {$year=date("Y");}
