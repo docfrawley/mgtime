@@ -21,6 +21,20 @@ function HrsadminService($http, ApiPath) {
     return response;
   };
 
+  service.getList = function(filter, filterwhich, page){
+    var response = $http({
+      method: "GET",
+      url: (ApiPath +"loginajaxfiles.php"),
+      params: {
+        task:   'hrsadlist',
+        filter:       filter,
+        filterwhich:  filterwhich,
+        page:         page
+      }
+    });
+    return response;
+  };
+
 }
 
 

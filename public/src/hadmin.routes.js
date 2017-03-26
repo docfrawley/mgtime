@@ -18,7 +18,12 @@ function RoutesConfig($stateProvider, $urlRouterProvider) {
     url: '/',
     controller: 'HrsadminController',
     controllerAs: 'hactrl',
-    templateUrl: 'src/hrsadmin/hoursadmin.php'
+    templateUrl: 'src/hrsadmin/hoursadmin.php',
+    resolve: {
+      list: ['HrsadminService',function (HrsadminService) {
+        return HrsadminService.getList('full', 'full', 1);
+      }]
+    }
   });
 
 

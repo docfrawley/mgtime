@@ -140,6 +140,11 @@ class memadmin {
 		return $temp_array;
 	}
 
+	// function get_hlist($filter='full', $filterwhich='full', $page=1){
+	// 	$temp_array = $this->get_list($filter, $filterwhich, $page);
+	// 	return $temp_array;
+	// }
+
 	function get_last($filter='full', $filterwhich='full'){
 		global $database;
 		if ($filter=='full'){

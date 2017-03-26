@@ -10,6 +10,7 @@ function HoursController(HoursService, items, totals, mgstatus, ototals) {
    hctrl.items = items.data;
    hctrl.totals = totals.data;
    hctrl.ototals = ototals.data;
+   console.log("here", hctrl.ototals);
    hctrl.months = ['January', 'February', 'March', 'April', 'May', 'June',
                   'July', 'August', 'September', 'October', 'November',
                   'December'];

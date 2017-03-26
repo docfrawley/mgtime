@@ -40,6 +40,13 @@ if ($task=='memlist'){
   echo json_encode($temp_array);
 }
 
+if ($task=='hrsadlist'){
+  $page = $_GET['page'];
+  $filter = $_GET['filter'];
+  $temp_array = $member_admin->get_hlist($filter, $filterwhich, $page);
+  echo json_encode($temp_array);
+}
+
 if ($task=='getLast'){
   $filter = $_GET['filter'];
   $filterwhich=$_GET['filterwhich'];

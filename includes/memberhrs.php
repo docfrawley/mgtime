@@ -149,6 +149,7 @@ class memberHrs {
 			"Mercer County" 					=> 0.0,
 			"Helpline" 								=> 0.0,
 			"Continuing Ed" 					=> 0.0,
+			"Compost"									=> 0.0,
 			"Total"										=> 0.0
 		);
 		$sql="SELECT * FROM annualhrs WHERE memberid='".$this->memberid."'";
@@ -175,6 +176,9 @@ class memberHrs {
 					break;
 				case "Helpline":
 					$total_array['Helpline'] += $value['numhrs'];
+					break;
+				case "Compost (Trainee)":
+					$total_array['Compost'] += $value['numhrs'];
 					break;
 				case "Continuing Ed":
 					// if (date('Y', $value['hdate'])>$year){
