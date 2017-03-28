@@ -108,16 +108,16 @@ function HoursController(HoursService, items, totals, mgstatus, ototals) {
   };
 
   hctrl.gomodulL = function ()  {
-    hctrl.pastLimit = false;
-    var dLimit = new Date();
-    dLimit.setDate(dLimit.getDate() - 91);
-    var thisDate = new Date(hctrl.items[index]['hdate']);
-    if (thisDate >= dLimit){
+    // hctrl.pastLimit = false;
+    // var dLimit = new Date();
+    // dLimit.setDate(dLimit.getDate() - 91);
+    // var thisDate = new Date(hctrl.items[index]['hdate']);
+    // if (thisDate >= dLimit){
       hctrl.addhrs = false;
       hctrl.edItems = hctrl.litems;
-    } else {
-      hctrl.pastLimit = true;
-    }
+    // } else {
+    //   hctrl.pastLimit = true;
+    // }
   };
 
   hctrl.backToAdd = function () {

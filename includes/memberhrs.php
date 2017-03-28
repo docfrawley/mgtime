@@ -152,14 +152,11 @@ class memberHrs {
 			"Compost"									=> 0.0,
 			"Total"										=> 0.0
 		);
-		$sql="SELECT * FROM annualhrs WHERE memberid='".$this->memberid."'";
+		$sql="SELECT * FROM pretotals WHERE id='".$this->memberid."'";
     $result_set = $database->query($sql);
 		$value = $database->fetch_array($result_set);
 		if ($value['mercer'] != null){
 			$total_array['Mercer County'] = $value['mercer'];
-		}
-		if ($value['helpline'] != null){
-			$total_array['Helpline'] = $value['helpline'];
 		}
 		if ($value['conted'] != null){
 			$total_array['Continuing Ed'] = $value['conted'];
@@ -200,7 +197,7 @@ class memberHrs {
 		// } else{
 		// 	$total_array['Continuing Ed'] += $ceTotal;
 		// }
-		$total_array['Total'] = $total_array['Mercer County'] + $total_array['Helpline'];
+		$total_array['Total'] = $total_array['Mercer County'] + $total_array['Helpline']+$total_array['Compost'];
 		return $total_array;
 	}
 

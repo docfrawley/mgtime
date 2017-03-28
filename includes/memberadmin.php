@@ -149,7 +149,7 @@ class memadmin {
 		global $database;
 		if ($filter=='full'){
 			return $this->get_pages();
-		} elseif ($filter='class') {
+		} elseif ($filter=='class') {
 			$sql="SELECT COUNT(*) AS totalnum FROM memberinfo WHERE class = '".$filterwhich."'";
 			$result_set = $database->query($sql);
 			$value = $database->fetch_array($result_set);
@@ -158,7 +158,8 @@ class memadmin {
 			$result_set = $database->query($sql);
 			$value = $database->fetch_array($result_set);
 		}
-		$temp_array['last']=ceil($value['totalnum']/30);
+		$numarray = $value['totalnum'];
+		$temp_array['last']=ceil($numarray/25);
 		return $temp_array;
 	}
 

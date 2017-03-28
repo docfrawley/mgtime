@@ -145,6 +145,7 @@ function MemadminController(MemadminService, info, list, flist, hlist) {
     MemadminService.getLast(mactrl.filter, mactrl.filterwhich)
       .then(function (response){
         mactrl.last = response.data.last;
+        console.log("new last: ", mactrl.last, mactrl.filter, mactrl.filterwhich);
         mactrl.range = [];
         for(var i=1;i<=mactrl.last;i++) {
           mactrl.range.push(i);
