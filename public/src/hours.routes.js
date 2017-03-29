@@ -20,8 +20,11 @@ function RoutesConfig($stateProvider, $urlRouterProvider) {
     controllerAs: 'hctrl',
     templateUrl: 'src/hours/hours.php',
     resolve: {
+      pages: ['HoursService',function (HoursService) {
+        return HoursService.getHoursPages();
+      }],
       items: ['HoursService',function (HoursService) {
-        return HoursService.getHoursInfo();
+        return HoursService.getHoursInfo(1);
       }],
       totals: ['HoursService',function (HoursService) {
         return HoursService.getHourTotals();

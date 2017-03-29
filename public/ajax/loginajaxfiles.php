@@ -112,7 +112,7 @@ if ($task=='get_status'){
 }
 
 if ($task=='hours_info'){
-  $member = new memberHrs($_SESSION['memberid']);
+  $member = new memberHrs($_SESSION['memberid'], $_GET['page']);
   $returnArray = $member->get_hours();
   echo json_encode($returnArray);
 }
@@ -120,6 +120,12 @@ if ($task=='hours_info'){
 if ($task == 'hours_totals'){
   $member = new memberHrs($_SESSION['memberid']);
   $returnArray = $member->get_totalss();
+  echo json_encode($returnArray);
+}
+
+if ($task == 'hours_pages'){
+  $member = new memberHrs($_SESSION['memberid']);
+  $returnArray = $member->get_num_pages();
   echo json_encode($returnArray);
 }
 

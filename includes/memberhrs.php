@@ -66,8 +66,24 @@ class memberHrs {
 	 	$database->query($sql);
 	}
 
-	function get_hours(){
-		return $this->set_hrs();
+	function get_num_pages(){
+		$the_array = $this->set_hrs();
+		$numarray = count($the_array);
+		$temp_array = array();
+		$temp_array['entries'] = $numarray;
+		$temp_array['last']=ceil($numarray/20);
+		return $temp_array;
+	}
+
+	function get_hours($page=1){
+		$first_array = $this->set_hrs();
+		$index = 20;
+		$start = $page*$index-$index;
+		$temp_array = array();
+		for ($counter=$start; $counter< $page*$index && $counter<count($first_array); $counter++) {
+			array_push($temp_array, $first_array[$counter]);
+		}
+		return $temp_array;
 	}
 
 	function get_hours_month($whichMonth, $year){

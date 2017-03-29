@@ -52,12 +52,24 @@ function HoursService($http, ApiPath) {
     return response;
   };
 
-  service.getHoursInfo = function() {
+  service.getHoursInfo = function(page) {
     var response = $http({
       method: "GET",
       url: (ApiPath +"loginajaxfiles.php"),
       params: {
-        task: 'hours_info'
+        task: 'hours_info',
+        page: page
+      }
+    });
+    return response;
+  };
+
+  service.getHoursPages = function(){
+    var response = $http({
+      method: "GET",
+      url: (ApiPath +"loginajaxfiles.php"),
+      params: {
+        task: 'hours_pages'
       }
     });
     return response;

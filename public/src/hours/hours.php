@@ -300,6 +300,27 @@
             <div ng-show="hctrl.pastLimit" class="alert alert-warning" role="alert">
               You can only edit entries with dates less than 91 days ago</div><br>
 
+              <div class="col-sm-12 text-center" ng-if='hctrl.last>1'>
+                <button class='btn btn-sm btn-success'>
+                  <span class="glyphicon glyphicon-step-backward"
+                  ng-mousedown="mactrl.firstPage()"
+                  ng-mouseup="hctrl.getNewPage()"></span></button>
+                <button class='btn btn-sm btn-success'><span class="glyphicon glyphicon-triangle-left"
+                  ng-mousedown="hctrl.decreasePage()"
+                  ng-mouseup="hctrl.getNewPage()"></span></button>
+                    <span id="hrsadmin"><select ng-model="hctrl.page"
+                    ng-change="hctrl.getNewPage()" >
+                      <option  ng-repeat="nums in hctrl.range" value="{{nums}}">{{nums}}</option>
+                    </select></span>
+                <button class='btn btn-sm btn-success'><span class="glyphicon glyphicon-triangle-right"
+                  ng-mousedown="hctrl.increasePage()"
+                  ng-mouseup="hctrl.getNewPage()"></span></button>
+                <button class='btn btn-sm btn-success'>
+                  <span class="glyphicon glyphicon-step-forward"
+                  ng-mousedown="hctrl.lastPage()"
+                  ng-mouseup="hctrl.getNewPage()"></span></button>
+              </div>
+
             <table class="table table-condensed">
               <thead>
                 <tr>
@@ -324,7 +345,26 @@
                 </td>
               </tr>
             </table>
-
+            <div class="col-sm-12 text-center" ng-if='hctrl.last>1'>
+              <button class='btn btn-sm btn-success'>
+                <span class="glyphicon glyphicon-step-backward"
+                ng-mousedown="mactrl.firstPage()"
+                ng-mouseup="hctrl.getNewPage()"></span></button>
+              <button class='btn btn-sm btn-success'><span class="glyphicon glyphicon-triangle-left"
+                ng-mousedown="hctrl.decreasePage()"
+                ng-mouseup="hctrl.getNewPage()"></span></button>
+                  <span id="hrsadmin"><select ng-model="hctrl.page"
+                  ng-change="hctrl.getNewPage()" >
+                    <option  ng-repeat="nums in hctrl.range" value="{{nums}}">{{nums}}</option>
+                  </select></span>
+              <button class='btn btn-sm btn-success'><span class="glyphicon glyphicon-triangle-right"
+                ng-mousedown="hctrl.increasePage()"
+                ng-mouseup="hctrl.getNewPage()"></span></button>
+              <button class='btn btn-sm btn-success'>
+                <span class="glyphicon glyphicon-step-forward"
+                ng-mousedown="hctrl.lastPage()"
+                ng-mouseup="hctrl.getNewPage()"></span></button>
+            </div>
           </div>
         </div>
       </div>

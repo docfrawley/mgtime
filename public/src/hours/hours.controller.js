@@ -4,8 +4,8 @@
 angular.module('HoursApp')
 .controller('HoursController',HoursController);
 
-HoursController.$inject=['HoursService', 'items', 'totals', 'mgstatus', 'ototals'];
-function HoursController(HoursService, items, totals, mgstatus, ototals) {
+HoursController.$inject=['HoursService', 'items', 'totals', 'mgstatus', 'ototals', 'pages'];
+function HoursController(HoursService, items, totals, mgstatus, ototals, pages) {
   var hctrl=this;
    hctrl.items = items.data;
    hctrl.totals = totals.data;
@@ -33,6 +33,16 @@ function HoursController(HoursService, items, totals, mgstatus, ototals) {
    hctrl.showlast = false;
    hctrl.litems = [];
 
+
+   hctrl.page = 1;
+
+   hctrl.last = pages.data.last;
+   console.log('last: ', hctrl.last);
+   hctrl.range = [];
+   for(var i=1;i<=hctrl.last;i++) {
+     hctrl.range.push(i);
+   }
+   console.log('last: ', hctrl.range);
 
   hctrl.submit = function (hrsForm) {
       HoursService.enterHours(hctrl.aitems)
