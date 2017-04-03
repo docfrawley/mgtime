@@ -22,6 +22,12 @@ function RoutesConfig($stateProvider, $urlRouterProvider) {
     resolve: {
       list: ['HrsadminService',function (HrsadminService) {
         return HrsadminService.getList('full', 'full', 1);
+      }],
+      rlist: ['HrsadminService',function (HrsadminService) {
+        return HrsadminService.getRegList();
+      }],
+      nonlist: ['HrsadminService',function (HrsadminService) {
+        return HrsadminService.getNonList();
       }]
     }
   });

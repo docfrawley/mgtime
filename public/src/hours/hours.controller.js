@@ -35,14 +35,48 @@ function HoursController(HoursService, items, totals, mgstatus, ototals, pages) 
 
 
    hctrl.page = 1;
-
    hctrl.last = pages.data.last;
-   console.log('last: ', hctrl.last);
    hctrl.range = [];
    for(var i=1;i<=hctrl.last;i++) {
      hctrl.range.push(i);
    }
-   console.log('last: ', hctrl.range);
+
+   hctrl.firstPage = function ()  {
+     hctrl.page = 1;
+   };
+
+   hctrl.decreasePage = function ()  {
+     if (hctrl.page>1){
+       hctrl.page = parseInt(hctrl.page) - 1;
+     } else {
+       hctrl.page = 1;
+     }
+   };
+
+   hctrl.increasePage = function ()  {
+     if (hctrl.page < hctrl.last){
+       hctrl.page = parseInt(hctrl.page) + 1;
+     }
+   };
+
+   hctrl.lastPage = function ()  {
+     hctrl.page = parseInt(hctrl.last);
+   };
+
+   hctrl.getNewPage = function () {
+     HoursService.getHoursInfo(hctrl.page)
+       .then(function (response){
+         hctrl.items = response.data;
+         console.log("hello: ", hctrl.page, hctrl.items);
+       })
+       .catch(function (error) {
+         console.log(error);
+       });
+   };
+
+
+
+
 
   hctrl.submit = function (hrsForm) {
       HoursService.enterHours(hctrl.aitems)
@@ -77,6 +111,14 @@ function HoursController(HoursService, items, totals, mgstatus, ototals, pages) 
             HoursService.getHoursInfo()
             .then(function (response) {
             hctrl.items = response.data;
+          });
+          })
+          .then(function (response) {
+            HoursService.getHoursPages()
+            .then(function (response) {
+            hctrl.last = response.data.last;
+            hctrl.page = 1;
+            hctrl.getNewPage();
           });
           })
           .then(function (response) {
@@ -170,6 +212,14 @@ function HoursController(HoursService, items, totals, mgstatus, ototals, pages) 
           });
           })
           .then(function (response) {
+            HoursService.getHoursPages()
+            .then(function (response) {
+            hctrl.last = response.data.last;
+            hctrl.page = 1;
+            hctrl.getNewPage();
+          });
+          })
+          .then(function (response) {
             HoursService.getHourTotals()
             .then(function (response) {
             hctrl.totals = response.data;
@@ -212,6 +262,14 @@ function HoursController(HoursService, items, totals, mgstatus, ototals, pages) 
               HoursService.getHourTotals()
               .then(function (response) {
               hctrl.totals = response.data;
+            });
+            })
+            .then(function (response) {
+              HoursService.getHoursPages()
+              .then(function (response) {
+              hctrl.last = response.data.last;
+              hctrl.page = 1;
+              hctrl.getNewPage();
             });
             })
             .then(function (response) {

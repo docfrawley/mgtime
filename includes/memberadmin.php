@@ -174,6 +174,31 @@ class memadmin {
 		}
 	}
 
+	function nohours($id){
+		$memberhrs = new memberHrs($id);
+		$value = $memberhrs->num_entries();
+		return ($value==0);
+	}
+
+	function hrsNonlist(){
+		$this->set_array();
+		$nonReg_array = array();
+		$RegNoHrs_array = array();
+		foreach ($this->allmem as $value) {
+			$nohours = $this->nohours($value['id']);
+			if ($value['username']==''){
+				array_push($nonReg_array, $value);
+			} elseif ($nohours) {
+				array_push($RegNoHrs_array, $value);
+			}
+		}
+		$returnArray = array(
+			'nonReg' => $nonReg_array,
+			'RegNoHrs' => $RegNoHrs_array
+		);
+		return $returnArray;
+	}
+
 	function lookupMem($lname){
 		global $database;
 		$temp_array = array();

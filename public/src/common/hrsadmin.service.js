@@ -35,6 +35,28 @@ function HrsadminService($http, ApiPath) {
     return response;
   };
 
+  service.getRegList = function(){
+    var response = $http({
+      method: "GET",
+      url: (ApiPath +"loginajaxfiles.php"),
+      params: {
+        task:   'hrsReglist'
+      }
+    });
+    return response;
+  };
+
+  service.getNonList= function(){
+    var response = $http({
+      method: "GET",
+      url: (ApiPath +"loginajaxfiles.php"),
+      params: {
+        task:   'hrsNonlist'
+      }
+    });
+    return response;
+  };
+
 }
 
 

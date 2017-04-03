@@ -112,8 +112,8 @@ if ($task=='get_status'){
 }
 
 if ($task=='hours_info'){
-  $member = new memberHrs($_SESSION['memberid'], $_GET['page']);
-  $returnArray = $member->get_hours();
+  $member = new memberHrs($_SESSION['memberid']);
+  $returnArray = $member->get_hours($_GET['page']);
   echo json_encode($returnArray);
 }
 
@@ -163,5 +163,24 @@ if ($task=='get_numid'){
   );
   echo json_encode($returnArray);
 }
+
+if ($task=='hrsReglist'){
+  $all_array = $member_admin->get_total_mgs();
+  $reg_array = $member_admin->get_registered();
+  $hrs_array = $member_admin->get_entered_hrs();
+  $returnArray = array(
+      'all' => $all_array,
+      'reg' => $reg_array,
+      'hrs' => $hrs_array
+  );
+  echo json_encode($returnArray);
+}
+
+if ($task=='hrsNonlist'){
+  $returnArray = $member_admin->hrsNonlist();
+  echo json_encode($returnArray);
+}
+
+
 
 ?>

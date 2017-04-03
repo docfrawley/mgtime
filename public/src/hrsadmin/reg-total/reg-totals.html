@@ -1,0 +1,51 @@
+<div>
+  <h3>{{$ctrl.title}}</h3>
+  <table class="table text-left">
+      <thead>
+      <tr>
+        <th>MG Status</th>
+        <th>Total Number</th>
+        <th>Total Registered</th>
+        <th># Entered Hrs on Site</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Active</td>
+        <td>{{$ctrl.categories.all.A}}</td>
+        <td>{{$ctrl.categories.reg.A}}</td>
+        <td>{{$ctrl.categories.hrs.A}}</td>
+      </tr>
+      <tr>
+        <td>Active Trainee</td>
+        <td>{{$ctrl.categories.all["A - Trainee"]}}</td>
+        <td>{{$ctrl.categories.reg["A - Trainee"]}}</td>
+        <td>{{$ctrl.categories.hrs["A - Trainee"]}}</td>
+      </tr>
+      <tr>
+        <td>Emeritus</td>
+        <td>{{$ctrl.categories.all.E}}</td>
+        <td>{{$ctrl.categories.reg.E}}</td>
+        <td>{{$ctrl.categories.hrs.E}}</td>
+      </tr>
+      <tr>
+        <td>Inactive</td>
+        <td>{{$ctrl.categories.all.IA}}</td>
+        <td>{{$ctrl.categories.reg.IA}}</td>
+        <td>{{$ctrl.categories.hrs.IA}}</td>
+      </tr>
+      <tr>
+        <td>Trainee - Did not Graduate</td>
+        <td>{{$ctrl.categories.all["T/NotG"]}}</td>
+        <td>{{$ctrl.categories.reg["T/NotG"]}}</td>
+        <td>{{$ctrl.categories.hrs["T/NotG"]}}</td>
+      </tr>
+      <tr>
+        <td>Active 1000hrs</td>
+        <td>{{$ctrl.categories.all["Active 1000hrs"]}}</td>
+        <td>{{$ctrl.categories.reg["Active 1000hrs"]}}</td>
+        <td>{{$ctrl.categories.hrs["Active 1000hrs"]}}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

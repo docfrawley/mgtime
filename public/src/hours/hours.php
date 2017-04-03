@@ -303,7 +303,7 @@
               <div class="col-sm-12 text-center" ng-if='hctrl.last>1'>
                 <button class='btn btn-sm btn-success'>
                   <span class="glyphicon glyphicon-step-backward"
-                  ng-mousedown="mactrl.firstPage()"
+                  ng-mousedown="hctrl.firstPage()"
                   ng-mouseup="hctrl.getNewPage()"></span></button>
                 <button class='btn btn-sm btn-success'><span class="glyphicon glyphicon-triangle-left"
                   ng-mousedown="hctrl.decreasePage()"
@@ -330,7 +330,7 @@
                   <th>Description</th>
                 </tr>
               </thead>
-              <tr ng-repeat="items in hctrl.items">
+              <tr ng-repeat="items in hctrl.items track by $index" >
                 <td>
                   <button class='btn btn-sm btn-info' ng-click="hctrl.gomodul($index)">{{items.hdate}}</button>
                 </td>
@@ -348,7 +348,7 @@
             <div class="col-sm-12 text-center" ng-if='hctrl.last>1'>
               <button class='btn btn-sm btn-success'>
                 <span class="glyphicon glyphicon-step-backward"
-                ng-mousedown="mactrl.firstPage()"
+                ng-mousedown="hctrl.firstPage()"
                 ng-mouseup="hctrl.getNewPage()"></span></button>
               <button class='btn btn-sm btn-success'><span class="glyphicon glyphicon-triangle-left"
                 ng-mousedown="hctrl.decreasePage()"

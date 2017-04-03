@@ -35,7 +35,7 @@
     <script src="src/hours/hours.controller.js"></script>
     <script src="src/madmin/memadmin.controller.js"></script>
     <script src="src/hrsadmin/hrsadmin.controller.js"></script>
-
-
+    <script src="src/hrsadmin/reg-total/reg-totals.component.js"></script>
+    <script src="src/hrsadmin/no-list/show-nolist.component.js"></script>
    </body>
  </html>
