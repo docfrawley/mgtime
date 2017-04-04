@@ -25,7 +25,7 @@
         </div>
         <div ng-if="hactrl.doWhat=='regNoHrs'">
           <show-nolist
-            title="Registered Members, No Hours Entered"
+            title="Registered, No Hours Entered"
             list="hactrl.nonlist.RegNoHrs">
           </show-nolist>
         </div>
