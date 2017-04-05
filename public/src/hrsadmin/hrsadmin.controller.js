@@ -15,8 +15,8 @@ function HrsadminController(HrsadminService, list, rlist, nonlist) {
 
 
 
-hactrl.changeLook = function(doWhat){
-  hactrl.doWhat= doWhat;
+hactrl.changeLook = function(){
+  hactrl.doWhat= (hactrl.doWhat=='regNoHrs')? 'notReg':'regNoHrs';
 }
 
 }

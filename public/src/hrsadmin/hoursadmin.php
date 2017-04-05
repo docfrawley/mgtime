@@ -5,28 +5,23 @@
     <reg-totals title="Master Gardeners Overall Totals" categories="hactrl.rlist"></reg-totals>
   </div>
   <div class="col-md-6">
-    <div class="row text-center">
-      <div class="col-sm-3" ng-if="hactrl.doWhat=='regNoHrs'">
-        <button class='btn btn-sm btn-success' ng-click="hactrl.changeLook('notReg')">NOT REGISTERED</button>
-      </div>
-      <div class="col-sm-3" ng-if="hactrl.doWhat=='notReg'">
-        <button class='btn btn-sm btn-success' ng-click="hactrl.changeLook('regNoHrs')">REGISTERED, NO HRS</button>
-      </div>
-
-    </div>
 
     <div class="row text-center">
       <div class="col-sm-12">
         <div ng-if="hactrl.doWhat=='notReg'">
           <show-nolist
             title="Members Not Registered"
-            list="hactrl.nonlist.nonReg">
+            which="REGISTERED, NO HRS"
+            list="hactrl.nonlist.nonReg"
+            on-list="hactrl.changeLook()">
           </show-nolist>
         </div>
         <div ng-if="hactrl.doWhat=='regNoHrs'">
           <show-nolist
             title="Registered, No Hours Entered"
-            list="hactrl.nonlist.RegNoHrs">
+            which="NOT REGISTERED"
+            list="hactrl.nonlist.RegNoHrs"
+            on-list="hactrl.changeLook(whichone)">
           </show-nolist>
         </div>
       </div>

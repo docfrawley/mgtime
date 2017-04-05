@@ -6,7 +6,9 @@ angular.module('HadminApp')
   templateUrl: 'src/hrsadmin/no-list/show-nolist.html',
   bindings: {
     list: '<',
-    title: '@'
+    which: '@',
+    title: '@',
+    onList: '&'
   }
 });
 

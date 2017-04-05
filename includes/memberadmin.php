@@ -184,8 +184,9 @@ class memadmin {
 		$this->set_array();
 		$nonReg_array = array();
 		$RegNoHrs_array = array();
+		$the_array = array ("IA", "T/NotG", "E");
 		foreach ($this->allmem as $value) {
-			if ($value['mgstatus'] !="IA" && $value['mgstatus'] !="T/NotG"){
+			if (!in_array($value['mgstatus'], $the_array)){
 				$nohours = $this->nohours($value['id']);
 				if ($value['username']==''){
 					array_push($nonReg_array, $value);

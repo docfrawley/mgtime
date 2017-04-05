@@ -26,7 +26,7 @@ class memberHrs {
 		global $database;
 		if ($year=2000) {$year=date("Y");}
     $hrs_array =  array();
-    $sql="SELECT * FROM hours WHERE memberid='".$this->memberid."' ORDER BY hdate ASC";
+    $sql="SELECT * FROM hours WHERE memberid='".$this->memberid."' ORDER BY hdate DESC";
     $result_set = $database->query($sql);
 		while ($value = $database->fetch_array($result_set)) {
       $hrsobject = new hrsObject($value['numid']);
