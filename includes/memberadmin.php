@@ -140,10 +140,24 @@ class memadmin {
 		return $temp_array;
 	}
 
-	// function get_hlist($filter='full', $filterwhich='full', $page=1){
-	// 	$temp_array = $this->get_list($filter, $filterwhich, $page);
-	// 	return $temp_array;
-	// }
+	function get_hrmlist($filter='full', $filterwhich='full', $page=1){
+		$initial_array = $this->get_list($filter, $filterwhich, $page);
+		$temp_array = array();
+		foreach ($initial_array as $value) {
+			$member = new memberHrs($value['id']);
+			$hours = $member->get_totalss();
+			$total = $member->overallTotal();
+			$member_array = array(
+				"name" 	=> $value['fname'].' '.$value['lname'],
+				'id'		=> $value['id'],
+				'status'=> $value['mgstatus'],
+				'hours' => $hours,
+				'total'	=> $total
+			);
+			array_push($temp_array, $member_array);
+		}
+		return ($temp_array);
+	}
 
 	function get_last($filter='full', $filterwhich='full'){
 		global $database;

@@ -28,14 +28,17 @@
     <script src="src/member.routes.js"></script>
     <script src="src/hours.routes.js"></script>
     <script src="src/madmin.routes.js"></script>
-      <script src="src/hadmin.routes.js"></script>
+    <script src="src/hadmin.routes.js"></script>
 
     <script src="src/login/register/register.controller.js"></script>
     <script src="src/member/member.controller.js"></script>
     <script src="src/hours/hours.controller.js"></script>
     <script src="src/madmin/memadmin.controller.js"></script>
     <script src="src/hrsadmin/hrsadmin.controller.js"></script>
+    <script src="src/hrsadmin/hrsreport.controller.js"></script>
+    <script src="src/hrsadmin/hrsmem.controller.js"></script>
     <script src="src/hrsadmin/reg-total/reg-totals.component.js"></script>
     <script src="src/hrsadmin/no-list/show-nolist.component.js"></script>
+    <script src="src/hrsadmin/page-turn/page-turn.component.js"></script>
    </body>
  </html>

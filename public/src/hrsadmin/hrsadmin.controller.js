@@ -12,7 +12,7 @@ function HrsadminController(HrsadminService, list, rlist, nonlist) {
   hactrl.rlist = rlist.data;
   hactrl.doWhat = 'regNoHrs';
   hactrl.nonlist = nonlist.data;
-
+  
 
 
 hactrl.changeLook = function(){

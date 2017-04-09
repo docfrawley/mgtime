@@ -12,8 +12,6 @@ function RoutesConfig($stateProvider, $urlRouterProvider) {
 
   // *** Set up UI states ***
   $stateProvider
-
-  // Home page
   .state('home', {
     url: '/',
     controller: 'HrsadminController',
@@ -25,6 +23,40 @@ function RoutesConfig($stateProvider, $urlRouterProvider) {
       }],
       rlist: ['HrsadminService',function (HrsadminService) {
         return HrsadminService.getRegList();
+      }],
+      nonlist: ['HrsadminService',function (HrsadminService) {
+        return HrsadminService.getNonList();
+      }]
+    }
+  })
+  .state('reports', {
+    url: '/reports',
+    controller: 'HrsreportController',
+    controllerAs: 'hrctrl',
+    templateUrl: 'src/hrsadmin/hoursreport.php',
+    resolve: {
+      list: ['HrsadminService',function (HrsadminService) {
+        return HrsadminService.getList('full', 'full', 1);
+      }],
+      rlist: ['HrsadminService',function (HrsadminService) {
+        return HrsadminService.getRegList();
+      }],
+      nonlist: ['HrsadminService',function (HrsadminService) {
+        return HrsadminService.getNonList();
+      }]
+    }
+  })
+  .state('memhours', {
+    url: '/memhours',
+    controller: 'HrsmemController',
+    controllerAs: 'hmctrl',
+    templateUrl: 'src/hrsadmin/memhours.php',
+    resolve: {
+      list: ['HrsadminService',function (HrsadminService) {
+        return HrsadminService.getmList('full', 'full', 1);
+      }],
+      info: ['MemadminService',function (MemadminService) {
+        return MemadminService.getInitialInfo();
       }],
       nonlist: ['HrsadminService',function (HrsadminService) {
         return HrsadminService.getNonList();

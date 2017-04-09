@@ -41,11 +41,19 @@ if ($task=='memlist'){
 }
 
 if ($task=='hrsadlist'){
-  $page = $_GET['page'];
-  $filter = $_GET['filter'];
-  $temp_array = $member_admin->get_hlist($filter, $filterwhich, $page);
+  $temp_array = $member_admin->get_hlist();
   echo json_encode($temp_array);
 }
+
+if ($task=='hrsmlist'){
+  $page = $_GET['page'];
+  $filter = $_GET['filter'];
+  $filterwhich = $_GET['filterwhich'];
+  $temp_array = $member_admin->get_hrmlist($filter, $filterwhich, $page);
+  echo json_encode($temp_array);
+}
+
+
 
 if ($task=='getLast'){
   $filter = $_GET['filter'];

@@ -1,5 +1,15 @@
+<div class="row">
+  <div class="col-sm-12 text-center">
+    <h1>Hours Administration: Online Registration</h1>
+  </div>
+  <div class="col-sm-12 text-center">
+    <button ui-sref="reports" class='btn btn-sm btn-info'>REPORTS</button>
+    <button ui-sref="memhours" class='btn btn-sm btn-info'>MEMBER HRS</button>
+  </div>
+</div><br>
 
 <div class="row">
+
   <div class="col-md-6">
 
     <reg-totals title="Master Gardeners Overall Totals" categories="hactrl.rlist"></reg-totals>
