@@ -71,6 +71,18 @@ function HrsadminService($http, ApiPath) {
     return response;
   };
 
+  service.getMemInfo=function(memberID){
+    var response = $http({
+      method: "GET",
+      url: (ApiPath +"loginajaxfiles.php"),
+      params: {
+        task:     'getMemInfo',
+        memberID: memberID
+      }
+    });
+    return response;
+  };
+
 }
 
 

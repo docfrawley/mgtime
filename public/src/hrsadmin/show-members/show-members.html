@@ -1,0 +1,43 @@
+<div class='col-sm-12'>
+  <table class="table table-condensed text-left">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Status</th>
+        <th> {{$ctrl.year}} Vol. Hrs.</th>
+        <th> {{$ctrl.year}} Cont.Ed.</th>
+        <th>Hist. Vol. Hrs.</th>
+        <th>Hist. Cont. Ed.</th>
+      </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="items in $ctrl.list">
+      <td>
+        <button class='btn btn-sm btn-info buttony'
+        ng-click="$ctrl.gotId($index)" >
+        {{items.name}}</button>
+      </td>
+      <td ng-switch="items.status">
+        <span ng-switch-when="A">Active</span>
+        <span ng-switch-when="Active 1000hrs">Active 1000hrs</span>
+        <span ng-switch-when="A - Trainee">Active Trainee</span>
+        <span ng-switch-when="E">Emeritus</span>
+        <span ng-switch-when="IA">Inactive</span>
+        <span ng-switch-when="T/NotG">Trainee - Did not Graduate</span>
+      </td>
+      <td>
+        {{items.hours[12].Total}}
+      </td>
+      <td>
+        {{items.hours[12]['Continuing Ed']}}
+      </td>
+      <td>
+        {{items.total.Total}}
+      </td>
+      <td>
+        {{items.total['Continuing Ed']}}
+      </td>
+    </tr>
+  </tbody>
+</table>
+</div>

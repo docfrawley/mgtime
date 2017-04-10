@@ -189,6 +189,26 @@ if ($task=='hrsNonlist'){
   echo json_encode($returnArray);
 }
 
+if ($task=='getMemInfo'){
+  $memberID = $_GET['memberID'];
+  $memberInfo = new memberObject($memberID);
+  $member = new memberHrs($memberID);
+  $member_array = array(
+    "name" => $memberInfo->get_fullname(),
+    "class" => $memberInfo->get_class(),
+    "mgstatus" => $memberInfo->get_status()
+  );
+  // $year = date('Y');
+  $annual_array = $member->get_hours(1);
+  $total_array = $member->get_totalss();
+  $returnArray = array(
+    "minfo" => $member_array,
+    "annual"=> $annual_array,
+    "totals"=> $total_array
+  );
+  echo json_encode($returnArray);
+}
+
 
 
 ?>

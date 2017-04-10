@@ -1,0 +1,30 @@
+<div class="panel panel-default">
+  <div class="panel-body">
+    <h3>Search for Member</h3>
+    <div class="form-group">
+
+      <div class="row" ng-if="$ctrl.not_multiple">
+          <div class="col-sm-12">
+            <label ng-if="!$ctrl.did_search">Enter Last Name</label><br/>
+            <label ng-if="$ctrl.did_search && !$ctrl.found">No Match. Please try again.</label><br/>
+            <input class="form-control" type="text"
+             placeholder="Last Name" ng-model="$ctrl.search_lname"><br/>
+          </div>
+          <div class="col-sm-3">
+            <button class='btn btn-lg btn-success' ng-click="$ctrl.goLook()">SEARCH</button>
+          </div>
+      </div>
+
+      <div class="row" ng-if="!$ctrl.not_multiple">
+        <div class="col-sm-12">
+          <label>Please click on the appropriate member.</label><br/>
+          <div class="col-sm-12" ng-repeat="items in $ctrl.found_list">
+            <div><button class='btn btn-sm btn-info buttonx' ng-click="$ctrl.gotId($index)">
+              {{items.fname}} {{items.lname}}</button></div><br/>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
