@@ -201,10 +201,12 @@ if ($task=='getMemInfo'){
   // $year = date('Y');
   $annual_array = $member->get_hours(1);
   $total_array = $member->get_totalss();
+  $historical_array = $member->overallTotal();
   $returnArray = array(
-    "minfo" => $member_array,
-    "annual"=> $annual_array,
-    "totals"=> $total_array
+    "minfo"     =>  $member_array,
+    "annual"    =>  $annual_array,
+    "totals"    =>  $total_array,
+    "historical" =>  $historical_array
   );
   echo json_encode($returnArray);
 }

@@ -44,10 +44,47 @@
 </div>
 
 <div class="row" ng-if="hmctrl.lookAtMember"><br>
-  <div class="col-sm-5 text-left">
-    <h3>Time Collection for {{hmctrl.memberID}}</h3>
+  <div class= "row">
+    <div class="col-sm-5 text-left">
+      <h3>Time Collection for {{hmctrl.meminfo.minfo.name}}</h3>
+    </div>
+    <div class="col-sm-7 text-left">
+      <button class='btn btn-sm btn-info' ng-click="hmctrl.memberLists()">BACK TO MEMBERS LIST</button>
+    </div>
   </div>
-  <div class="col-sm-7 text-left">
-    <button class='btn btn-sm btn-info' ng-click="hmctrl.memberLists()">BACK TO MEMBERS LIST</button>
-  </div>
+
+  <div class="row">
+    <div class="col-md-6">
+      <div class="panel panel-default">
+        <div class="panel-body">
+          <h3 class="text-center">ANNUAL HOURS</h3><br>
+          <h5 class="text-left">Edit or Delete Entries by clicking on date</h5><br>
+
+          <page-turn
+              range         = "hmctrl.range"
+              first-page    = "hmctrl.firstPage()"
+              new-page      = "hmctrl.getNewPage()"
+              decrease-page = "hmctrl.decreasePage()"
+              increase-page = "hmctrl.increasePage()"
+              last-page     = "hmctrl.lastPage()"
+              option-page   = "hmctrl.optionPage(index)">
+          </page-turn>
+
+          <show-hours
+            list="hmctrl.meminfo.annual"></show-hours>
+          <page-turn
+              range         = "hmctrl.range"
+              first-page    = "hmctrl.firstPage()"
+              new-page      = "hmctrl.getNewPage()"
+              decrease-page = "hmctrl.decreasePage()"
+              increase-page = "hmctrl.increasePage()"
+              last-page     = "hmctrl.lastPage()"
+              option-page   = "hmctrl.optionPage(index)">
+          </page-turn>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <show-totals
+      list="hmctrl.meminfo"></show-totals>
 </div>

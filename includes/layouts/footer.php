@@ -42,5 +42,7 @@
     <script src="src/hrsadmin/page-turn/page-turn.component.js"></script>
     <script src="src/hrsadmin/search-member/search-member.component.js"></script>
     <script src="src/hrsadmin/show-members/show-members.component.js"></script>
+    <script src="src/hrsadmin/show-hours/show-hours.component.js"></script>
+    <script src="src/hrsadmin/show-totals/show-totals.component.js"></script>
    </body>
  </html>

@@ -1,0 +1,54 @@
+<div class="panel panel-default">
+  <div class="panel-body text-center">
+    <h3>Yearly Hour Totals</h3><br>
+
+    <table class="table table-bordered table-hover">
+       <thead>
+         <tr>
+           <th></th>
+           <th class ="text-center">Requirement</th>
+           <th class ="text-center">Annual</th>
+           <th class ="text-center">Historical</th>
+         </tr>
+       </thead>
+       <tbody>
+         <tr>
+           <th scope="row">Volunteer Hours:</th>
+             <td ng-if="$ctrl.list.minfo.mgstatus=='A - Trainee'">60</td>
+             <td ng-if="$ctrl.list.minfo.mgstatus=='A'">30</td>
+             <td ng-if="$ctrl.list.minfo.mgstatus=='Active 1000hrs'">25</td>
+           <td>{{$ctrl.list.totals[12].Total}}</td>
+           <td> <strong>{{$ctrl.list.historical.Total}}</strong></td>
+         </tr>
+         <tr>
+           <th scope="row">&nbsp;&nbsp;&nbsp;&nbsp;Mercer County</th>
+           <td ng-if="$ctrl.list.minfo.mgstatus=='A - Trainee' ||
+                      $ctrl.list.minfo.mgstatus=='Active 1000hrs'">25</td>
+           <td ng-if="$ctrl.list.minfo.mgstatus=='A'">15</td>
+           <td>{{$ctrl.list.totals[12]['Mercer County']}}</td>
+           <td>{{$ctrl.list.historical['Mercer County']}}</td>
+         </tr>
+         <tr>
+           <th scope="row">&nbsp;&nbsp;&nbsp;&nbsp;Helpline</th>
+           <td ng-if="$ctrl.list.minfo.mgstatus=='A - Trainee'">30</td>
+           <td ng-if="$ctrl.list.minfo.mgstatus=='A'">15</td>
+           <td ng-if="$ctrl.list.minfo.mgstatus=='Active 1000hrs'"> </td>
+           <td>{{$ctrl.list.totals[12]['Helpline']}}</td>
+           <td> {{$ctrl.list.historical['Helpline']}}</td>
+         </tr>
+         <tr ng-show="$ctrl.list.minfo.mgstatus!='A - Trainee'">
+             <th scope="row">Continuing Ed (CE)</th>
+             <td>10</td>
+             <td>{{$ctrl.list.totals[12]['Continuing Ed']}}</td>
+             <td> {{$ctrl.list.historical['Continuing Ed']}}</td>
+         </tr>
+         <tr ng-show="$ctrl.list.minfo.mgstatus=='A - Trainee'">
+             <th scope="row">&nbsp;&nbsp;&nbsp;&nbsp;Compost</th>
+             <td>5</td>
+             <td>{{$ctrl.list.totals[12]['Compost (Trainee)']}}</td>
+             <td> {{$ctrl.list.historical['Compost']}}</td>
+         </tr>
+       </tbody>
+     </table>
+   </div>
+</div>

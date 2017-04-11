@@ -25,8 +25,8 @@ function HrsmemController(HrsadminService, list, info, nonlist) {
     hmctrl.memberID = index;
     HrsadminService.getMemInfo(hmctrl.memberID)
       .then(function (response){
-        hmctrl.minfo = response.data;
-        console.log("got data: ", hmctrl.minfo);
+        hmctrl.meminfo = response.data;
+        console.log("got data: ", hmctrl.meminfo);
       })
       .catch(function (error) {
         console.log(error);
