@@ -46,29 +46,33 @@
   </div>
 
   <div class="row">
-    <div class="col-md-6">
+    <div class="col-md-7">
       <div class="panel panel-default">
         <div class="panel-body">
           <h3 class="text-center">ANNUAL HOURS</h3><br>
           <h5 class="text-left">Edit or Delete Entries by clicking on date</h5><br>
-
-          <page-turn
-              range         = "hmctrl.trange"
-              new-page      = "hmctrl.getNewHPage(index)"
-              option-page   = "hmctrl.optionHPage(index)">
-          </page-turn>
+          <div ng-show="hmctrl.trange.length>1">
+            <page-turn
+                range         = "hmctrl.trange"
+                new-page      = "hmctrl.getNewHPage(index)"
+                option-page   = "hmctrl.optionHPage(index)">
+            </page-turn>
+          </div>
 
           <show-hours
               list          = "hmctrl.meminfo.annual"></show-hours>
-          <page-turn
-              range         = "hmctrl.trange"
-              new-page      = "hmctrl.getNewHPage(index)"
-              option-page   = "hmctrl.optionHPage(index)">
-          </page-turn>
+
+          <div ng-show="hmctrl.trange.length>1">
+            <page-turn
+                range         = "hmctrl.trange"
+                new-page      = "hmctrl.getNewHPage(index)"
+                option-page   = "hmctrl.optionHPage(index)">
+            </page-turn>
+          </div>
         </div>
       </div>
     </div>
-    <div class="col-md-6">
+    <div class="col-md-5">
       <show-totals
       list="hmctrl.meminfo"></show-totals>
 </div>
