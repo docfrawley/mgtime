@@ -125,6 +125,15 @@ if ($task=='hours_info'){
   echo json_encode($returnArray);
 }
 
+if ($task=='getHlist'){
+  $memberID = $_GET['memberID'];
+  $member = new memberHrs($memberID);
+  $returnArray = $member->get_hours($_GET['page']);
+  echo json_encode($returnArray);
+}
+
+
+
 if ($task == 'hours_totals'){
   $member = new memberHrs($_SESSION['memberid']);
   $returnArray = $member->get_totalss();
@@ -202,11 +211,13 @@ if ($task=='getMemInfo'){
   $annual_array = $member->get_hours(1);
   $total_array = $member->get_totalss();
   $historical_array = $member->overallTotal();
+  $numpages = $member->get_num_pages();
   $returnArray = array(
     "minfo"     =>  $member_array,
     "annual"    =>  $annual_array,
     "totals"    =>  $total_array,
-    "historical" =>  $historical_array
+    "historical" =>  $historical_array,
+    "numpages"  =>  $numpages
   );
   echo json_encode($returnArray);
 }

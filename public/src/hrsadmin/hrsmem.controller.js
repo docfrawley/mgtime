@@ -15,18 +15,21 @@ function HrsmemController(HrsadminService, list, info, nonlist) {
   hmctrl.filterwhich ="full";
   hmctrl.lookAtMember=false;
 
-
   hmctrl.memberLists = function (){
     hmctrl.lookAtMember = false;
   };
 
+
   hmctrl.whenGotId = function(index){
-    hmctrl.lookAtMember = true;
     hmctrl.memberID = index;
     HrsadminService.getMemInfo(hmctrl.memberID)
       .then(function (response){
         hmctrl.meminfo = response.data;
-        console.log("got data: ", hmctrl.meminfo);
+        hmctrl.trange = [];
+        for(var i=1;i<=hmctrl.meminfo.numpages.last;i++) {
+          hmctrl.trange.push(i);
+        }
+        hmctrl.lookAtMember = true;
       })
       .catch(function (error) {
         console.log(error);
@@ -38,37 +41,34 @@ function HrsmemController(HrsadminService, list, info, nonlist) {
     hmctrl.range.push(i);
   }
 
-  hmctrl.firstPage = function ()  {
-    hmctrl.page = 1;
+
+
+
+  hmctrl.optionHPage = function (index){
+    hmctrl.page = parseInt(index);
+    hmctrl.getNewHPage(hmctrl.page);
   };
 
-  hmctrl.decreasePage = function ()  {
-    if (hmctrl.page>1){
-      hmctrl.page = parseInt(hmctrl.page) - 1;
-    } else {
-      hmctrl.page = 1;
-    }
-  };
+  hmctrl.getNewPage = function(index){
+    HrsadminService.getmList(hmctrl.filter, hmctrl.filterwhich, index)
+      .then(function (response){
+        hmctrl.list = response.data;
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
 
-  hmctrl.increasePage = function ()  {
-    if (hmctrl.page < hmctrl.last){
-      hmctrl.page = parseInt(hmctrl.page) + 1;
-    }
-  };
-
-  hmctrl.lastPage = function ()  {
-    hmctrl.page = parseInt(hmctrl.last);
   };
 
   hmctrl.optionPage = function (index){
     hmctrl.page = parseInt(index);
-    hmctrl.getNewPage();
-  }
+    hmctrl.getNewPage(index);
+  };
 
-  hmctrl.getNewPage = function(){
-    HrsadminService.getmList(hmctrl.filter, hmctrl.filterwhich, hmctrl.page)
+  hmctrl.getNewHPage = function(pageIndex){
+    HrsadminService.getHList(hmctrl.memberID, pageIndex)
       .then(function (response){
-        hmctrl.list = response.data;
+        hmctrl.meminfo.annual = response.data;
       })
       .catch(function (error) {
         console.log(error);

@@ -83,6 +83,19 @@ function HrsadminService($http, ApiPath) {
     return response;
   };
 
+  service.getHList=function(memberID, pageIndex){
+    var response = $http({
+      method: "GET",
+      url: (ApiPath +"loginajaxfiles.php"),
+      params: {
+        task:     'getHlist',
+        memberID: memberID,
+        page:     pageIndex
+      }
+    });
+    return response;
+  };
+
 }
 
 

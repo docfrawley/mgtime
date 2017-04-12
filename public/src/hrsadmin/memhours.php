@@ -20,11 +20,7 @@
         </div><br>
         <page-turn
             range         = "hmctrl.range"
-            first-page    = "hmctrl.firstPage()"
-            new-page      = "hmctrl.getNewPage()"
-            decrease-page = "hmctrl.decreasePage()"
-            increase-page = "hmctrl.increasePage()"
-            last-page     = "hmctrl.lastPage()"
+            new-page      = "hmctrl.getNewPage(index)"
             option-page   = "hmctrl.optionPage(index)">
         </page-turn><br>
           <show-members
@@ -32,11 +28,7 @@
             got-memberid="hmctrl.whenGotId(index)"></show-members><br>
         <page-turn
             range         = "hmctrl.range"
-            first-page    = "hmctrl.firstPage()"
-            new-page      = "hmctrl.getNewPage()"
-            decrease-page = "hmctrl.decreasePage()"
-            increase-page = "hmctrl.increasePage()"
-            last-page     = "hmctrl.lastPage()"
+            new-page      = "hmctrl.getNewPage(index)"
             option-page   = "hmctrl.optionPage(index)">
         </page-turn>
       </div>
@@ -61,25 +53,17 @@
           <h5 class="text-left">Edit or Delete Entries by clicking on date</h5><br>
 
           <page-turn
-              range         = "hmctrl.range"
-              first-page    = "hmctrl.firstPage()"
-              new-page      = "hmctrl.getNewPage()"
-              decrease-page = "hmctrl.decreasePage()"
-              increase-page = "hmctrl.increasePage()"
-              last-page     = "hmctrl.lastPage()"
-              option-page   = "hmctrl.optionPage(index)">
+              range         = "hmctrl.trange"
+              new-page      = "hmctrl.getNewHPage(index)"
+              option-page   = "hmctrl.optionHPage(index)">
           </page-turn>
 
           <show-hours
-            list="hmctrl.meminfo.annual"></show-hours>
+              list          = "hmctrl.meminfo.annual"></show-hours>
           <page-turn
-              range         = "hmctrl.range"
-              first-page    = "hmctrl.firstPage()"
-              new-page      = "hmctrl.getNewPage()"
-              decrease-page = "hmctrl.decreasePage()"
-              increase-page = "hmctrl.increasePage()"
-              last-page     = "hmctrl.lastPage()"
-              option-page   = "hmctrl.optionPage(index)">
+              range         = "hmctrl.trange"
+              new-page      = "hmctrl.getNewHPage(index)"
+              option-page   = "hmctrl.optionHPage(index)">
           </page-turn>
         </div>
       </div>
