@@ -60,7 +60,9 @@
           </div>
 
           <show-hours
-              list          = "hmctrl.meminfo.annual"></show-hours>
+              list      = "hmctrl.meminfo.annual"
+              do-edit   = "hmctrl.doEdit(index)"
+              do-delete = "hmctrl.doDelete(index)"></show-hours>
 
           <div ng-show="hmctrl.trange.length>1">
             <page-turn

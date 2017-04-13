@@ -41,8 +41,13 @@ function HrsmemController(HrsadminService, list, info, nonlist) {
     hmctrl.range.push(i);
   }
 
+  hmctrl.doEdit = function(index){
+    console.log("doedit: ", index);
+  };
 
-
+  hmctrl.doDelete = function(index){
+    console.log("dodelete: ", index);
+  };
 
   hmctrl.optionHPage = function (index){
     hmctrl.page = parseInt(index);
