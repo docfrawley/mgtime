@@ -42,11 +42,24 @@ function HrsmemController(HrsadminService, list, info, nonlist) {
   }
 
   hmctrl.doEdit = function(index){
-    console.log("doedit: ", index);
+    hmctrl.edItems = hmctrl.meminfo.annual[index];
+    hmctrl.items = [];
+    hmctrl.items.hrstype = hmctrl.edItems.hrstype;
+    if (hmctrl.items.description==null){
+      hmctrl.items.description = hmctrl.edItems.description;
+    }
+    if (hmctrl.items.numhrs==null){
+      hmctrl.items.numhrs = hmctrl.edItems.numhrs;
+    }
+  };
+  hmctrl.madeUpdates = false;
+  hmctrl.makeUpdate = function(){
+    hmctrl.madeUpdates = true;
+    console.log('the result: ', hmctrl.items);
   };
 
   hmctrl.doDelete = function(index){
-    console.log("dodelete: ", index);
+    console.log("dodelete: ", hmctrl.meminfo.annual[index].numid);
   };
 
   hmctrl.optionHPage = function (index){
