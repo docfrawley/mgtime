@@ -7,11 +7,12 @@
               <th>Type of Hours</th>
               <th># of Hours</th>
               <th>Description</th>
+              <th></th><th></th>
             </tr>
           </thead>
           <tr ng-repeat="items in $ctrl.list track by $index" >
             <td>
-              <button class='btn btn-sm btn-info' ng-click="$ctrl.gomodul($index)">{{items.hdate}}</button>
+              {{items.hdate}}
             </td>
             <td>
               {{items.hrstype}}
@@ -19,8 +20,15 @@
             <td>
               {{items.numhrs}}
             </td>
-            <td>
+            <td style="width:175px;">
               {{items.description}}
+            </td>
+            <td>
+              <button class='btn btn-xs btn-warning' ng-click="$ctrl.toEd($index)"
+                data-toggle="modal" data-target="#exampleModal">
+                <span class="glyphicon glyphicon-pencil" aria-hidden="true"></button>
+              <button class='btn btn-xs btn-danger' ng-click="$ctrl.toDelete($index)">
+                <span class="glyphicon glyphicon-remove" aria-hidden="true"></button>
             </td>
           </tr>
         </table>

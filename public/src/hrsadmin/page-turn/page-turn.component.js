@@ -18,7 +18,6 @@ function pageturnComponentController($scope, $element) {
   var $ctrl = this;
   $ctrl.page = 1;
   $ctrl.last = $ctrl.range.length;
-  console.log("hello:", $ctrl.last);
   $ctrl.opPage = function () {
     $ctrl.optionPage({ index: $ctrl.page });
   };

@@ -1,11 +1,11 @@
 
 <div class = "row">
   <div class="col-sm-12 text-center">
-    <button class='btn btn-md btn-success'>
+    <button class='btn btn-sm btn-success'>
       <span class="glyphicon glyphicon-step-backward"
       ng-mousedown="$ctrl.firstPage()"
       ng-mouseup="$ctrl.nPage()"></span></button>
-    <button class='btn btn-md btn-success'><span class="glyphicon glyphicon-triangle-left"
+    <button class='btn btn-sm btn-success'><span class="glyphicon glyphicon-triangle-left"
       ng-mousedown="$ctrl.decreasePage()"
       ng-mouseup="$ctrl.nPage()"></span></button>
         <span id="hrsadmin"><select ng-model="$ctrl.page"
@@ -13,10 +13,10 @@
           <option  ng-repeat="nums in $ctrl.range" value="{{nums}}">{{nums}}</option>
         </select></span>
 
-    <button class='btn btn-md btn-success'><span class="glyphicon glyphicon-triangle-right"
+    <button class='btn btn-sm btn-success'><span class="glyphicon glyphicon-triangle-right"
       ng-mousedown="$ctrl.increasePage()"
       ng-mouseup="$ctrl.nPage()"></span></button>
-    <button class='btn btn-md btn-success'>
+    <button class='btn btn-sm btn-success'>
       <span class="glyphicon glyphicon-step-forward"
       ng-mousedown="$ctrl.lastPage()"
       ng-mouseup="$ctrl.nPage()"></span></button>
