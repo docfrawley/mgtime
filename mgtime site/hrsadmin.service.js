@@ -35,6 +35,20 @@ function HrsadminService($http, ApiPath) {
     return response;
   };
 
+  service.getmList = function(filter, filterwhich, page){
+    var response = $http({
+      method: "GET",
+      url: (ApiPath +"loginajaxfiles.php"),
+      params: {
+        task:   'hrsmlist',
+        filter:       filter,
+        filterwhich:  filterwhich,
+        page:         page
+      }
+    });
+    return response;
+  };
+
   service.getRegList = function(){
     var response = $http({
       method: "GET",
@@ -52,6 +66,31 @@ function HrsadminService($http, ApiPath) {
       url: (ApiPath +"loginajaxfiles.php"),
       params: {
         task:   'hrsNonlist'
+      }
+    });
+    return response;
+  };
+
+  service.getMemInfo=function(memberID){
+    var response = $http({
+      method: "GET",
+      url: (ApiPath +"loginajaxfiles.php"),
+      params: {
+        task:     'getMemInfo',
+        memberID: memberID
+      }
+    });
+    return response;
+  };
+
+  service.getHList=function(memberID, pageIndex){
+    var response = $http({
+      method: "GET",
+      url: (ApiPath +"loginajaxfiles.php"),
+      params: {
+        task:     'getHlist',
+        memberID: memberID,
+        page:     pageIndex
       }
     });
     return response;
