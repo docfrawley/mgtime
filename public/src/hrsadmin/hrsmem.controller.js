@@ -40,10 +40,12 @@ function HrsmemController(HrsadminService, list, info, nonlist) {
   for(var i=1;i<=hmctrl.last;i++) {
     hmctrl.range.push(i);
   }
+  hmctrl.goEditModul = false;
 
   hmctrl.doEdit = function(index){
     hmctrl.edItems = hmctrl.meminfo.annual[index];
     hmctrl.items = [];
+    hmctrl.items.hdate = hmctrl.edItems.hdate;
     hmctrl.items.hrstype = hmctrl.edItems.hrstype;
     if (hmctrl.items.description==null){
       hmctrl.items.description = hmctrl.edItems.description;
@@ -51,11 +53,12 @@ function HrsmemController(HrsadminService, list, info, nonlist) {
     if (hmctrl.items.numhrs==null){
       hmctrl.items.numhrs = hmctrl.edItems.numhrs;
     }
+    hmctrl.goEditModul = true;
   };
   hmctrl.madeUpdates = false;
-  hmctrl.makeUpdate = function(){
+  hmctrl.makeUpdate = function(index){
     hmctrl.madeUpdates = true;
-    console.log('the result: ', hmctrl.items);
+    console.log('the result: ', index);
   };
 
   hmctrl.doDelete = function(index){

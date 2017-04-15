@@ -44,5 +44,6 @@
     <script src="src/hrsadmin/show-members/show-members.component.js"></script>
     <script src="src/hrsadmin/show-hours/show-hours.component.js"></script>
     <script src="src/hrsadmin/show-totals/show-totals.component.js"></script>
+    <script src="src/hrsadmin/modal-edit/modal-edit.component.js"></script>
    </body>
  </html>
