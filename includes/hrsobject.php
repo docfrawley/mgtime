@@ -8,6 +8,8 @@ class hrsObject {
   private $typehrs;
   private $description;
   private $hrsid;
+  private $chstatus;
+  private $chdate;
 
 	function __construct($id) {
     global $database;
@@ -19,6 +21,8 @@ class hrsObject {
     $this->hrstype = $value['hrstype'];
     $this->description = $value['description'];
     $this->hdate = $value['hdate'];
+    $this->chstatus = $value['chstatus'];
+    $this->chdate = $value['chdate'];
 	}
 
   function get_date(){
@@ -31,6 +35,8 @@ class hrsObject {
       'hrstype'     => $this->hrstype,
       'numhrs'      => $this->numhrs,
       'description' => $this->description,
+      'chstatus'    => $this->chstatus,
+      'chdate'      => $this->chdate,
       'numid'       => $this->hrsid
     );
     return $temp_array;
@@ -49,6 +55,29 @@ class hrsObject {
 		$sql .= "hrstype='". $info['hrstype'] ."', ";
     $sql .= "numhrs='". $info['numhrs'] ."', ";
 		$sql .= "description='". $info['description'] ."' ";
+		$sql .= "WHERE numid='". $this->hrsid. "' ";
+		$database->query($sql);
+  }
+
+  function update_hoursAdmin($info){
+    global $database;
+    $sql = "INSERT INTO orghours (";
+	  	$sql .= "hrstype, numhrs, description, numid";
+	  	$sql .= ") VALUES ('";
+	  	$sql .= $this->hrstype ."', '";
+      $sql .= $this->numhrs ."', '";
+      $sql .= $this->description ."', '";
+		  $sql .= $this->hrsid ."')";
+		$database->query($sql);
+    $today = date('U');
+
+    $sql = "UPDATE hours SET ";
+		$sql .= "hrstype='". $database->escape_value($info['hrstype']) ."', ";
+    $sql .= "numhrs='". $database->escape_value($info['numhrs']) ."', ";
+    $sql .= "description='". $database->escape_value($info['description']) ."', ";
+    $sql .= "chstatus='c', ";
+    $sql .= "chdate='". $today ."', ";
+		$sql .= "chdescription='". $database->escape_value($info['chdescription']) ."' ";
 		$sql .= "WHERE numid='". $this->hrsid. "' ";
 		$database->query($sql);
   }

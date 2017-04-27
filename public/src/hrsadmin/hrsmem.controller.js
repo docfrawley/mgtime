@@ -41,10 +41,13 @@ function HrsmemController(HrsadminService, list, info, nonlist) {
     hmctrl.range.push(i);
   }
   hmctrl.goEditModul = false;
+  hmctrl.madeUpdates = false;
 
   hmctrl.doEdit = function(index){
+    hmctrl.madeUpdates = false;
     hmctrl.edItems = hmctrl.meminfo.annual[index];
     hmctrl.items = [];
+    hmctrl.items.numid = hmctrl.edItems.numid;
     hmctrl.items.hdate = hmctrl.edItems.hdate;
     hmctrl.items.hrstype = hmctrl.edItems.hrstype;
     if (hmctrl.items.description==null){
@@ -55,10 +58,23 @@ function HrsmemController(HrsadminService, list, info, nonlist) {
     }
     hmctrl.goEditModul = true;
   };
-  hmctrl.madeUpdates = false;
-  hmctrl.makeUpdate = function(index){
-    hmctrl.madeUpdates = true;
-    console.log('the result: ', index);
+
+  hmctrl.makeUpdate = function(items){
+    HrsadminService.makeUpdates(items)
+      .then(function (response){
+        hmctrl.madeUpdates = true;
+        console.log("end: ", response.data);
+      })
+      .then(function (response) {
+        HrsadminService.getMemInfo(hmctrl.memberID)
+        .then(function (response) {
+        hmctrl.meminfo = response.data;
+      });
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+
   };
 
   hmctrl.doDelete = function(index){

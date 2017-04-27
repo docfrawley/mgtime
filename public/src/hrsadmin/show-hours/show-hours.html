@@ -10,7 +10,9 @@
               <th></th><th></th>
             </tr>
           </thead>
-          <tr ng-repeat="items in $ctrl.list track by $index" >
+          <tr ng-repeat="items in $ctrl.list track by $index"
+              ng-class="{ 'editedhrs' : items.chstatus==='c',
+                          'deletedhrs': items.chstatus==='d'}">
             <td>
               {{items.hdate}}
             </td>
@@ -23,12 +25,17 @@
             <td style="width:175px;">
               {{items.description}}
             </td>
-            <td>
+            <td ng-if=" items.chstatus !='c' && items.chstatus !='d' ">
               <button class='btn btn-xs btn-warning' ng-click="$ctrl.toEd($index)"
                 data-toggle="modal" data-target="#exampleModal">
                 <span class="glyphicon glyphicon-pencil" aria-hidden="true"></button>
               <button class='btn btn-xs btn-danger' ng-click="$ctrl.toDelete($index)">
                 <span class="glyphicon glyphicon-remove" aria-hidden="true"></button>
+            </td>
+            <td ng-if="items.chstatus == 'c' || items.chstatus =='d' ">
+              <button class='btn btn-xs btn-info' ng-click="$ctrl.toEd($index)"
+                data-toggle="modal" data-target="#exampleModal">
+                UNDO</button>
             </td>
           </tr>
         </table>

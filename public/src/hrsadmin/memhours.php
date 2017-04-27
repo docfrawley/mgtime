@@ -75,8 +75,16 @@
       </div>
     </div>
     <div class="col-md-5">
-      <show-totals
-      list="hmctrl.meminfo"></show-totals>
+      <div class="row">
+        <div class="col-sm-12">
+          <show-totals
+          list="hmctrl.meminfo"></show-totals>
+        </div>
+        <div class="col-sm-12">
+          <h3>History of Edits/Changes</h3>
+        </div>
+      </div>
+
 </div>
 
 <!-- Modal -->

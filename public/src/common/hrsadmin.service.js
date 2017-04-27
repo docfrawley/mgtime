@@ -96,6 +96,21 @@ function HrsadminService($http, ApiPath) {
     return response;
   };
 
+  service.makeUpdates=function(items){
+    var response = $http({
+      method: "POST",
+      url: (ApiPath +"changeHrsAdmin.php"),
+      data: {
+        numhrs:  items.numhrs,
+        hrstype:  items.hrstype,
+        description: items.description,
+        hrsid:  items.numid,
+        chdescription: items.chdescription
+      }
+    });
+    return response;
+  }
+
 }
 
 

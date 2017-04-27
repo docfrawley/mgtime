@@ -93,6 +93,15 @@
   font-size: 1.2em;
 }
 
+.editedhrs {
+  color:red;
+}
+
+.deletedhrs{
+  color:red;
+  text-decoration-line: line-through;
+}
+
 /********** Extra small devices only **********/
 @media (max-width: 767px) {
 
