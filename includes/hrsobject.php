@@ -10,6 +10,7 @@ class hrsObject {
   private $hrsid;
   private $chstatus;
   private $chdate;
+  private $chdescription;
 
 	function __construct($id) {
     global $database;
@@ -23,6 +24,7 @@ class hrsObject {
     $this->hdate = $value['hdate'];
     $this->chstatus = $value['chstatus'];
     $this->chdate = $value['chdate'];
+    $this->chdescription = $value['chdescription'];
 	}
 
   function get_date(){
@@ -31,13 +33,14 @@ class hrsObject {
 
   function set_in_array(){
     $temp_array = array(
-      'hdate'       => date('m/d/Y',$this->hdate),
-      'hrstype'     => $this->hrstype,
-      'numhrs'      => $this->numhrs,
-      'description' => $this->description,
-      'chstatus'    => $this->chstatus,
-      'chdate'      => $this->chdate,
-      'numid'       => $this->hrsid
+      'hdate'         => date('m/d/Y',$this->hdate),
+      'hrstype'       => $this->hrstype,
+      'numhrs'        => $this->numhrs,
+      'description'   => $this->description,
+      'chstatus'      => $this->chstatus,
+      'chdate'        => $this->chdate,
+      'chdescription' => $this->chdescription,
+      'numid'         => $this->hrsid
     );
     return $temp_array;
   }

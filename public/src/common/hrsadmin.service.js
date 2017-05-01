@@ -109,7 +109,20 @@ function HrsadminService($http, ApiPath) {
       }
     });
     return response;
-  }
+  };
+
+  service.getChHistory=function(memberID, year){
+    var response = $http({
+      method: "GET",
+      url: (ApiPath +"loginajaxfiles.php"),
+      params: {
+        task:     'getHistory',
+        memberID: memberID,
+        year:     year
+      }
+    });
+    return response;
+  };
 
 }
 

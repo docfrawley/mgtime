@@ -4,8 +4,8 @@
 angular.module('HadminApp')
 .controller('HrsmemController', HrsmemController);
 
-HrsmemController.$inject=['HrsadminService', 'list', 'info', 'nonlist'];
-function HrsmemController(HrsadminService, list, info, nonlist) {
+HrsmemController.$inject=['HrsadminService', 'list', 'info'];
+function HrsmemController(HrsadminService, list, info) {
   var hmctrl=this;
 
   hmctrl.page = 1;
@@ -30,6 +30,13 @@ function HrsmemController(HrsadminService, list, info, nonlist) {
           hmctrl.trange.push(i);
         }
         hmctrl.lookAtMember = true;
+      })
+      .then(function (response) {
+        HrsadminService.getChHistory(hmctrl.memberID, 2017)
+        .then(function (response) {
+        hmctrl.history = response.data;
+        console.log("got it: ", hmctrl.history);
+      });
       })
       .catch(function (error) {
         console.log(error);

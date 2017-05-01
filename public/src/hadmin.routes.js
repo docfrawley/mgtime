@@ -57,9 +57,6 @@ function RoutesConfig($stateProvider, $urlRouterProvider) {
       }],
       info: ['MemadminService',function (MemadminService) {
         return MemadminService.getInitialInfo();
-      }],
-      nonlist: ['HrsadminService',function (HrsadminService) {
-        return HrsadminService.getNonList();
       }]
     }
   });

@@ -236,5 +236,20 @@ class memberHrs {
 		$temp = $value['numid'];
 		return $temp;
 	}
+
+	function getHistory($year=2000){
+		$hrs_array = $this->set_hrs($year);
+		$returnArray = array();
+		$change_array = ['c','d'];
+		foreach ($hrs_array as $value) {
+			if ($value['chstatus']=='c' || $value['chstatus']=='d'){
+				$the_date = date('m/d/Y', $value['chdate']);
+				$value['chdate']=$the_date;
+				array_push($returnArray, $value);
+			}
+		}
+		return $returnArray;
+	}
+
 }
 ?>
