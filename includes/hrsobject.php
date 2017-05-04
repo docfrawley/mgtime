@@ -85,5 +85,16 @@ class hrsObject {
 		$database->query($sql);
   }
 
+  function delete_hoursAdmin($info){
+    global $database;
+    $today = date('U');
+    $sql = "UPDATE hours SET ";
+    $sql .= "chstatus='d', ";
+    $sql .= "chdate='". $today ."', ";
+		$sql .= "chdescription='". $database->escape_value($info['chdescription']) ."' ";
+		$sql .= "WHERE numid='". $this->hrsid. "' ";
+		$database->query($sql);
+  }
+
 }
 ?>

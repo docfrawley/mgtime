@@ -81,7 +81,10 @@
           list="hmctrl.meminfo"></show-totals>
         </div>
         <div class="col-sm-12">
-          <h3>History of Edits/Changes</h3>
+          <h3>History of Edits/Changes</h3><br />
+          <div ng-repeat='item in hmctrl.whatChanged'>
+            item date {{item.chdate}}
+          </div>
         </div>
       </div>
 
@@ -96,6 +99,11 @@
           list="hmctrl.items"
           made-updates = "hmctrl.madeUpdates"
           make-update = "hmctrl.makeUpdate(index)"></modal-edit>
+      </div>
+      <div ng-if="hmctrl.goDeleteModul">
+        <modal-delete
+          made-delete = "hmctrl.madeDelete"
+          make-delete = "hmctrl.makeDelete(index)"></modal-delete>
       </div>
 
     </div>

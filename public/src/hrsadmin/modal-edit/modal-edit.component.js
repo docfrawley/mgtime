@@ -22,7 +22,6 @@ function modaleditComponentController($scope, $element) {
     // $ctrl.list.hdate = $ctrl.items.hdate;
     // $ctrl.list.numid = $ctrl.items.numid;
   };
-
 }
 
 })();

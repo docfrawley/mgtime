@@ -34,8 +34,8 @@ function HrsmemController(HrsadminService, list, info) {
       .then(function (response) {
         HrsadminService.getChHistory(hmctrl.memberID, 2017)
         .then(function (response) {
-        hmctrl.history = response.data;
-        console.log("got it: ", hmctrl.history);
+        hmctrl.whatChanged = response.data.the_change;
+        hmctrl.whatNow = response.data.change_from;
       });
       })
       .catch(function (error) {
@@ -63,8 +63,10 @@ function HrsmemController(HrsadminService, list, info) {
     if (hmctrl.items.numhrs==null){
       hmctrl.items.numhrs = hmctrl.edItems.numhrs;
     }
+    hmctrl.goDeleteModul = false;
     hmctrl.goEditModul = true;
   };
+
 
   hmctrl.makeUpdate = function(items){
     HrsadminService.makeUpdates(items)
@@ -85,7 +87,28 @@ function HrsmemController(HrsadminService, list, info) {
   };
 
   hmctrl.doDelete = function(index){
+    hmctrl.goEditModul = false;
+    hmctrl.goDeleteModul = true;
+    hmctrl.madeDelete = false;
+    hmctrl.whatDelete = hmctrl.meminfo.annual[index].numid;
     console.log("dodelete: ", hmctrl.meminfo.annual[index].numid);
+  };
+
+  hmctrl.makeDelete = function(description){
+    HrsadminService.DeleteEntry(hmctrl.whatDelete, description)
+      .then(function (response){
+        hmctrl.madeDelete = true;
+        hmctrl.whatDelete = null;
+      })
+      .then(function (response) {
+        HrsadminService.getMemInfo(hmctrl.memberID)
+        .then(function (response) {
+        hmctrl.meminfo = response.data;
+      });
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
   };
 
   hmctrl.optionHPage = function (index){

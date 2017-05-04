@@ -238,13 +238,55 @@ class memberHrs {
 	}
 
 	function getHistory($year=2000){
+		global $database;
 		$hrs_array = $this->set_hrs($year);
-		$returnArray = array();
-		$change_array = ['c','d'];
+		$changeArray = array();
+		$changeFromArray = array();
+		$deleteArray = array();
 		foreach ($hrs_array as $value) {
 			if ($value['chstatus']=='c' || $value['chstatus']=='d'){
 				$the_date = date('m/d/Y', $value['chdate']);
 				$value['chdate']=$the_date;
+				if ($value['chstatus']=='c'){
+					array_push($changeArray, $value);
+					$id = $value['numid'];
+					$sql="SELECT * FROM orghours WHERE numid='".$id."'";
+			    $result_set = $database->query($sql);
+					$valueFrom = $database->fetch_array($result_set);
+					$holder_array = array();
+					if ($value['hrstype'] != $valueFrom['hrstype']){
+						$temp_array=array(
+							"type" 	=> "hrstype",
+							"from" 	=> $valueFrom['hrstype'],
+							"to"		=> $value['hrstype']
+						);
+						array_push($holder_array, $temp_array);
+					}
+					if ($value['numhrs'] != $valueFrom['numhrs']){
+						$temp_array=array(
+							"type" 	=> "numhrs",
+							"from" 	=> $valueFrom['numhrs'],
+							"to"		=> $value['numhrs']
+						);
+						array_push($holder_array, $temp_array);
+					}
+					if ($value['description'] != $valueFrom['description']){
+						$temp_array=array(
+							"type" 	=> "description",
+							"from" 	=> $valueFrom['description'],
+							"to"		=> $value['description']
+						);
+						array_push($holder_array, $temp_array);
+					}
+					array_push($changeFromArray, $holder_array);
+				} else {
+					array_push($deleteArray, $value);
+				}
+				$returnArray = array(
+					"the_change"  => $changeArray,
+					"change_from" => $changeFromArray,
+					"the_delete"	=> $deleteArray
+				);
 				array_push($returnArray, $value);
 			}
 		}

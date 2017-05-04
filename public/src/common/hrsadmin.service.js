@@ -111,6 +111,19 @@ function HrsadminService($http, ApiPath) {
     return response;
   };
 
+  service.DeleteEntry=function(whatDelete, chdescription){
+    var response = $http({
+      method: "POST",
+      url: (ApiPath +"deleteHrsAdmin.php"),
+      data: {
+        hrsid:  whatDelete,
+        chdescription: chdescription
+      }
+    });
+    return response;
+  };
+
+
   service.getChHistory=function(memberID, year){
     var response = $http({
       method: "GET",
