@@ -102,6 +102,10 @@
   text-decoration-line: line-through;
 }
 
+.undotable{
+  padding-right:10px;
+}
+
 /********** Extra small devices only **********/
 @media (max-width: 767px) {
 

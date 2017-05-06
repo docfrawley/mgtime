@@ -52,7 +52,14 @@
    </div>
 
 </div>
+
 <div class="modal-footer">
-  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-  <button type="button" class="btn btn-primary" ng-click="$ctrl.doUpdate()">UPDATE</button>
+  <div ng-if="!$ctrl.madeUpdates">
+    <button type="button" class="btn btn-secondary" data-dismiss="modal" >CANCEL</button>
+    <button type="button" class="btn btn-primary" ng-click="$ctrl.doUpdate()">UPDATE</button>
+  </div>
+  <div ng-if="$ctrl.madeUpdates">
+    <button type="button" class="btn btn-secondary" data-dismiss="modal" >CLOSE</button>
+  </div>
+
 </div>

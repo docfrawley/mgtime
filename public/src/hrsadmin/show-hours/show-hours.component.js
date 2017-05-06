@@ -8,7 +8,8 @@ angular.module('HadminApp')
   bindings: {
     list:     '<',
     doEdit:   '&',
-    doDelete: '&'
+    doDelete: '&',
+    doUndo:   '&'
   }
 });
 
@@ -22,6 +23,10 @@ function showhoursComponentController($scope, $element) {
 
   $ctrl.toDelete = function(theindex) {
     $ctrl.doDelete({ index: theindex });
+  };
+
+  $ctrl.toUndo = function(theindex) {
+    $ctrl.doUndo({ index: theindex });
   };
 }
 

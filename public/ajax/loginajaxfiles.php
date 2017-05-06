@@ -222,11 +222,10 @@ if ($task=='getMemInfo'){
   echo json_encode($returnArray);
 }
 
-if ($task == 'getHistory'){
-  $memberID = $_GET['memberID'];
-  $year = $_GET['year'];
-  $member = new memberHrs($memberID);
-  $returnArray = $member->getHistory($year);
+if ($task == 'getWhatUndo'){
+  // $numid = $_GET['numid'];
+  $entry = new hrsObject($_GET['numid']);
+  $returnArray = $entry->undoInfo();
   echo json_encode($returnArray);
 }
 

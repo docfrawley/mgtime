@@ -62,7 +62,8 @@
           <show-hours
               list      = "hmctrl.meminfo.annual"
               do-edit   = "hmctrl.doEdit(index)"
-              do-delete = "hmctrl.doDelete(index)"></show-hours>
+              do-delete = "hmctrl.doDelete(index)"
+              do-undo   = "hmctrl.doUndo(index)"></show-hours>
 
           <div ng-show="hmctrl.trange.length>1">
             <page-turn
@@ -80,12 +81,7 @@
           <show-totals
           list="hmctrl.meminfo"></show-totals>
         </div>
-        <div class="col-sm-12">
-          <h3>History of Edits/Changes</h3><br />
-          <div ng-repeat='item in hmctrl.whatChanged'>
-            item date {{item.chdate}}
-          </div>
-        </div>
+
       </div>
 
 </div>
@@ -105,7 +101,13 @@
           made-delete = "hmctrl.madeDelete"
           make-delete = "hmctrl.makeDelete(index)"></modal-delete>
       </div>
-
+      <div ng-if="hmctrl.goUndoModul">
+        <modal-undo
+          now="hmctrl.undoItem"
+          changes="hmctrl.changes"
+          made-undo = "hmctrl.madeUndo"
+          make-undo = "hmctrl.makeUndo()"></modal-undo>
+      </div>
     </div>
   </div>
 </div>

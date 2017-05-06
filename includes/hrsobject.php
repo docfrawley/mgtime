@@ -38,7 +38,7 @@ class hrsObject {
       'numhrs'        => $this->numhrs,
       'description'   => $this->description,
       'chstatus'      => $this->chstatus,
-      'chdate'        => $this->chdate,
+      'chdate'        => date('m/d/Y',$this->chdate),
       'chdescription' => $this->chdescription,
       'numid'         => $this->hrsid
     );
@@ -94,6 +94,79 @@ class hrsObject {
 		$sql .= "chdescription='". $database->escape_value($info['chdescription']) ."' ";
 		$sql .= "WHERE numid='". $this->hrsid. "' ";
 		$database->query($sql);
+  }
+
+  function undoInfo(){
+    global $database;
+    $tempArray= $this->set_in_array();
+    $changeFromArray = array();
+    if ($tempArray['chstatus']=='c'){
+  		$sql="SELECT * FROM orghours WHERE numid='".$this->hrsid."'";
+      $result_set = $database->query($sql);
+  		$valueFrom = $database->fetch_array($result_set);
+  		$holder_array = array();
+  		if ($tempArray['hrstype'] != $valueFrom['hrstype']){
+  			$temp_array=array(
+  				"type" 	=> "hrstype",
+  				"from" 	=> $valueFrom['hrstype'],
+  				"to"		=> $tempArray['hrstype']
+  			);
+  			array_push($holder_array, $temp_array);
+  		}
+  		if ($tempArray['numhrs'] != $valueFrom['numhrs']){
+  			$temp_array=array(
+  				"type" 	=> "numhrs",
+  				"from" 	=> $valueFrom['numhrs'],
+  				"to"		=> $tempArray['numhrs']
+  			);
+  			array_push($holder_array, $temp_array);
+  		}
+  		if ($tempArray['description'] != $valueFrom['description']){
+  			$temp_array=array(
+  				"type" 	=> "description",
+  				"from" 	=> $valueFrom['description'],
+  				"to"		=> $tempArray['description']
+  			);
+  			array_push($holder_array, $temp_array);
+  		}
+  		array_push($changeFromArray, $holder_array);
+  	}
+    $returnArray=array(
+      "now"     =>  $tempArray,
+      "changes" =>  $changeFromArray
+    );
+    return $returnArray;
+  }
+
+  function undo_hoursAdmin(){
+    global $database;
+    if ($this->chstatus=='d'){
+      $sql = "UPDATE hours SET ";
+      $sql .= "chstatus       ='', ";
+      $sql .= "chdate         ='', ";
+      $sql .= "chdescription  ='' ";
+      $sql .= "WHERE numid='". $this->hrsid. "' ";
+      $database->query($sql);
+    } else {
+      $sql="SELECT * FROM orghours WHERE numid='".$this->hrsid."'";
+      $result_set = $database->query($sql);
+  		$value = $database->fetch_array($result_set);
+
+      $sql = "UPDATE hours SET ";
+  		$sql .= "hrstype='". $value['hrstype'] ."', ";
+      $sql .= "numhrs='". $value['numhrs'] ."', ";
+      $sql .= "description='". $value['description'] ."', ";
+      $sql .= "chstatus       ='', ";
+      $sql .= "chdate         ='', ";
+      $sql .= "chdescription  ='' ";
+      $sql .= "WHERE numid='". $this->hrsid. "' ";
+  		$database->query($sql);
+
+      $sql = "DELETE FROM orghours ";
+  	  	$sql .= "WHERE numid=". $this->hrsid;
+  	  	$sql .= " LIMIT 1";
+  	 	$database->query($sql);
+    }
   }
 
 }

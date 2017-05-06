@@ -1,0 +1,72 @@
+<div class="modal-header">
+  <h5 class="modal-title" id="exampleModalLabel">Undo Changes to, or Deletion of, this Entry</h5>
+  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+
+<div class="modal-body">
+  <div class=row>
+    <div ng-if="$ctrl.madeUndo" class="alert alert-success" role="alert">
+      Entry has been returned to original version</div>
+    <div class="col-sm-12" ng-if="$ctrl.now.chstatus=='d' && !$ctrl.madeUndo">
+      The original entry was deleted on {{$ctrl.now.chdate}}.<br />
+    </div>
+    <div class="col-sm-12" ng-if="$ctrl.now.chstatus=='c' && !$ctrl.madeUndo">
+      The changes were made on {{$ctrl.now.chdate}}.<br/>
+      Here are the changes you made for this entry for {{$ctrl.now.hdate}}:<br /><br />
+      <table class="undotable">
+        <thead>
+          <th class="undotable">
+            CATEGORY:
+          </th>
+          <th class="undotable">
+            FROM:
+          </th>
+          <th class="undotable">
+            TO:
+          </th>
+        </thead>
+        <tbody>
+          <tr ng-repeat="item in $ctrl.changes[0]">
+            <td class="undotable">
+              {{item.type}}
+            </td>
+            <td class="undotable">
+              {{item.from}}
+            </td>
+            <td class="undotable">
+              {{item.to}}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </br/>
+    </div>
+    <div class="col-sm-12" ng-if="!$ctrl.madeUndo">
+      <div ng-if="$ctrl.now.chdescription!=''">
+        The reason given for
+        <span ng-if="$ctrl.now.chstatus=='d'"> this deletion </span>
+        <span ng-if="$ctrl.now.chstatus=='c'"> this change </span>
+        is as follows: {{$ctrl.now.chdescription}}.
+      </div><br />
+      Would you like to UNDO
+      <span ng-if="$ctrl.now.chstatus=='d'"> this deletion?</span>
+      <span ng-if="$ctrl.now.chstatus=='c'"> this change?</span>?
+    </div>
+
+
+ </div>
+
+</div>
+
+<div class="modal-footer">
+  <div ng-if="!$ctrl.madeUndo">
+    <button type="button" class="btn btn-secondary" data-dismiss="modal" >CANCEL</button>
+    <button type="button" class="btn btn-primary" ng-click="$ctrl.makeUndo()">UNDO</button>
+  </div>
+  <div ng-if="$ctrl.madeUndo">
+    <button type="button" class="btn btn-secondary" data-dismiss="modal" >CLOSE</button>
+  </div>
+
+</div>

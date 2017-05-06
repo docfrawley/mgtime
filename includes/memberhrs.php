@@ -103,10 +103,12 @@ class memberHrs {
 		ORDER BY hdate";
     $result_set = $database->query($sql);
 		while ($value = $database->fetch_array($result_set)) {
-			$key = $value['hrstype'];
-			$month_array[$key] += $value['numhrs'];
-			if($key !="Continuing Ed"){
-				$month_array['Total'] +=$value['numhrs'];
+			if ($value['chstatus'] !='d'){
+				$key = $value['hrstype'];
+				$month_array[$key] += $value['numhrs'];
+				if($key !="Continuing Ed"){
+					$month_array['Total'] +=$value['numhrs'];
+				}
 			}
 		}
 		return $month_array;
@@ -130,8 +132,10 @@ class memberHrs {
 
 		for ($i = 0; $i < count($totals_array); $i++) {
 			$key=$totals_array[$i]['hrstype'];
-			$total_array[$key] += $totals_array[$i]['numhrs'];
-			$total_array['Total'] += $totals_array[$i]['numhrs'];
+			if ($totals_array[$i]['chstatus'] !='d'){
+				$total_array[$key] += $totals_array[$i]['numhrs'];
+				$total_array['Total'] += $totals_array[$i]['numhrs'];
+			}
 		}
 		$total_array['Total']=$total_array['Total']-$total_array['Continuing Ed'];
 		array_push($months_array, $total_array);
@@ -183,29 +187,23 @@ class memberHrs {
 		$year = 2017;
 		$ceTotal = 0.0;
 		while ($value = $database->fetch_array($result_set)) {
-			switch ($value['hrstype']) {
-				case "Mercer County":
-					$total_array['Mercer County'] += $value['numhrs'];
-					break;
-				case "Helpline":
-					$total_array['Helpline'] += $value['numhrs'];
-					break;
-				case "Compost (Trainee)":
-					$total_array['Compost'] += $value['numhrs'];
-					break;
-				case "Continuing Ed":
-					// if (date('Y', $value['hdate'])>$year){
-					// 	$finalYearTotal = ($ceTotal>10.00) ? 10.00 : $ceTotal;
-					// 	$year = date('Y', $value['hdate']);
-					// 	$total_array['Continuing Ed'] += $finalYearTotal;
-					// 	$ceTotal = $value['numhrs'];
-					// } else {
-					// 	$ceTotal += $value['numhrs'];
-					// }
-					$total_array['Continuing Ed'] += $value['numhrs'];;
-					break;
-				default:
-					break;
+			if ($value['chstatus']!='d'){
+				switch ($value['hrstype']) {
+					case "Mercer County":
+						$total_array['Mercer County'] += $value['numhrs'];
+						break;
+					case "Helpline":
+						$total_array['Helpline'] += $value['numhrs'];
+						break;
+					case "Compost (Trainee)":
+						$total_array['Compost'] += $value['numhrs'];
+						break;
+					case "Continuing Ed":
+						$total_array['Continuing Ed'] += $value['numhrs'];;
+						break;
+					default:
+						break;
+				}
 			}
 		}
 		// if ($ceTotal > 10.0){
@@ -237,61 +235,61 @@ class memberHrs {
 		return $temp;
 	}
 
-	function getHistory($year=2000){
-		global $database;
-		$hrs_array = $this->set_hrs($year);
-		$changeArray = array();
-		$changeFromArray = array();
-		$deleteArray = array();
-		foreach ($hrs_array as $value) {
-			if ($value['chstatus']=='c' || $value['chstatus']=='d'){
-				$the_date = date('m/d/Y', $value['chdate']);
-				$value['chdate']=$the_date;
-				if ($value['chstatus']=='c'){
-					array_push($changeArray, $value);
-					$id = $value['numid'];
-					$sql="SELECT * FROM orghours WHERE numid='".$id."'";
-			    $result_set = $database->query($sql);
-					$valueFrom = $database->fetch_array($result_set);
-					$holder_array = array();
-					if ($value['hrstype'] != $valueFrom['hrstype']){
-						$temp_array=array(
-							"type" 	=> "hrstype",
-							"from" 	=> $valueFrom['hrstype'],
-							"to"		=> $value['hrstype']
-						);
-						array_push($holder_array, $temp_array);
-					}
-					if ($value['numhrs'] != $valueFrom['numhrs']){
-						$temp_array=array(
-							"type" 	=> "numhrs",
-							"from" 	=> $valueFrom['numhrs'],
-							"to"		=> $value['numhrs']
-						);
-						array_push($holder_array, $temp_array);
-					}
-					if ($value['description'] != $valueFrom['description']){
-						$temp_array=array(
-							"type" 	=> "description",
-							"from" 	=> $valueFrom['description'],
-							"to"		=> $value['description']
-						);
-						array_push($holder_array, $temp_array);
-					}
-					array_push($changeFromArray, $holder_array);
-				} else {
-					array_push($deleteArray, $value);
-				}
-				$returnArray = array(
-					"the_change"  => $changeArray,
-					"change_from" => $changeFromArray,
-					"the_delete"	=> $deleteArray
-				);
-				array_push($returnArray, $value);
-			}
-		}
-		return $returnArray;
-	}
+	// function undoInfo($year=2000){
+	// 	global $database;
+	// 	$hrs_array = $this->set_hrs($year);
+	// 	$changeArray = array();
+	// 	$changeFromArray = array();
+	// 	$deleteArray = array();
+	// 	foreach ($hrs_array as $value) {
+	// 		if ($value['chstatus']=='c' || $value['chstatus']=='d'){
+	// 			$the_date = date('m/d/Y', $value['chdate']);
+	// 			$value['chdate']=$the_date;
+	// 			if ($value['chstatus']=='c'){
+	// 				array_push($changeArray, $value);
+	// 				$id = $value['numid'];
+	// 				$sql="SELECT * FROM orghours WHERE numid='".$id."'";
+	// 		    $result_set = $database->query($sql);
+	// 				$valueFrom = $database->fetch_array($result_set);
+	// 				$holder_array = array();
+	// 				if ($value['hrstype'] != $valueFrom['hrstype']){
+	// 					$temp_array=array(
+	// 						"type" 	=> "hrstype",
+	// 						"from" 	=> $valueFrom['hrstype'],
+	// 						"to"		=> $value['hrstype']
+	// 					);
+	// 					array_push($holder_array, $temp_array);
+	// 				}
+	// 				if ($value['numhrs'] != $valueFrom['numhrs']){
+	// 					$temp_array=array(
+	// 						"type" 	=> "numhrs",
+	// 						"from" 	=> $valueFrom['numhrs'],
+	// 						"to"		=> $value['numhrs']
+	// 					);
+	// 					array_push($holder_array, $temp_array);
+	// 				}
+	// 				if ($value['description'] != $valueFrom['description']){
+	// 					$temp_array=array(
+	// 						"type" 	=> "description",
+	// 						"from" 	=> $valueFrom['description'],
+	// 						"to"		=> $value['description']
+	// 					);
+	// 					array_push($holder_array, $temp_array);
+	// 				}
+	// 				array_push($changeFromArray, $holder_array);
+	// 			} else {
+	// 				array_push($deleteArray, $value);
+	// 			}
+	// 			$returnArray = array(
+	// 				"the_change"  => $changeArray,
+	// 				"change_from" => $changeFromArray,
+	// 				"the_delete"	=> $deleteArray
+	// 			);
+	// 			array_push($returnArray, $value);
+	// 		}
+	// 	}
+	// 	return $returnArray;
+	// }
 
 }
 ?>

@@ -31,13 +31,13 @@ function HrsmemController(HrsadminService, list, info) {
         }
         hmctrl.lookAtMember = true;
       })
-      .then(function (response) {
-        HrsadminService.getChHistory(hmctrl.memberID, 2017)
-        .then(function (response) {
-        hmctrl.whatChanged = response.data.the_change;
-        hmctrl.whatNow = response.data.change_from;
-      });
-      })
+      // .then(function (response) {
+      //   HrsadminService.getChHistory(hmctrl.memberID, 2017)
+      //   .then(function (response) {
+      //   hmctrl.whatChanged = response.data.the_change;
+      //   hmctrl.whatNow = response.data.change_from;
+      // });
+      // })
       .catch(function (error) {
         console.log(error);
       });
@@ -49,9 +49,13 @@ function HrsmemController(HrsadminService, list, info) {
   }
   hmctrl.goEditModul = false;
   hmctrl.madeUpdates = false;
+  hmctrl.goUndoModul = false;
+  hmctrl.goDeleteModul = false;
 
   hmctrl.doEdit = function(index){
     hmctrl.madeUpdates = false;
+    hmctrl.goUndoModul = false;
+    hmctrl.goDeleteModul = false;
     hmctrl.edItems = hmctrl.meminfo.annual[index];
     hmctrl.items = [];
     hmctrl.items.numid = hmctrl.edItems.numid;
@@ -63,7 +67,6 @@ function HrsmemController(HrsadminService, list, info) {
     if (hmctrl.items.numhrs==null){
       hmctrl.items.numhrs = hmctrl.edItems.numhrs;
     }
-    hmctrl.goDeleteModul = false;
     hmctrl.goEditModul = true;
   };
 
@@ -88,6 +91,7 @@ function HrsmemController(HrsadminService, list, info) {
 
   hmctrl.doDelete = function(index){
     hmctrl.goEditModul = false;
+    hmctrl.goUndoModul = false;
     hmctrl.goDeleteModul = true;
     hmctrl.madeDelete = false;
     hmctrl.whatDelete = hmctrl.meminfo.annual[index].numid;
@@ -99,6 +103,42 @@ function HrsmemController(HrsadminService, list, info) {
       .then(function (response){
         hmctrl.madeDelete = true;
         hmctrl.whatDelete = null;
+      })
+      .then(function (response) {
+        HrsadminService.getMemInfo(hmctrl.memberID)
+        .then(function (response) {
+        hmctrl.meminfo = response.data;
+      });
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
+
+  hmctrl.doUndo = function(index){
+    hmctrl.goEditModul = false;
+    hmctrl.goDeleteModul = false;
+    hmctrl.madeUndo = false;
+    hmctrl.whatUndo = hmctrl.meminfo.annual[index].numid;
+    HrsadminService.UndoInfo(hmctrl.whatUndo)
+      .then(function (response){
+        hmctrl.undoItem = response.data.now;
+        hmctrl.changes = response.data.changes;
+        console.log("changes: ", hmctrl.changes);
+        console.log("now: ", hmctrl.undoItem);
+        hmctrl.goUndoModul = true;
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+
+  };
+
+  hmctrl.makeUndo = function(){
+    HrsadminService.UndoEntry(hmctrl.whatUndo)
+      .then(function (response){
+        hmctrl.madeUndo = true;
+        hmctrl.whatUndo= null;
       })
       .then(function (response) {
         HrsadminService.getMemInfo(hmctrl.memberID)

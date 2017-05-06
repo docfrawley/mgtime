@@ -124,18 +124,41 @@ function HrsadminService($http, ApiPath) {
   };
 
 
-  service.getChHistory=function(memberID, year){
+  // service.UndoInfo=function(memberID, year){
+  //   var response = $http({
+  //     method: "GET",
+  //     url: (ApiPath +"loginajaxfiles.php"),
+  //     params: {
+  //       task:     'UndoInfo',
+  //       memberID: memberID,
+  //       year:     year
+  //     }
+  //   });
+  //   return response;
+  // };
+
+  service.UndoInfo=function(whatUndo){
     var response = $http({
       method: "GET",
       url: (ApiPath +"loginajaxfiles.php"),
       params: {
-        task:     'getHistory',
-        memberID: memberID,
-        year:     year
+        task:     'getWhatUndo',
+        numid:    whatUndo
       }
     });
     return response;
   };
+
+  service.UndoEntry=function(whatUndo){
+    var response = $http({
+      method: "POST",
+      url: (ApiPath +"undoHrsAdmin.php"),
+      data: {
+        hrsid:  whatUndo
+      }
+    });
+    return response;
+  }
 
 }
 
