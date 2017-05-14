@@ -8,15 +8,16 @@ angular.module('HadminApp')
   bindings: {
     list:         '<',
     whichreport:  '<',
-    last:         '<',
-    getNew:       '&',
-    getOption:    '&'
+    last:         '<'
   }
 });
 
 srController.$inject = ['HrsadminService','$scope', '$element']
 function srController(HrsadminService, $scope, $element) {
   var $ctrl = this;
+
+  $ctrl.page = 1;
+
   switch ($ctrl.whichreport) {
     case 'nclist':
         $ctrl.wreport = "New Class Report"
@@ -40,12 +41,19 @@ function srController(HrsadminService, $scope, $element) {
   };
 
   $ctrl.getNewPage = function(theindex) {
-    $ctrl.getNew({ index: theindex });
+    $ctrl.page = theindex;
+    HrsadminService.rList($ctrl.whichreport, $ctrl.page)
+      .then(function (response){
+        $ctrl.list = response.data.reportArray;
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
   };
 
   $ctrl.optionPage = function(theindex) {
     var tindex = parseInt(theindex);
-    $ctrl.getOption({ index: tindex });
+    $ctrl.getNewPage(tindex);
   };
 
 

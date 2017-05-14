@@ -14,10 +14,10 @@ function HrsreportController(HrsadminService, list) {
   hrctrl.show = true;
   hrctrl.last = list.data.last;
 
-  hrctrl.optionPage=function(index){
-    hrctrl.page = index;
-    hrctrl.changeB(hrctrl.active);
-  }
+  // hrctrl.optionPage=function(index){
+  //   hrctrl.page = index;
+  //   hrctrl.changeB(hrctrl.active);
+  // }
 
   hrctrl.changeB = function(towhat){
     hrctrl.show = false;

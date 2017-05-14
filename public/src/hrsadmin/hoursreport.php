@@ -42,9 +42,7 @@
       <show-report ng-if="hrctrl.show"
         list        = 'hrctrl.list'
         whichreport = 'hrctrl.active'
-        last        = 'hrctrl.last'
-        get-new     = 'hrctrl.optionPage(index)'
-        get-option  = 'hrctrl.optionPage(index)'></show-report>
+        last        = 'hrctrl.last'></show-report>
     </div>
   </div>
 </div>
