@@ -1,0 +1,60 @@
+<div class="modal-header">
+  <h5 class="modal-title" id="exampleModalLabel">Explanation of Changes/Deletion</h5>
+  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+
+<div class="modal-body">
+  <div class=row>
+    <div class="col-sm-12" ng-if="$ctrl.now.chstatus=='d' && !$ctrl.madeUndo">
+      The original entry was deleted on {{$ctrl.now.chdate}}.<br />
+    </div>
+    <div class="col-sm-12" ng-if="$ctrl.now.chstatus=='c' && !$ctrl.madeUndo">
+      The changes were made on {{$ctrl.now.chdate}}.<br/>
+      Here are the changes made to this entry of {{$ctrl.now.hdate}}:<br /><br />
+      <table class="undotable">
+        <thead>
+          <th class="undotable">
+            CATEGORY:
+          </th>
+          <th class="undotable">
+            FROM:
+          </th>
+          <th class="undotable">
+            TO:
+          </th>
+        </thead>
+        <tbody>
+          <tr ng-repeat="item in $ctrl.changes[0]">
+            <td class="undotable">
+              {{item.type}}
+            </td>
+            <td class="undotable">
+              {{item.from}}
+            </td>
+            <td class="undotable">
+              {{item.to}}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </br/>
+    </div>
+    <div class="col-sm-12" ng-if="!$ctrl.madeUndo">
+      <div ng-if="$ctrl.now.chdescription!=''">
+        The reason given for
+        <span ng-if="$ctrl.now.chstatus=='d'"> this deletion </span>
+        <span ng-if="$ctrl.now.chstatus=='c'"> this change </span>
+        is as follows: {{$ctrl.now.chdescription}}.
+      </div>
+    </div>
+
+
+ </div>
+
+</div>
+
+<div class="modal-footer">
+    <button type="button" class="btn btn-secondary" data-dismiss="modal" >CLOSE</button>
+</div>

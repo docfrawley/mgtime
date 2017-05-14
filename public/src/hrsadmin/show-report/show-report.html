@@ -1,0 +1,58 @@
+<div class="row">
+  <div class="col-sm-12 text-center">
+    <br /><br /><h2>{{$ctrl.wreport}}</h2>
+  </div>
+</div>
+
+<div class="row" ng-if='$ctrl.last>1'>
+  <div class="col-sm-12 text-center">
+    <page-turn
+        range         = "$ctrl.range"
+        new-page      = "$ctrl.getNewPage(index)"
+        option-page   = "$ctrl.optionPage(index)">
+    </page-turn><br>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-sm-12">
+    <br/>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Class</th>
+          <th>Helpline</th>
+          <th ng-show="$ctrl.whichreport=='nclist'">Compost</th>
+          <th>MC & Other</th>
+          <th>Total H,C, MC</th>
+          <th>Total CE</th>
+          <th>Overall Total</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat='item in $ctrl.list'>
+          <td>{{item.name}}</td>
+          <td>{{item.class}}</td>
+          <td>{{item.totals.Helpline}}</td>
+          <td ng-show="$ctrl.whichreport=='nclist'">{{item.totals.Compost}}</td>
+          <td>{{item.totals['Mercer County']}}</td>
+          <td>{{item.totals.Total}}</td>
+          <td>{{item.totals['Continuing Ed']}}</td>
+          <td>{{item.totals.ototal}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+
+  <div class="row" ng-if='$ctrl.last>1'>
+    <div class="col-sm-12 text-center">
+      <page-turn
+          range         = "$ctrl.range"
+          new-page      = "$ctrl.getNewPage(index)"
+          option-page   = "$ctrl.optionPage(index)">
+      </page-turn><br>
+    </div>
+  </div>

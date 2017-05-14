@@ -96,6 +96,70 @@ function HrsadminService($http, ApiPath) {
     return response;
   };
 
+  service.makeUpdates=function(items){
+    var response = $http({
+      method: "POST",
+      url: (ApiPath +"changeHrsAdmin.php"),
+      data: {
+        numhrs:  items.numhrs,
+        hrstype:  items.hrstype,
+        description: items.description,
+        hrsid:  items.numid,
+        chdescription: items.chdescription
+      }
+    });
+    return response;
+  };
+
+  service.DeleteEntry=function(whatDelete, chdescription){
+    var response = $http({
+      method: "POST",
+      url: (ApiPath +"deleteHrsAdmin.php"),
+      data: {
+        hrsid:  whatDelete,
+        chdescription: chdescription
+      }
+    });
+    return response;
+  };
+
+
+  // service.UndoInfo=function(memberID, year){
+  //   var response = $http({
+  //     method: "GET",
+  //     url: (ApiPath +"loginajaxfiles.php"),
+  //     params: {
+  //       task:     'UndoInfo',
+  //       memberID: memberID,
+  //       year:     year
+  //     }
+  //   });
+  //   return response;
+  // };
+
+  service.UndoInfo=function(whatUndo){
+    var response = $http({
+      method: "GET",
+      url: (ApiPath +"loginajaxfiles.php"),
+      params: {
+        task:     'getWhatUndo',
+        numid:    whatUndo
+      }
+    });
+    return response;
+  };
+
+  service.UndoEntry=function(whatUndo){
+    var response = $http({
+      method: "POST",
+      url: (ApiPath +"undoHrsAdmin.php"),
+      data: {
+        hrsid:  whatUndo
+      }
+    });
+    return response;
+  }
+
 }
 
 

@@ -47,6 +47,11 @@
   margin-top:10px;
 }
 
+.buttonr{
+  min-width: 200px;
+  margin-top:10px;
+}
+
 .input_warning{
   color:red;
 }
@@ -116,5 +121,12 @@
     font-size: 1em;
     margin-right: 10px;
     padding-right: 5px;
+  }
+}
+
+@media (max-width: 991px) {
+
+  .buttonr{
+    width:100%;
   }
 }

@@ -330,9 +330,22 @@
                   <th>Description</th>
                 </tr>
               </thead>
-              <tr ng-repeat="items in hctrl.items track by $index" >
-                <td>
-                  <button class='btn btn-sm btn-info' ng-click="hctrl.gomodul($index)">{{items.hdate}}</button>
+              <tr ng-repeat="items in hctrl.items track by $index"
+                  ng-class="{ 'editedhrs' : items.chstatus==='c',
+                          'deletedhrs': items.chstatus==='d'}">
+                <td ng-if="items.chstatus=='c' || items.chstatus=='d'">
+                    <button class='btn btn-sm btn-warning'
+                            ng-click="hctrl.toExplain($index)"
+                            data-toggle="modal" data-target="#exampleModal">
+                              {{items.hdate}}
+                              <span class="glyphicon glyphicon-flag" aria-hidden="true">
+                    </button>
+
+                </td>
+                <td ng-if="items.chstatus ==''">
+
+                    <button class='btn btn-sm btn-info'
+                      ng-click="hctrl.gomodul($index)">{{items.hdate}}</button>
                 </td>
                 <td>
                   {{items.hrstype}}
@@ -462,5 +475,15 @@
      </div>
    </div>
  </div>
+</div>
 
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+        <modal-explain
+          now="hctrl.undoItem"
+          changes="hctrl.changes" ></modal-explain>
+    </div>
+  </div>
 </div>

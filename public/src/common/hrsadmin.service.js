@@ -160,6 +160,19 @@ function HrsadminService($http, ApiPath) {
     return response;
   }
 
+  service.rList=function(whichlist, page){
+    var response = $http({
+      method: "GET",
+      url: (ApiPath +"loginajaxfiles.php"),
+      params: {
+        task:     'rlist',
+        report:    whichlist,
+        page:     page
+      }
+    });
+    return response;
+  };
+
 }
 
 

@@ -33,6 +33,7 @@
     <script src="src/login/register/register.controller.js"></script>
     <script src="src/member/member.controller.js"></script>
     <script src="src/hours/hours.controller.js"></script>
+    <script src="src/hours/modal-explain/modal-explain.component.js"></script>
     <script src="src/madmin/memadmin.controller.js"></script>
     <script src="src/hrsadmin/hrsadmin.controller.js"></script>
     <script src="src/hrsadmin/hrsreport.controller.js"></script>
@@ -47,5 +48,6 @@
     <script src="src/hrsadmin/modal-edit/modal-edit.component.js"></script>
     <script src="src/hrsadmin/modal-delete/modal-delete.component.js"></script>
     <script src="src/hrsadmin/modal-undo/modal-undo.component.js"></script>
+    <script src="src/hrsadmin/show-report/show-report.component.js"></script>
    </body>
  </html>

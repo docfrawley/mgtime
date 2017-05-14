@@ -394,5 +394,66 @@ class memadmin {
 		return $hrs_array;
 	}
 
+
+	function nclist($page=1){
+		global $database;
+		$nc_array = $this->get_list("nclass", "A - Trainee", $page);
+		$temp_array= array();
+		foreach ($nc_array as $value) {
+			$member = new memberObject($value['id']);
+			$memberhrs = new memberHrs($value['id']);
+			$totals_array = $memberhrs->overallTotal();
+			$totals_array['ototal'] = $totals_array['Total']+$totals_array['Continuing Ed'];
+			$year = date('Y');
+			if ($member->get_class() == $year){
+				$member_array = array(
+					'name'		=>	$member->get_fullname(),
+					'class'		=>	$member->get_class(),
+					'totals'	=>	$totals_array
+				);
+				array_push($temp_array, $member_array);
+			}
+		}
+		$year = date("Y");
+		$sql="SELECT COUNT(*) AS totalnum FROM memberinfo WHERE mgstatus = 'A - Trainee' AND class='".$year."'";
+		$result_set = $database->query($sql);
+		$info = $database->fetch_array($result_set);
+		$numarray = $info['totalnum'];
+		$last = ceil($numarray/25);
+		// $last_array = array(
+		// 	'last' => $last
+		// );
+		$returnArray = array(
+			'reportArray'	=> $temp_array,
+			'last'		=> $last
+		);
+
+		return $returnArray;
+	}
+
+	function slist($page=1){
+		$nc_array = $this->get_list("full", "full", $page);
+		$temp_array= array();
+		foreach ($nc_array as $value) {
+			$member = new memberObject($value['id']);
+			$memberhrs = new memberHrs($value['id']);
+			$totals_array = $memberhrs->overallTotal();
+			$totals_array['ototal'] = $totals_array['Total']+$totals_array['Continuing Ed'];
+			$member_array = array(
+				'name'		=>	$member->get_fullname(),
+				'class'		=>	$member->get_class(),
+				'totals'	=>	$totals_array
+			);
+			array_push($temp_array, $member_array);
+		}
+		$last = $this->get_last('full', 'full');
+		$lasting = $last['last'];
+		$returnArray = array(
+			'reportArray'	=> $temp_array,
+			'last'		=> $lasting
+		);
+		return $returnArray;
+	}
+
 }
 ?>

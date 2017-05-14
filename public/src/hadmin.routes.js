@@ -36,13 +36,7 @@ function RoutesConfig($stateProvider, $urlRouterProvider) {
     templateUrl: 'src/hrsadmin/hoursreport.php',
     resolve: {
       list: ['HrsadminService',function (HrsadminService) {
-        return HrsadminService.getList('full', 'full', 1);
-      }],
-      rlist: ['HrsadminService',function (HrsadminService) {
-        return HrsadminService.getRegList();
-      }],
-      nonlist: ['HrsadminService',function (HrsadminService) {
-        return HrsadminService.getNonList();
+        return HrsadminService.rList('nclist', 1);
       }]
     }
   })

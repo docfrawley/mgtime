@@ -229,6 +229,29 @@ if ($task == 'getWhatUndo'){
   echo json_encode($returnArray);
 }
 
+if ($task == 'rlist'){
+  $whichlist = $_GET['report'];
+  $page = $_GET['page'];
+  $member_admin = new memadmin();
+  switch ($whichlist) {
+    case 'nclist':
+      $returnArray =$member_admin->nclist($page);
+      break;
+    // case 'mlist':
+    //   $returnArray =$member_admin->mlist($page);
+    //   break;
+    case 'slist':
+      $returnArray =$member_admin->slist($page);
+      break;
+    // case 'rdlist':
+    //   $returnArray =$member_admin->rdlist($page);
+    //   break;
+    default:
+      break;
+  }
+  echo json_encode($returnArray);
+}
+
 
 
 ?>
