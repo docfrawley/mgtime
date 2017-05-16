@@ -235,7 +235,7 @@ if ($task == 'rlist'){
   $member_admin = new memadmin();
   switch ($whichlist) {
     case 'nclist':
-      $returnArray =$member_admin->nclist($page);
+      $returnArray =$member_admin->nclist();
       break;
     // case 'mlist':
     //   $returnArray =$member_admin->mlist($page);

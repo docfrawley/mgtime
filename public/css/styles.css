@@ -52,6 +52,13 @@
   margin-top:10px;
 }
 
+.buttongetr{
+  width: 100%;
+  background-color: yellow;
+  color:black;
+  font-weight: bold;
+}
+
 .input_warning{
   color:red;
 }

@@ -1,6 +1,11 @@
 <div class="row">
-  <div class="col-sm-12 text-center">
-    <br /><br /><h2>{{$ctrl.wreport}}</h2>
+  <div class=" offset-sm-12 text-center">
+    <br /><br /><form ng-if="$ctrl.whichreport=='nclist'" action="excel.php?task=nclist" method="post">
+           <input type="submit" name="export_excel" value="Download {{$ctrl.wreport}}" class='btn btn-lg btn-info'/>
+      </form>
+      <form ng-if="$ctrl.whichreport=='slist'" action="excel.php?task=slist" method="post">
+           <input type="submit" name="export_excel" value="Download {{$ctrl.wreport}}" class='btn btn-lg btn-info'/>
+      </form>
   </div>
 </div>
 
