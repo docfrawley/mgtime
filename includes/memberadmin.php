@@ -432,7 +432,8 @@ class memadmin {
 	}
 
 	function nclistDownload(){
-			$marray=$this->set_array();
+			$this->set_array();
+			$marray = $this->allmem;
 			$output = "";
 		  $output .= '
 				<table class="table" bordered="1">
@@ -449,11 +450,12 @@ class memadmin {
 					<th>Total CE</th>
 					<th>Overall Total</th>
 				</tr>';
-			$year = date("Y");
+			$year = 2017;
 			 for ($counter=0; $counter< count($marray); $counter++) {
-				 if ($marray[$counter]['mgstat']=='A - Trainee' && $marray[$counter]['class']==$year){
-					$member = new memberObject($marray[$counter]['id']);
-		 			$memberhrs = new memberHrs($marray[$counter]['id']);
+				 if (($marray[$counter]['mgstatus']=='A - Trainee') && ($marray[$counter]['class']==2017)){
+					 $id = $marray[$counter]['id'];
+					$member = new memberObject($id);
+		 			$memberhrs = new memberHrs($id);
 		 			$totals_array = $memberhrs->overallTotal();
 		 			$totals_array['ototal'] = $totals_array['Total']+$totals_array['Continuing Ed'];
 
@@ -461,12 +463,12 @@ class memadmin {
 							 <tr>
 										<td>'.$member->get_fullname().'</td>
 										<td>'.$member->get_class().'</td>
-										<td>'.$totals_array['Helpline'].'</td>
-										<td>'.$totals_array['Compost'].'</td>
-										<td>'.$totals_array['Mercer County'].'</td>
-										<td>'.$totals_array['Total'].'</td>
-										<td>'.$totals_array['Continuing Ed'].'</td>
-										<td>'.$totals_array['ototal'].'</td>
+										<td>'.$totals_array["Helpline"].'</td>
+										<td>'.$totals_array["Compost"].'</td>
+										<td>'.$totals_array["Mercer County"].'</td>
+										<td>'.$totals_array["Total"].'</td>
+										<td>'.$totals_array["Continuing Ed"].'</td>
+										<td>'.$totals_array["ototal"].'</td>
 							 </tr>';
 				 }
 			 }
