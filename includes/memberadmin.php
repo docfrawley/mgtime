@@ -483,7 +483,7 @@ class memadmin {
 		  $output .= '
 				<table class="table" bordered="1">
 				<tr>';
-			$output .='<th>New Class Report</th></tr>';
+			$output .='<th>Summary Report</th></tr>';
 			$output .='
 				<tr>
 					<th>Name</th>
