@@ -476,6 +476,46 @@ class memadmin {
 		 return $output;
 	}
 
+	function slistDownload(){
+			$this->set_array();
+			$marray = $this->allmem;
+			$output = "";
+		  $output .= '
+				<table class="table" bordered="1">
+				<tr>';
+			$output .='<th>New Class Report</th></tr>';
+			$output .='
+				<tr>
+					<th>Name</th>
+					<th>Class</th>
+					<th>Helpline</th>
+					<th>MC & Other</th>
+					<th>Total H,C, MC</th>
+					<th>Total CE</th>
+					<th>Overall Total</th>
+				</tr>';
+			$year = 2017;
+			 for ($counter=0; $counter< count($marray); $counter++) {
+				$id = $marray[$counter]['id'];
+				$member = new memberObject($id);
+	 			$memberhrs = new memberHrs($id);
+	 			$totals_array = $memberhrs->overallTotal();
+	 			$totals_array['ototal'] = $totals_array['Total']+$totals_array['Continuing Ed'];
+				$output .= '
+						 <tr>
+									<td>'.$member->get_fullname().'</td>
+									<td>'.$member->get_class().'</td>
+									<td>'.$totals_array["Helpline"].'</td>
+									<td>'.$totals_array["Mercer County"].'</td>
+									<td>'.$totals_array["Total"].'</td>
+									<td>'.$totals_array["Continuing Ed"].'</td>
+									<td>'.$totals_array["ototal"].'</td>
+						 </tr>';
+			 }
+		 $output .= '</table>';
+		 return $output;
+	}
+
 	function slist($page=1){
 		$nc_array = $this->get_list("full", "full", $page);
 		$temp_array= array();

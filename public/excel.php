@@ -12,15 +12,15 @@ switch ($task) {
     break;
   case 'slist':
     $member_admin = new memadmin();
-    $output =$member_admin->nclist();
+    $output =$member_admin->slistDownload();
     break;
   case 'rdlist':
     $member_admin = new memadmin();
-    $output =$member_admin->nclist();
+    $output =$member_admin->slistDownload();
     break;
   case 'mlist':
     $member_admin = new memadmin();
-    $output =$member_admin->nclist();
+    $output =$member_admin->slistDownload();
     break;
   default:
     echo "break";
