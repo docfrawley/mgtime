@@ -20,7 +20,7 @@ switch ($task) {
     break;
   case 'mlist':
     $member_admin = new memadmin();
-    $output =$member_admin->slistDownload();
+    $output =$member_admin->mlistDownload();
     break;
   default:
     echo "break";

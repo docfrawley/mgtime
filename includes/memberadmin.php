@@ -540,5 +540,110 @@ class memadmin {
 		return $returnArray;
 	}
 
+	function mlist($milestone='l100'){
+		$this->set_array();
+		$returnArray = array();
+		foreach ($this->allmem as $value) {
+			$memberhrs = new memberHrs($value['id']);
+			$totals_array = $memberhrs->overallTotal();
+			$ototal = $totals_array['Total']+$totals_array['Continuing Ed'];
+			$put_in_array = false;
+			switch ($milestone) {
+				case 'l100':
+						$put_in_array = ($ototal < 100);
+					break;
+				case 'l250':
+						$put_in_array = (($ototal >99) && ($ototal <250));
+					break;
+				case 'l500':
+						$put_in_array = ($ototal > 249 && $ototal < 500);
+					break;
+				case 'l1000':
+						$put_in_array = ($ototal > 499 && $ototal < 1000);
+					break;
+				case 'l2500':
+						$put_in_array = ($ototal > 999 && $ototal < 2500);
+					break;
+				case 'l5000':
+						$put_in_array = ($ototal > 2499 && $ototal < 5000);
+					break;
+				case '5000+':
+						$put_in_array = ($ototal > 4999);
+					break;
+				default:
+					break;
+			}
+			if ($put_in_array){
+				$member = new memberObject($value['id']);
+				$totals_array['ototal'] = $totals_array['Total']+$totals_array['Continuing Ed'];
+				$member_array = array(
+					'name'		=>	$member->get_fullname(),
+					'class'		=>	$member->get_class(),
+					'ytotal'	=>	$totals_array['Total'],
+					'ototal'	=>	$ototal
+				);
+				array_push($returnArray, $member_array);
+			}
+		}
+		function method1($a,$b)
+	  {
+	    return ($a["ototal"] >= $b["ototal"]) ? -1 : 1;
+	  }
+  	usort($returnArray, "method1");
+		return $returnArray;
+	}
+
+	function mlistDownload(){
+		$break_array = array('5000+', 'l5000', 'l2500', 'l1000', 'l500', 'l250','l100');
+		$output = "";
+		$output .= '<table class="table" bordered="1">';
+		$year = date('Y');
+		$fulldate = date('F j, Y');
+		$output .='<tr><th>'.$year.' Lifetime Milestones Report </th></tr>';
+		$output .='<tr><th> Report Date: '.$fulldate.' </th></tr>';
+		// for ($x=0; $x<count($break_array); $x++){
+		// 	$which_one = $break_array[$x];
+		// 	$group_array = $this->mlist($which_one);
+		// 	$group = (string)count($group_array);
+		// 	switch ($which_one) {
+		// 		case 'l100':
+		// 			$group .= ' Under 100';
+		// 			break;
+		// 		case 'l250':
+		// 			$group .= ' Between 100 & 250';
+		// 			break;
+		// 		case 'l500':
+		// 			$group .= ' Between 250 & 500';
+		// 			break;
+		// 		case 'l1000':
+		// 			$group .= ' Between 500 & 1000';
+		// 			break;
+		// 		case 'l2500':
+		// 			$group .= ' Between 1000 & 2500';
+		// 			break;
+		// 		case 'l5000':
+		// 			$group .= ' Between 2500 & 5000';
+		// 			break;
+		// 		case '5000+':
+		// 			$group .= ' With 5000 Or More';
+		// 			break;
+		// 		default:
+		// 			break;
+		// 	}
+		// 	$output .='<tr></tr><tr><th>'.$group.' </th></tr>';
+		// 	$output .='<tr><th>Name</th><th>Class</th><th>'.$year.'</th><th>Historical</th></tr>';
+		//
+		//  for ($counter=0; $counter< count($group_array); $counter++) {
+		// 	$output .= '<tr><td>'.$group_array[$counter]['name'].'</td>
+		// 						<td>'.$group_array[$counter]['class'].'</td>
+		// 						<td>'.$group_array[$counter]['ytotal'].'</td>
+		// 						<td>'.$group_array[$counter]['ototal'].'</td>
+		// 			 </tr>';
+		//  }
+		//  }
+	 $output .= '</table>';
+	 return $output;
+	}
+
 }
 ?>

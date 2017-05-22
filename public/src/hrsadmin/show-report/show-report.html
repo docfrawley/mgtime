@@ -6,52 +6,13 @@
       <form ng-if="$ctrl.whichreport=='slist'" action="excel.php?task=slist" method="post">
            <input type="submit" name="export_excel" value="Download {{$ctrl.wreport}}" class='btn btn-lg btn-info'/>
       </form>
+      <form ng-if="$ctrl.whichreport=='mlist'" action="excel.php?task=mlist" method="post">
+           <input type="submit" name="export_excel" value="Download {{$ctrl.wreport}}" class='btn btn-lg btn-info'/>
+      </form>
   </div><br />
 </div>
 
-<div class="row" ng-if='$ctrl.last>1'>
-  <div class="col-sm-12 text-center">
-    <page-turn
-        range         = "$ctrl.range"
-        new-page      = "$ctrl.getNewPage(index)"
-        option-page   = "$ctrl.optionPage(index)">
-    </page-turn><br>
-  </div>
-</div>
-
-<div class="row">
-  <div class="col-sm-12">
-    <br/>
-    <table class="table table-striped">
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Class</th>
-          <th>Helpline</th>
-          <th ng-show="$ctrl.whichreport=='nclist'">Compost</th>
-          <th>MC & Other</th>
-          <th>Total H,C, MC</th>
-          <th>Total CE</th>
-          <th>Overall Total</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr ng-repeat='item in $ctrl.list'>
-          <td>{{item.name}}</td>
-          <td>{{item.class}}</td>
-          <td>{{item.totals.Helpline}}</td>
-          <td ng-show="$ctrl.whichreport=='nclist'">{{item.totals.Compost}}</td>
-          <td>{{item.totals['Mercer County']}}</td>
-          <td>{{item.totals.Total}}</td>
-          <td>{{item.totals['Continuing Ed']}}</td>
-          <td>{{item.totals.ototal}}</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-</div>
-
-
+<div ng-if="$ctrl.whichreport=='slist' || $ctrl.whichreport=='nclist'">
   <div class="row" ng-if='$ctrl.last>1'>
     <div class="col-sm-12 text-center">
       <page-turn
@@ -61,3 +22,100 @@
       </page-turn><br>
     </div>
   </div>
+
+  <div class="row">
+    <div class="col-sm-12">
+      <br/>
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Class</th>
+            <th>Helpline</th>
+            <th ng-show="$ctrl.whichreport=='nclist'">Compost</th>
+            <th>MC & Other</th>
+            <th>Total H,C, MC</th>
+            <th>Total CE</th>
+            <th>Overall Total</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat='item in $ctrl.list'>
+            <td>{{item.name}}</td>
+            <td>{{item.class}}</td>
+            <td>{{item.totals.Helpline}}</td>
+            <td ng-show="$ctrl.whichreport=='nclist'">{{item.totals.Compost}}</td>
+            <td>{{item.totals['Mercer County']}}</td>
+            <td>{{item.totals.Total}}</td>
+            <td>{{item.totals['Continuing Ed']}}</td>
+            <td>{{item.totals.ototal}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+    <div class="row" ng-if='$ctrl.last>1'>
+      <div class="col-sm-12 text-center">
+        <page-turn
+            range         = "$ctrl.range"
+            new-page      = "$ctrl.getNewPage(index)"
+            option-page   = "$ctrl.optionPage(index)">
+        </page-turn><br>
+      </div>
+    </div>
+</div>
+
+<div ng-if="$ctrl.whichreport=='mlist'">
+  <div class="row">
+    <div class="col-sm-12 text-center">
+      <h3>{{$ctrl.listLength}} Members {{$ctrl.mRange}} </h3><br />
+    </div>
+    <div class="col-sm-12 text-center">
+      <div class="row">
+        <div class="col-sm-2" ng-if="$ctrl.last !='l100'">
+          <button class='btn btn-xs btn-warning' ng-click="$ctrl.newRange('l100')"> LESS THAN 100hrs </button>
+        </div>
+        <div class="col-sm-2" ng-if="$ctrl.last !='l250'">
+          <button class='btn btn-xs btn-warning' ng-click="$ctrl.newRange('l250')"> BETWEEN 100 AND 250hrs </button>
+        </div>
+        <div class="col-sm-2" ng-if="$ctrl.last !='l500'">
+          <button class='btn btn-xs btn-warning' ng-click="$ctrl.newRange('l500')">BETWEEN 250 AND 500hrs </button>
+        </div>
+        <div class="col-sm-2" ng-if="$ctrl.last !='l1000'">
+          <button class='btn btn-xs btn-warning' ng-click="$ctrl.newRange('l1000')">BETWEEN 500 AND 1000hrs </button>
+        </div>
+        <div class="col-sm-2" ng-if="$ctrl.last !='l2500'">
+          <button class='btn btn-xs btn-warning'  ng-click="$ctrl.newRange('l2500')">BETWEEN 1000 AND 2500hrs </button>
+        </div>
+        <div class="col-sm-2" ng-if="$ctrl.last !='l5000'">
+          <button class='btn btn-xs btn-warning' ng-click="$ctrl.newRange('l5000')">BETWEEN 2500 AND 5000hrs </button>
+        </div>
+        <div class="col-sm-2" ng-if="$ctrl.last !='5000+'">
+          <button class='btn btn-xs btn-warning' ng-click="$ctrl.newRange('5000+')">5000hrs AND MORE </button>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-12">
+      <br/>
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Class</th>
+            <th>{{$ctrl.year}} Total</th>
+            <th>Lifetime</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat='item in $ctrl.list'>
+            <td>{{item.name}}</td>
+            <td>{{item.class}}</td>
+            <td>{{item.ytotal}}</td>
+            <td>{{item.ototal}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

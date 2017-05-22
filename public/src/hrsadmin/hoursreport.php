@@ -42,7 +42,8 @@
       <show-report ng-if="hrctrl.show"
         list        = 'hrctrl.list'
         whichreport = 'hrctrl.active'
-        last        = 'hrctrl.last'></show-report>
+        last        = 'hrctrl.last'
+        range-change = 'hrctrl.changeRange(index)'></show-report>
     </div>
   </div>
 </div>

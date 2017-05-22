@@ -9,15 +9,17 @@ function HrsreportController(HrsadminService, list) {
   var hrctrl=this;
 
   hrctrl.active = "nclist";  //mlist, slist, rdlist
+  hrctrl.milestone = 'l100';
   hrctrl.list = list.data.reportArray;
   hrctrl.page = 1;
   hrctrl.show = true;
   hrctrl.last = list.data.last;
 
-  // hrctrl.optionPage=function(index){
-  //   hrctrl.page = index;
-  //   hrctrl.changeB(hrctrl.active);
-  // }
+  hrctrl.changeRange = function(index){
+    hrctrl.milestone = index;
+    console.log("range: ", hrctrl.milestone);
+    hrctrl.changeB('mlist');
+  }
 
   hrctrl.changeB = function(towhat){
     hrctrl.show = false;
@@ -25,11 +27,19 @@ function HrsreportController(HrsadminService, list) {
       hrctrl.page = 1;
       hrctrl.active = towhat;
     }
-    console.log("stuff: ", hrctrl.active, hrctrl.page);
+    if (hrctrl.active == 'mlist'){
+      hrctrl.page = hrctrl.milestone;
+    }
     HrsadminService.rList(hrctrl.active, hrctrl.page)
       .then(function (response){
-        hrctrl.list = response.data.reportArray;
-        hrctrl.last = response.data.last;
+        if (hrctrl.active != 'mlist') {
+          hrctrl.list = response.data.reportArray;
+          hrctrl.last = response.data.last;
+        } else {
+          hrctrl.list = response.data;
+          hrctrl.last = hrctrl.page;
+        }
+        console.log("report:", hrctrl.list);
         hrctrl.show= true;
       })
       .catch(function (error) {

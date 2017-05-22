@@ -237,9 +237,9 @@ if ($task == 'rlist'){
     case 'nclist':
       $returnArray =$member_admin->nclist();
       break;
-    // case 'mlist':
-    //   $returnArray =$member_admin->mlist($page);
-    //   break;
+    case 'mlist':
+      $returnArray =$member_admin->mlist($page);
+      break;
     case 'slist':
       $returnArray =$member_admin->slist($page);
       break;

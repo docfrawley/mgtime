@@ -8,7 +8,8 @@ angular.module('HadminApp')
   bindings: {
     list:         '<',
     whichreport:  '<',
-    last:         '<'
+    last:         '<',
+    rangeChange:  '&'
   }
 });
 
@@ -17,7 +18,9 @@ function srController(HrsadminService, $scope, $element) {
   var $ctrl = this;
 
   $ctrl.page = 1;
-
+  $ctrl.listLength = $ctrl.list.length;
+  var d = new Date();
+  $ctrl.year = d.getFullYear();
   switch ($ctrl.whichreport) {
     case 'nclist':
         $ctrl.wreport = "New Class Report"
@@ -33,6 +36,39 @@ function srController(HrsadminService, $scope, $element) {
       break;
     default:
       break;
+  };
+
+  if ($ctrl.last.type !=='number'){
+    switch ($ctrl.last) {
+      case 'l100':
+        $ctrl.mRange = 'With Less Than 100hrs'
+        break;
+      case 'l250':
+          $ctrl.mRange = "Between 100 and 250hrs"
+        break;
+      case 'l500':
+          $ctrl.mRange = "Between 250 and 500hrs"
+        break;
+      case 'l1000':
+          $ctrl.mRange = "Between 500 and 1000hrs"
+        break;
+      case 'l2500':
+          $ctrl.mRange = "Between 1000 and 2500hrs"
+        break;
+      case 'l5000':
+          $ctrl.mRange = "Between 2500 and 5000hrs"
+        break;
+      case '5000+':
+          $ctrl.mRange = "With 5000 or More Hours"
+        break;
+      default:
+        break;
+
+    }
+  }
+
+  $ctrl.newRange = function (theindex) {
+    $ctrl.rangeChange({ index: theindex });
   };
 
   $ctrl.range = [];
