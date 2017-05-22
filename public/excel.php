@@ -18,10 +18,34 @@ switch ($task) {
     $member_admin = new memadmin();
     $output =$member_admin->slistDownload();
     break;
-  case 'mlist':
+  case 'l100':
     $member_admin = new memadmin();
-    $output =$member_admin->mlistDownload();
+    $output =$member_admin->mlistDownload('l100');
     break;
+  case 'l250':
+    $member_admin = new memadmin();
+    $output =$member_admin->mlistDownload('l250');
+    break;
+    case 'l500':
+      $member_admin = new memadmin();
+      $output =$member_admin->mlistDownload('l500');
+      break;
+    case 'l1000':
+      $member_admin = new memadmin();
+      $output =$member_admin->mlistDownload('l1000');
+      break;
+    case 'l2500':
+      $member_admin = new memadmin();
+      $output =$member_admin->mlistDownload('l2500');
+      break;
+    case 'l5000':
+      $member_admin = new memadmin();
+      $output =$member_admin->mlistDownload('l5000');
+      break;
+    case 'plus5000':
+      $member_admin = new memadmin();
+      $output =$member_admin->mlistDownload('5000+');
+      break;
   default:
     echo "break";
     break;

@@ -6,7 +6,25 @@
       <form ng-if="$ctrl.whichreport=='slist'" action="excel.php?task=slist" method="post">
            <input type="submit" name="export_excel" value="Download {{$ctrl.wreport}}" class='btn btn-lg btn-info'/>
       </form>
-      <form ng-if="$ctrl.whichreport=='mlist'" action="excel.php?task=mlist" method="post">
+      <form ng-if="$ctrl.last=='l100'" action="excel.php?task=l100" method="post">
+           <input type="submit" name="export_excel" value="Download {{$ctrl.wreport}}" class='btn btn-lg btn-info'/>
+      </form>
+      <form ng-if="$ctrl.last=='l250'" action="excel.php?task=l250" method="post">
+           <input type="submit" name="export_excel" value="Download {{$ctrl.wreport}}" class='btn btn-lg btn-info'/>
+      </form>
+      <form ng-if="$ctrl.last=='l500'" action="excel.php?task=l500" method="post">
+           <input type="submit" name="export_excel" value="Download {{$ctrl.wreport}}" class='btn btn-lg btn-info'/>
+      </form>
+      <form ng-if="$ctrl.last=='l1000'" action="excel.php?task=l1000" method="post">
+           <input type="submit" name="export_excel" value="Download {{$ctrl.wreport}}" class='btn btn-lg btn-info'/>
+      </form>
+      <form ng-if="$ctrl.last=='l2500'" action="excel.php?task=l2500" method="post">
+           <input type="submit" name="export_excel" value="Download {{$ctrl.wreport}}" class='btn btn-lg btn-info'/>
+      </form>
+      <form ng-if="$ctrl.last=='l5000'" action="excel.php?task=l5000" method="post">
+           <input type="submit" name="export_excel" value="Download {{$ctrl.wreport}}" class='btn btn-lg btn-info'/>
+      </form>
+      <form ng-if="$ctrl.last=='5000+'" action="excel.php?task=plus5000" method="post">
            <input type="submit" name="export_excel" value="Download {{$ctrl.wreport}}" class='btn btn-lg btn-info'/>
       </form>
   </div><br />

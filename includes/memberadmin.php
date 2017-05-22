@@ -593,55 +593,51 @@ class memadmin {
 		return $returnArray;
 	}
 
-	function mlistDownload(){
-		$break_array = array('5000+', 'l5000', 'l2500', 'l1000', 'l500', 'l250','l100');
+	function mlistDownload($value='5000+'){
 		$output = "";
 		$output .= '<table class="table" bordered="1">';
 		$year = date('Y');
 		$fulldate = date('F j, Y');
 		$output .='<tr><th>'.$year.' Lifetime Milestones Report </th></tr>';
-		$output .='<tr><th> Report Date: '.$fulldate.' </th></tr>';
-		// for ($x=0; $x<count($break_array); $x++){
-		// 	$which_one = $break_array[$x];
-		// 	$group_array = $this->mlist($which_one);
-		// 	$group = (string)count($group_array);
-		// 	switch ($which_one) {
-		// 		case 'l100':
-		// 			$group .= ' Under 100';
-		// 			break;
-		// 		case 'l250':
-		// 			$group .= ' Between 100 & 250';
-		// 			break;
-		// 		case 'l500':
-		// 			$group .= ' Between 250 & 500';
-		// 			break;
-		// 		case 'l1000':
-		// 			$group .= ' Between 500 & 1000';
-		// 			break;
-		// 		case 'l2500':
-		// 			$group .= ' Between 1000 & 2500';
-		// 			break;
-		// 		case 'l5000':
-		// 			$group .= ' Between 2500 & 5000';
-		// 			break;
-		// 		case '5000+':
-		// 			$group .= ' With 5000 Or More';
-		// 			break;
-		// 		default:
-		// 			break;
-		// 	}
-		// 	$output .='<tr></tr><tr><th>'.$group.' </th></tr>';
-		// 	$output .='<tr><th>Name</th><th>Class</th><th>'.$year.'</th><th>Historical</th></tr>';
-		//
-		//  for ($counter=0; $counter< count($group_array); $counter++) {
-		// 	$output .= '<tr><td>'.$group_array[$counter]['name'].'</td>
-		// 						<td>'.$group_array[$counter]['class'].'</td>
-		// 						<td>'.$group_array[$counter]['ytotal'].'</td>
-		// 						<td>'.$group_array[$counter]['ototal'].'</td>
-		// 			 </tr>';
-		//  }
-		//  }
-	 $output .= '</table>';
+		$output .='<tr><th> Report Date: '.$fulldate.' </th></tr></table>';
+			$group_array = $this->mlist($value);
+			$group = (string)count($group_array);
+			switch ($value) {
+				case 'l100':
+					$group .= ' Under 100';
+					break;
+				case 'l250':
+					$group .= ' Between 100 & 250';
+					break;
+				case 'l500':
+					$group .= ' Between 250 & 500';
+					break;
+				case 'l1000':
+					$group .= ' Between 500 & 1000';
+					break;
+				case 'l2500':
+					$group .= ' Between 1000 & 2500';
+					break;
+				case 'l5000':
+					$group .= ' Between 2500 & 5000';
+					break;
+				case '5000+':
+					$group .= ' With 5000 Or More';
+					break;
+				default:
+					break;
+			}
+			$output .='<table><tr></tr><tr><th>'.$group.' </th></tr>';
+			$output .='<tr><th>Name</th><th>Class</th><th>'.$year.'</th><th>Historical</th></tr>';
+		 for ($counter=0; $counter< count($group_array); $counter++) {
+			$output .= '<tr><td>'.$group_array[$counter]['name'].'</td>
+								<td>'.$group_array[$counter]['class'].'</td>
+								<td>'.$group_array[$counter]['ytotal'].'</td>
+								<td>'.$group_array[$counter]['ototal'].'</td>
+					 </tr>';
+		 }
+		 $output .= '</table>';
+
 	 return $output;
 	}
 
