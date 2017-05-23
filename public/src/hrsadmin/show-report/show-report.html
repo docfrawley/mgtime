@@ -7,25 +7,34 @@
            <input type="submit" name="export_excel" value="Download {{$ctrl.wreport}}" class='btn btn-lg btn-info'/>
       </form>
       <form ng-if="$ctrl.last=='l100'" action="excel.php?task=l100" method="post">
-           <input type="submit" name="export_excel" value="Download {{$ctrl.wreport}}" class='btn btn-lg btn-info'/>
+           <input type="submit" name="export_excel" value="Download {{$ctrl.wreport}}: Members {{$ctrl.mRange}}" class='btn btn-lg btn-info'/>
       </form>
       <form ng-if="$ctrl.last=='l250'" action="excel.php?task=l250" method="post">
-           <input type="submit" name="export_excel" value="Download {{$ctrl.wreport}}" class='btn btn-lg btn-info'/>
+           <input type="submit" name="export_excel" value="Download {{$ctrl.wreport}}: Members {{$ctrl.mRange}}" class='btn btn-lg btn-info'/>
       </form>
       <form ng-if="$ctrl.last=='l500'" action="excel.php?task=l500" method="post">
-           <input type="submit" name="export_excel" value="Download {{$ctrl.wreport}}" class='btn btn-lg btn-info'/>
+           <input type="submit" name="export_excel" value="Download {{$ctrl.wreport}}: Members {{$ctrl.mRange}}" class='btn btn-lg btn-info'/>
       </form>
       <form ng-if="$ctrl.last=='l1000'" action="excel.php?task=l1000" method="post">
-           <input type="submit" name="export_excel" value="Download {{$ctrl.wreport}}" class='btn btn-lg btn-info'/>
+           <input type="submit" name="export_excel" value="Download {{$ctrl.wreport}}: Members {{$ctrl.mRange}}" class='btn btn-lg btn-info'/>
       </form>
       <form ng-if="$ctrl.last=='l2500'" action="excel.php?task=l2500" method="post">
-           <input type="submit" name="export_excel" value="Download {{$ctrl.wreport}}" class='btn btn-lg btn-info'/>
+           <input type="submit" name="export_excel" value="Download {{$ctrl.wreport}}: Members {{$ctrl.mRange}}" class='btn btn-lg btn-info'/>
       </form>
       <form ng-if="$ctrl.last=='l5000'" action="excel.php?task=l5000" method="post">
-           <input type="submit" name="export_excel" value="Download {{$ctrl.wreport}}" class='btn btn-lg btn-info'/>
+           <input type="submit" name="export_excel" value="Download {{$ctrl.wreport}}: Members {{$ctrl.mRange}}" class='btn btn-lg btn-info'/>
       </form>
       <form ng-if="$ctrl.last=='5000+'" action="excel.php?task=plus5000" method="post">
-           <input type="submit" name="export_excel" value="Download {{$ctrl.wreport}}" class='btn btn-lg btn-info'/>
+           <input type="submit" name="export_excel" value="Download {{$ctrl.wreport}}: Members {{$ctrl.mRange}}" class='btn btn-lg btn-info'/>
+      </form>
+      <form ng-if="$ctrl.last=='A - Trainee'" action="excel.php?task=ATrainee" method="post">
+           <input type="submit" name="export_excel" value="Download {{$ctrl.wreport}}: {{$ctrl.mRange}}" class='btn btn-lg btn-info'/>
+      </form>
+      <form ng-if="$ctrl.last=='A'" action="excel.php?task=A" method="post">
+           <input type="submit" name="export_excel" value="Download {{$ctrl.wreport}}: {{$ctrl.mRange}}" class='btn btn-lg btn-info'/>
+      </form>
+      <form ng-if="$ctrl.last=='Active 1000hrs'" action="excel.php?task=ActiveK" method="post">
+           <input type="submit" name="export_excel" value="Download {{$ctrl.wreport}}: {{$ctrl.mRange}}" class='btn btn-lg btn-info'/>
       </form>
   </div><br />
 </div>
@@ -87,9 +96,19 @@
 <div ng-if="$ctrl.whichreport=='mlist'">
   <div class="row">
     <div class="col-sm-12 text-center">
-      <h3>{{$ctrl.listLength}} Members {{$ctrl.mRange}} </h3><br />
+      <h3>{{$ctrl.listLength}} Members {{$ctrl.mRange}} </h3>
+      <span id="hrsadmin-rd"><select ng-model="$ctrl.rdpage"
+        ng-change = "$ctrl.opPage()">
+        <option  value="l100">LESS THAN 100hrs</option>
+        <option  value="l250">BETWEEN 100 AND 250hrs</option>
+        <option  value="l500">BETWEEN 250 AND 500hrs</option>
+        <option  value="l1000">BETWEEN 500 AND 1000hrs</option>
+        <option  value="l2500">BETWEEN 1000 AND 2500hrs</option>
+        <option  value="l5000">BETWEEN 2500 AND 5000hrs</option>
+        <option  value="5000+">5000hrs AND MORE</option>
+      </select></span>
     </div>
-    <div class="col-sm-12 text-center">
+    <!-- <div class="col-sm-12 text-center">
       <div class="row">
         <div class="col-sm-2" ng-if="$ctrl.last !='l100'">
           <button class='btn btn-xs btn-warning' ng-click="$ctrl.newRange('l100')"> LESS THAN 100hrs </button>
@@ -113,7 +132,7 @@
           <button class='btn btn-xs btn-warning' ng-click="$ctrl.newRange('5000+')">5000hrs AND MORE </button>
         </div>
       </div>
-    </div>
+    </div> -->
     <div class="col-sm-12">
       <br/>
       <table class="table table-striped">
@@ -131,6 +150,84 @@
             <td>{{item.class}}</td>
             <td>{{item.ytotal}}</td>
             <td>{{item.ototal}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<div ng-if="$ctrl.whichreport=='rdlist'">
+  <div class="col-sm-12 text-center">
+    <span id="hrsadmin-rd"><select ng-model="$ctrl.rdpage"
+      ng-change = "$ctrl.opPage()">
+      <option  value="A">Active Members</option>
+      <option  value="A - Trainee">Active Trainees</option>
+      <option  value="Active 1000hrs">Active Members, 1000hrs</option>
+    </select></span>
+    <!-- <div class="row">
+      <div class="col-sm-4">
+        <button class='btn btn-xs btn-warning' ng-click="$ctrl.newRange('A')"> Active Members</button>
+      </div>
+      <div class="col-sm-4" >
+        <button class='btn btn-xs btn-warning' ng-click="$ctrl.newRange('A - Trainee')"> Active Trainees </button>
+      </div>
+      <div class="col-sm-4">
+        <button class='btn btn-xs btn-warning' ng-click="$ctrl.newRange('Active 1000hrs')">Active Members, 1000+hrs</button>
+      </div>
+    </div> -->
+  </div>
+  <div class="row">
+    <div class="col-sm-12">
+      <br/>
+      <table class="table table-striped text-left">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Class</th>
+            <th ng-if="$ctrl.last=='A - Trainee'">Compost (5hrs)</th>
+            <th ng-if="$ctrl.last=='A - Trainee' || $ctrl.last=='Active 1000hrs'">Mercer County (25hrs)</th>
+            <th ng-if="$ctrl.last=='A'">Mercer County (15hrs)</th>
+            <th ng-if="$ctrl.last=='A - Trainee'">Helpline (30hrs)</th>
+            <th ng-if="$ctrl.last=='A'">Helpline (15hrs)</th>
+            <th ng-if="$ctrl.last!='A - Trainee'">Continuing Ed (10hrs)</th>
+            <th>Annual Total</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat='item in $ctrl.list track by $index'>
+            <td>{{item.name}}</td>
+            <td>{{item.class}}</td>
+            <td ng-if="$ctrl.last=='A - Trainee' && item.totals['Compost (Trainee)']<5">
+              {{item.totals['Compost (Trainee)']}}&nbsp;
+              <span class="glyphicon glyphicon-warning-sign drdlist" aria-hidden="true"></span> </td>
+            <td ng-if="$ctrl.last=='A - Trainee' && item.totals['Compost (Trainee)']>=5">{{item.totals['Compost (Trainee)']}}</td>
+
+            <td ng-if="(($ctrl.last=='A - Trainee' || $ctrl.last=='Active 1000hrs') && item.totals['Mercer County']<25)">
+              {{item.totals['Mercer County']}}&nbsp;
+              <span class="glyphicon glyphicon-warning-sign drdlist" aria-hidden="true"></span></td>
+              <td ng-if="$ctrl.last=='A' && item.totals['Mercer County']<15">
+                {{item.totals['Mercer County']}}&nbsp;
+                <span class="glyphicon glyphicon-warning-sign drdlist" aria-hidden="true"></span></td>
+            <td ng-if="(($ctrl.last=='A'  && item.totals['Mercer County']>=15)
+                        || (($ctrl.last=='A - Trainee' || $ctrl.last=='Active 1000hrs')
+                        && item.totals['Mercer County']>=25))">{{item.totals['Mercer County']}}</td>
+
+            <td ng-if="(($ctrl.last=='A - Trainee' && item.totals.Helpline<30) ||
+                        ($ctrl.last=='A' && item.totals.Helpline<15))">
+              {{item.totals.Helpline}}&nbsp;
+              <span class="glyphicon glyphicon-warning-sign drdlist" aria-hidden="true"></span></td>
+            <td  ng-if="(($ctrl.last=='A - Trainee' && item.totals.Helpline>=30) ||
+                        ($ctrl.last=='A' && item.totals.Helpline>=15))">{{item.totals.Helpline}}</td>
+
+            <td ng-if="(($ctrl.last=='A' || $ctrl.last=='Active 1000hrs') && item.totals['Continuing Ed']<10)">
+              {{item.totals['Continuing Ed']}}&nbsp;
+              <span class="glyphicon glyphicon-warning-sign drdlist" aria-hidden="true"></span></td>
+            <td  ng-if="(($ctrl.last=='A' || $ctrl.last=='Active 1000hrs') && item.totals['Continuing Ed']>=10)">
+              {{item.totals['Continuing Ed']}}</td>
+              <td>
+                {{item.totals.Total}}
+              </td>
           </tr>
         </tbody>
       </table>

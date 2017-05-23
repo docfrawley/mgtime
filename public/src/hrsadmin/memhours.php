@@ -2,10 +2,10 @@
   <div class="col-sm-12 text-center">
     <h1>Hours Administration: Member Hours</h1>
   </div>
-  <div class="col-sm-12 text-center">
+  <!-- <div class="col-sm-12 text-center">
     <button ui-sref="reports" class='btn btn-sm btn-info'>REPORTS</button>
     <button ui-sref="home" class='btn btn-sm btn-info'>ONLINE REG</button>
-  </div>
+  </div> -->
 </div><br>
 
 <div class="row" ng-if="!hmctrl.lookAtMember">

@@ -33,10 +33,18 @@ if (isset($_SESSION['memberid'])){
                 </span><br class="hidden-xs">Enter Hours</a>
             </li>
             <? if ($member->check_hrs()){ ?>
-                <li >
-                  <a href="hrsadmin.php"><span class="glyphicon glyphicon-time">
-                  </span><br class="hidden-xs">Hours Admin</a>
-                </li>
+                <li class="dropdown dropdown-submenu">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown"
+                  ><span class="glyphicon glyphicon-time">
+                  </span><br class="hidden-xs">Hours Admin<br /><span class="glyphicon glyphicon-chevron-down">
+                  </span></a>
+								<ul class="dropdown-menu">
+									<li><a href="hrsadmin.php">Online Registration</a></li>
+									<li><a href="hrsadmin.php#/reports">Reports</a></li>
+									<li><a href="hrsadmin.php#/memhours">Member Hours</a></li>
+								</ul>
+							</li>
+
             <? }
               if ($member->check_full()){ ?>
                 <li >

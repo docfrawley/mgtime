@@ -84,7 +84,7 @@
                   <option ng-show="hctrl.mgstatus!='A - Trainee'"
                           value="Continuing Ed">Continuing Ed</option>
                   <option ng-show="hctrl.mgstatus=='A - Trainee'"
-                          value="Compost (Trainee)">Compost (Trainee)</option>
+                          value="Compost">Compost</option>
 
                 </select>
                 <span class="input_warning"
@@ -202,7 +202,7 @@
                   <option ng-show="hctrl.mgstatus!='A - Trainee'"
                           value="Continuing Ed">Continuing Ed</option>
                   <option ng-show="hctrl.mgstatus=='A - Trainee'"
-                          value="Compost (Trainee)">Compost (Trainee)</option>
+                          value="Compost (Trainee)">Compost</option>
                 </select>
                 <span class="input_warning"
                   ng-if="hedForm.hrstype.$error.required && hedForm.hrstype.$touched">
@@ -433,7 +433,7 @@
             <tr ng-show="hctrl.mgstatus=='A - Trainee'">
                 <th scope="row">&nbsp;&nbsp;&nbsp;&nbsp;Compost</th>
                 <td>5</td>
-                <td>{{hctrl.totals[12]['Compost (Trainee)']}}</td>
+                <td>{{hctrl.totals[12]['Compost']}}</td>
                 <td> {{hctrl.ototals['Compost']}}</td>
             </tr>
           </tbody>
@@ -463,7 +463,7 @@
            <td>{{hctrl.totals[key]['Mercer County']}}</td>
            <td>{{hctrl.totals[key]['Helpline']}}</td>
              <td ng-show="hctrl.mgstatus=='A - Trainee'">
-               {{hctrl.totals[key]['Compost (Trainee)']}}</td>
+               {{hctrl.totals[key]['Compost']}}</td>
 
            <td><strong>{{hctrl.totals[key]['Total']}}</strong></td>
 

@@ -243,9 +243,9 @@ if ($task == 'rlist'){
     case 'slist':
       $returnArray =$member_admin->slist($page);
       break;
-    // case 'rdlist':
-    //   $returnArray =$member_admin->rdlist($page);
-    //   break;
+    case 'rdlist':
+      $returnArray =$member_admin->rdlist($page);
+      break;
     default:
       break;
   }

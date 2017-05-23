@@ -61,10 +61,24 @@ function srController(HrsadminService, $scope, $element) {
       case '5000+':
           $ctrl.mRange = "With 5000 or More Hours"
         break;
+      case 'A - Trainee':
+          $ctrl.mRange = "Active Trainees"
+        break;
+      case 'A':
+          $ctrl.mRange = "Active Members"
+        break;
+      case 'Active 1000hrs':
+          $ctrl.mRange = "Active Members, 1000hrs"
+        break;
       default:
         break;
 
     }
+  }
+
+  $ctrl.rdpage = "";
+  $ctrl.opPage = function(){
+    $ctrl.newRange($ctrl.rdpage);
   }
 
   $ctrl.newRange = function (theindex) {

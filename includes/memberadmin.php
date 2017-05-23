@@ -394,6 +394,61 @@ class memadmin {
 		return $hrs_array;
 	}
 
+	function rdlist($page){
+		$this->set_array();
+		$marray = $this->allmem;
+		$temp_array = array();
+		$year = date('Y');
+		for ($counter=0; $counter< count($marray); $counter++) {
+			if ($marray[$counter]['mgstatus']==$page){
+				$id = $marray[$counter]['id'];
+			 	$member = new memberObject($id);
+			 	$memberhrs = new memberHrs($id);
+				$t_array = $memberhrs->get_totalss();
+			 	$totals_array = $t_array[12];
+				switch ($page) {
+					case 'A - Trainee':
+							if ($marray[$counter]['class']==$year){
+								if ($totals_array['Mercer County']<25 || $totals_array['Helpline']<30
+										|| $totals_array['Compost']<5 ){
+											$member_array = array(
+												'name'		=>	$member->get_fullname(),
+												'class'		=>	$member->get_class(),
+												'totals'	=>	$totals_array
+											);
+									array_push($temp_array, $member_array);
+								}
+							}
+						break;
+					case 'A':
+							if ($totals_array['Mercer County']<15 || $totals_array['Helpline']<15
+									|| $totals_array['Continuing Ed']<10 ){
+										$member_array = array(
+											'name'		=>	$member->get_fullname(),
+											'class'		=>	$member->get_class(),
+											'totals'	=>	$totals_array
+										);
+								array_push($temp_array, $member_array);
+							}
+						break;
+					case 'Active 1000hrs':
+							if ($totals_array['Mercer County']<25
+									|| $totals_array['Continuing Ed']<10 ){
+										$member_array = array(
+											'name'		=>	$member->get_fullname(),
+											'class'		=>	$member->get_class(),
+											'totals'	=>	$totals_array
+										);
+								array_push($temp_array, $member_array);
+							}
+						break;
+					default:
+						break;
+				}
+			}
+		}
+		return $temp_array;
+	}
 
 	function nclist($page=1){
 		global $database;

@@ -125,8 +125,8 @@ class memberHrs {
 			"Mercer County" 					=> 0,
 			"Helpline" 								=> 0,
 			"Continuing Ed" 					=> 0,
-			"Compost (Trainee)" 			=> 0,
-			"Other (Trainee)"   			=> 0,
+			"Compost (Trainee)"				=> 0,
+			"Other (Trainee)"					=> 0,
 			"Total"										=> 0
 		);
 
