@@ -196,33 +196,30 @@
         </thead>
         <tbody>
           <tr ng-repeat='item in $ctrl.list track by $index'>
-            <td>{{item.name}}</td>
+            <td >{{item.name}}</td>
             <td>{{item.class}}</td>
-            <td ng-if="$ctrl.last=='A - Trainee' && item.totals['Compost (Trainee)']<5">
-              {{item.totals['Compost (Trainee)']}}&nbsp;
-              <span class="glyphicon glyphicon-warning-sign drdlist" aria-hidden="true"></span> </td>
+            <td ng-if="$ctrl.last=='A - Trainee' && item.totals['Compost (Trainee)']<5" style="background-color:pink;">
+              {{item.totals['Compost (Trainee)']}}</td>
             <td ng-if="$ctrl.last=='A - Trainee' && item.totals['Compost (Trainee)']>=5">{{item.totals['Compost (Trainee)']}}</td>
 
-            <td ng-if="(($ctrl.last=='A - Trainee' || $ctrl.last=='Active 1000hrs') && item.totals['Mercer County']<25)">
-              {{item.totals['Mercer County']}}&nbsp;
-              <span class="glyphicon glyphicon-warning-sign drdlist" aria-hidden="true"></span></td>
-              <td ng-if="$ctrl.last=='A' && item.totals['Mercer County']<15">
-                {{item.totals['Mercer County']}}&nbsp;
-                <span class="glyphicon glyphicon-warning-sign drdlist" aria-hidden="true"></span></td>
+            <td ng-if="(($ctrl.last=='A - Trainee' || $ctrl.last=='Active 1000hrs')
+            && item.totals['Mercer County']<25)" style="background-color:pink;">
+              {{item.totals['Mercer County']}}</td>
+              <td ng-if="$ctrl.last=='A' && item.totals['Mercer County']<15" style="background-color:pink;">
+                {{item.totals['Mercer County']}}</td>
             <td ng-if="(($ctrl.last=='A'  && item.totals['Mercer County']>=15)
                         || (($ctrl.last=='A - Trainee' || $ctrl.last=='Active 1000hrs')
-                        && item.totals['Mercer County']>=25))">{{item.totals['Mercer County']}}</td>
+                        && item.totals['Mercer County']>=25))" >{{item.totals['Mercer County']}}</td>
 
             <td ng-if="(($ctrl.last=='A - Trainee' && item.totals.Helpline<30) ||
-                        ($ctrl.last=='A' && item.totals.Helpline<15))">
-              {{item.totals.Helpline}}&nbsp;
-              <span class="glyphicon glyphicon-warning-sign drdlist" aria-hidden="true"></span></td>
+                        ($ctrl.last=='A' && item.totals.Helpline<15))" style="background-color:pink;">
+              {{item.totals.Helpline}}</td>
             <td  ng-if="(($ctrl.last=='A - Trainee' && item.totals.Helpline>=30) ||
-                        ($ctrl.last=='A' && item.totals.Helpline>=15))">{{item.totals.Helpline}}</td>
+                        ($ctrl.last=='A' && item.totals.Helpline>=15))" >{{item.totals.Helpline}}</td>
 
-            <td ng-if="(($ctrl.last=='A' || $ctrl.last=='Active 1000hrs') && item.totals['Continuing Ed']<10)">
-              {{item.totals['Continuing Ed']}}&nbsp;
-              <span class="glyphicon glyphicon-warning-sign drdlist" aria-hidden="true"></span></td>
+            <td ng-if="(($ctrl.last=='A' || $ctrl.last=='Active 1000hrs')
+            && item.totals['Continuing Ed']<10)" style="background-color:pink;">
+              {{item.totals['Continuing Ed']}}</td>
             <td  ng-if="(($ctrl.last=='A' || $ctrl.last=='Active 1000hrs') && item.totals['Continuing Ed']>=10)">
               {{item.totals['Continuing Ed']}}</td>
               <td>

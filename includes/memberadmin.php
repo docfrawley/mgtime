@@ -402,48 +402,36 @@ class memadmin {
 		for ($counter=0; $counter< count($marray); $counter++) {
 			if ($marray[$counter]['mgstatus']==$page){
 				$id = $marray[$counter]['id'];
+				$not_below = false;
 			 	$member = new memberObject($id);
 			 	$memberhrs = new memberHrs($id);
 				$t_array = $memberhrs->get_totalss();
 			 	$totals_array = $t_array[12];
 				switch ($page) {
 					case 'A - Trainee':
-							if ($marray[$counter]['class']==$year){
-								if ($totals_array['Mercer County']<25 || $totals_array['Helpline']<30
-										|| $totals_array['Compost']<5 ){
-											$member_array = array(
-												'name'		=>	$member->get_fullname(),
-												'class'		=>	$member->get_class(),
-												'totals'	=>	$totals_array
-											);
-									array_push($temp_array, $member_array);
-								}
-							}
+							$not_below =  ( $marray[$counter]['class']==$year &&
+									($totals_array['Mercer County']<25 ||
+									$totals_array['Helpline']<30
+									|| $totals_array['Compost (Trainee)']<5 ));
 						break;
 					case 'A':
-							if ($totals_array['Mercer County']<15 || $totals_array['Helpline']<15
-									|| $totals_array['Continuing Ed']<10 ){
-										$member_array = array(
-											'name'		=>	$member->get_fullname(),
-											'class'		=>	$member->get_class(),
-											'totals'	=>	$totals_array
-										);
-								array_push($temp_array, $member_array);
-							}
+							$not_below = ($totals_array['Mercer County']<15 || $totals_array['Helpline']<15
+									|| $totals_array['Continuing Ed']<10 );
 						break;
 					case 'Active 1000hrs':
-							if ($totals_array['Mercer County']<25
-									|| $totals_array['Continuing Ed']<10 ){
-										$member_array = array(
-											'name'		=>	$member->get_fullname(),
-											'class'		=>	$member->get_class(),
-											'totals'	=>	$totals_array
-										);
-								array_push($temp_array, $member_array);
-							}
+							$not_below = ($totals_array['Mercer County']<25
+									|| $totals_array['Continuing Ed']<10 );
 						break;
 					default:
 						break;
+				}
+				if ($not_below){
+					$member_array = array(
+						'name'		=>	$member->get_fullname(),
+						'class'		=>	$member->get_class(),
+						'totals'	=>	$totals_array
+					);
+					array_push($temp_array, $member_array);
 				}
 			}
 		}
