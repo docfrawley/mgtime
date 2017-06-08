@@ -97,7 +97,8 @@ class memberHrs {
 			"Total"										=> 0
 		);
 		$date_range1 = mktime(0,0,0,$whichMonth,1,$year);
-		$date_range2 = mktime(23,59,59,$whichMonth,31,$year);
+		$num_days = cal_days_in_month(CAL_GREGORIAN, $whichMonth , $year );
+		$date_range2 = mktime(23,59,59,$whichMonth,$num_days,$year);
     $sql="SELECT * FROM hours WHERE memberid='".$this->memberid."'
 		AND hdate>= '".$date_range1."' AND hdate <='".$date_range2."'
 		ORDER BY hdate";
@@ -146,14 +147,15 @@ class memberHrs {
 	function get_totals(){
 		$totals_array = $this->set_hrs();
 		$months_array = array(0,0,0,0,0,0,0,0,0,0,0,0);
-		$current_month=0;
+		$current_month=12;
 		$total = 0;
 		for ($i = 0; $i < count($totals_array); $i++) {
 			$date = date('m/d/Y',$totals_array[$i]['hdate']);
-			list($month, $day, $year) = explode("/", $date);
+			list($mon, $day, $year) = explode("/", $date);
 			if ($year == date('Y')) {
-				if ($month>($current_month+1)){
-					$current_month = $month-1;
+				$month = (int)$mon;
+				if ($month<$current_month){
+					$current_month = $month;
 				}
 				$months_array[$current_month] += $totals_array[$i]['numhrs'];
 				$total += $totals_array[$i]['numhrs'];
@@ -169,7 +171,7 @@ class memberHrs {
 			"Mercer County" 					=> 0.0,
 			"Helpline" 								=> 0.0,
 			"Continuing Ed" 					=> 0.0,
-			"Compost"									=> 0.0,
+			"Compost (Trainee)"				=> 0.0,
 			"Total"										=> 0.0
 		);
 		$sql="SELECT * FROM pretotals WHERE id='".$this->memberid."'";
@@ -196,7 +198,7 @@ class memberHrs {
 						$total_array['Helpline'] += $value['numhrs'];
 						break;
 					case "Compost (Trainee)":
-						$total_array['Compost'] += $value['numhrs'];
+						$total_array['Compost (Trainee)'] += $value['numhrs'];
 						break;
 					case "Continuing Ed":
 						$total_array['Continuing Ed'] += $value['numhrs'];;
@@ -211,7 +213,7 @@ class memberHrs {
 		// } else{
 		// 	$total_array['Continuing Ed'] += $ceTotal;
 		// }
-		$total_array['Total'] = $total_array['Mercer County'] + $total_array['Helpline']+$total_array['Compost'];
+		$total_array['Total'] = $total_array['Mercer County'] + $total_array['Helpline']+$total_array['Compost (Trainee)'];
 		return $total_array;
 	}
 

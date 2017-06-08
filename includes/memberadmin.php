@@ -507,7 +507,7 @@ class memadmin {
 										<td>'.$member->get_fullname().'</td>
 										<td>'.$member->get_class().'</td>
 										<td>'.$totals_array["Helpline"].'</td>
-										<td>'.$totals_array["Compost"].'</td>
+										<td>'.$totals_array["Compost (Trainee)"].'</td>
 										<td>'.$totals_array["Mercer County"].'</td>
 										<td>'.$totals_array["Total"].'</td>
 										<td>'.$totals_array["Continuing Ed"].'</td>
