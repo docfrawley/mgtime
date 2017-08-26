@@ -427,8 +427,10 @@ class memadmin {
 				}
 				if ($not_below){
 					$member_array = array(
-						'name'		=>	$member->get_fullname(),
+						'lname'		=>	$member->get_lname(),
+						'fname'		=>	$member->get_fname(),
 						'class'		=>	$member->get_class(),
+						'status'	=>	$member->get_status(),
 						'totals'	=>	$totals_array
 					);
 					array_push($temp_array, $member_array);
@@ -450,8 +452,10 @@ class memadmin {
 			$year = date('Y');
 			if ($member->get_class() == $year){
 				$member_array = array(
-					'name'		=>	$member->get_fullname(),
+					'lname'		=>	$member->get_lname(),
+					'fname'		=>	$member->get_fname(),
 					'class'		=>	$member->get_class(),
+					'status'	=>	$member->get_status(),
 					'totals'	=>	$totals_array
 				);
 				array_push($temp_array, $member_array);
@@ -484,8 +488,10 @@ class memadmin {
 			$output .='<th>New Class Report</th></tr>';
 			$output .='
 				<tr>
-					<th>Name</th>
+					<th>Last Name</th>
+					<th>First Name</th>
 					<th>Class</th>
+					<th>Status</th>
 					<th>Helpline</th>
 					<th>Compost</th>
 					<th>MC & Other</th>
@@ -504,8 +510,10 @@ class memadmin {
 
 					$output .= '
 							 <tr>
-										<td>'.$member->get_fullname().'</td>
+										<td>'.$member->get_lname().'</td>
+										<td>'.$member->get_fname().'</td>
 										<td>'.$member->get_class().'</td>
+										<td>'.$member->get_status().'</td>
 										<td>'.$totals_array["Helpline"].'</td>
 										<td>'.$totals_array["Compost (Trainee)"].'</td>
 										<td>'.$totals_array["Mercer County"].'</td>
@@ -529,8 +537,10 @@ class memadmin {
 			$output .='<th>Summary Report</th></tr>';
 			$output .='
 				<tr>
-					<th>Name</th>
+					<th>Last Name</th>
+					<th>First Name</th>
 					<th>Class</th>
+					<th>Status</th>
 					<th>Helpline</th>
 					<th>MC & Other</th>
 					<th>Total H,C, MC</th>
@@ -546,8 +556,10 @@ class memadmin {
 	 			$totals_array['ototal'] = $totals_array['Total']+$totals_array['Continuing Ed'];
 				$output .= '
 						 <tr>
-									<td>'.$member->get_fullname().'</td>
-									<td>'.$member->get_class().'</td>
+									 <td>'.$member->get_lname().'</td>
+									 <td>'.$member->get_fname().'</td>
+									 <td>'.$member->get_class().'</td>
+									 <td>'.$member->get_status().'</td>
 									<td>'.$totals_array["Helpline"].'</td>
 									<td>'.$totals_array["Mercer County"].'</td>
 									<td>'.$totals_array["Total"].'</td>
@@ -568,8 +580,10 @@ class memadmin {
 			$totals_array = $memberhrs->overallTotal();
 			$totals_array['ototal'] = $totals_array['Total']+$totals_array['Continuing Ed'];
 			$member_array = array(
-				'name'		=>	$member->get_fullname(),
+				'lname'		=>	$member->get_lname(),
+				'fname'		=>	$member->get_fname(),
 				'class'		=>	$member->get_class(),
+				'status'	=>	$member->get_status(),
 				'totals'	=>	$totals_array
 			);
 			array_push($temp_array, $member_array);
@@ -613,6 +627,9 @@ class memadmin {
 				case '5000+':
 						$put_in_array = ($ototal > 4999);
 					break;
+				case 'msAll':
+						$put_in_array = true;
+					break;
 				default:
 					break;
 			}
@@ -620,8 +637,10 @@ class memadmin {
 				$member = new memberObject($value['id']);
 				$totals_array['ototal'] = $totals_array['Total']+$totals_array['Continuing Ed'];
 				$member_array = array(
-					'name'		=>	$member->get_fullname(),
+					'lname'		=>	$member->get_lname(),
+					'fname'		=>	$member->get_fname(),
 					'class'		=>	$member->get_class(),
+					'status'	=>	$member->get_status(),
 					'ytotal'	=>	$totals_array['Total'],
 					'ototal'	=>	$ototal
 				);
@@ -667,14 +686,26 @@ class memadmin {
 				case '5000+':
 					$group .= ' With 5000 Or More';
 					break;
+				case 'msAll':
+					$group .= ' All Members';
+					break;
 				default:
 					break;
 			}
 			$output .='<table><tr></tr><tr><th>'.$group.' </th></tr>';
-			$output .='<tr><th>Name</th><th>Class</th><th>'.$year.'</th><th>Historical</th></tr>';
+			$output .='<tr>
+								<th>Last Name</th>
+								<th>First Name</th>
+								<th>Class</th>
+								<th>Status</th>
+								<th>'.$year.'</th>
+								<th>Historical</th></tr>';
 		 for ($counter=0; $counter< count($group_array); $counter++) {
-			$output .= '<tr><td>'.$group_array[$counter]['name'].'</td>
+			$output .= '<tr>
+								<td>'.$group_array[$counter]['lname'].'</td>
+								<td>'.$group_array[$counter]['fname'].'</td>
 								<td>'.$group_array[$counter]['class'].'</td>
+								<td>'.$group_array[$counter]['status'].'</td>
 								<td>'.$group_array[$counter]['ytotal'].'</td>
 								<td>'.$group_array[$counter]['ototal'].'</td>
 					 </tr>';

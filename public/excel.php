@@ -46,6 +46,10 @@ switch ($task) {
       $member_admin = new memadmin();
       $output =$member_admin->mlistDownload('5000+');
       break;
+    case 'msAll':
+      $member_admin = new memadmin();
+      $output =$member_admin->mlistDownload('msAll');
+      break;
   default:
     echo "break";
     break;
