@@ -68,6 +68,10 @@ class memberObject {
     return $this->email;
   }
 
+	function set_session(){
+		$_SESSION['member'] = $this->memberid;
+	}
+
 	function createLogin($info){
     global $database;
     $sql = "UPDATE memberinfo SET ";

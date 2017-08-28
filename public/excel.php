@@ -1,11 +1,19 @@
 <?php require_once("../includes/initialize.php"); ?>
 <?
-
+session_start();
 
 $task=isset($_GET['task']) ? $_GET['task'] : "" ;
     if (!$task) $task=isset($_POST['task']) ? $_POST['task'] : "" ;
 
 switch ($task) {
+  case 'ind':
+    $memberhrs = new memberHrs($_SESSION['memberid']);
+    $output =$memberhrs->indDownload();
+    break;
+  case 'admInd':
+    $memberhrs = new memberHrs($_SESSION['member']);
+    $output =$memberhrs->indDownload();
+    break;
   case 'nclist':
     $member_admin = new memadmin();
     $output =$member_admin->nclistDownload();

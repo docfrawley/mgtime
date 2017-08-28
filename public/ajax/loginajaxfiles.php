@@ -201,11 +201,13 @@ if ($task=='hrsNonlist'){
 if ($task=='getMemInfo'){
   $memberID = $_GET['memberID'];
   $memberInfo = new memberObject($memberID);
+  $memberInfo->set_session();
   $member = new memberHrs($memberID);
   $member_array = array(
-    "name" => $memberInfo->get_fullname(),
-    "class" => $memberInfo->get_class(),
-    "mgstatus" => $memberInfo->get_status()
+    "name"      => $memberInfo->get_fullname(),
+    "class"     => $memberInfo->get_class(),
+    "mgstatus"  => $memberInfo->get_status(),
+    "id"        => $memberID
   );
   // $year = date('Y');
   $annual_array = $member->get_hours(1);

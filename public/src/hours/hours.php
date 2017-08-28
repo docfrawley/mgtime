@@ -295,8 +295,8 @@
       <div class="col-sm-12">
         <div class="panel panel-default">
           <div class="panel-body">
-            <h3 class="text-center">ANNUAL HOURS</h3><br>
-            <h5 class="text-left">Edit or Delete Entries by clicking on date</h5>
+            <h3 class="text-center">ANNUAL HOURS</h3>
+            <br /><h5 class="text-left">Edit or Delete Entries by clicking on date</h5>
             <div ng-show="hctrl.pastLimit" class="alert alert-warning" role="alert">
               You can only edit entries with dates less than 91 days ago</div><br>
 
@@ -387,7 +387,10 @@
 
    <div class="panel panel-default">
      <div class="panel-body text-center">
-       <h3>Yearly Hour Totals for <? echo date('Y'); ?> </h3><br>
+       <h3>Yearly Hour Totals for <? echo date('Y'); ?> </h3>
+       <form action="excel.php?task=ind" method="post">
+            <input type="submit" name="export_excel" value="Download <? echo date('Y'); ?> Entries" class='btn btn-sm btn-info'/>
+       </form><br />
        <div ng-show="hctrl.congrats" class="alert alert-success" role="alert">
          You just got your 1000hrs. Congrats. Please note that your requirements have changed.</div><br>
        <table class="table table-bordered table-hover">

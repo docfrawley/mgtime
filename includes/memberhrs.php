@@ -86,6 +86,101 @@ class memberHrs {
 		return $temp_array;
 	}
 
+	function indDownload(){
+		$member = new memberObject($this->memberid);
+		$status = $member->get_status();
+		$totals = $this->get_totalss();
+		$ototals = $this->overallTotal();
+		switch ($status) {
+			case 'Active 1000hrs':
+				$vhrs = 25;
+				$mc = 25;
+				break;
+			case 'A':
+				$vhrs = 30;
+				$mc = 15;
+				$hl = 15;
+				break;
+			case 'A - Trainee':
+				$vhrs = 60;
+				$mc = 25;
+				$hl = 30;
+				break;
+			default:
+				break;
+		}
+		$output = "";
+		$output .= '
+			<table class="table" bordered="1">
+			<tr>';
+		$output .='<th>Yearly Hour Totals for 2017: '.$member->get_fullname().'</th></tr>';
+		$output .='
+			<tr>
+				<th></th>
+				<th>Requirement</th>
+				<th>Annual</th>
+				<th>Historical</th>
+			</tr>
+					 <td>Volunteer Hours</td>
+					 <td>'.$vhrs.'</td>
+					 <td>'.$totals[12]["Total"].'</td>
+					 <td> <strong>'.$ototals["Total"].'</strong></td>
+				 </tr>
+				 <tr>
+					 <td>&nbsp;&nbsp;&nbsp;&nbsp;Mercer County</td>
+					 <td>'.$mc.'</td>
+					 <td>'.$totals[12]["Mercer County"].'</td>
+					 <td> <strong>'.$ototals["Mercer County"].'</strong></td>
+				 </tr>';
+		if ($status !='Active 1000hrs'){
+			$output .='<tr>
+				<td>&nbsp;&nbsp;&nbsp;&nbsp;Helpline</td>
+				<td>'.$hl.'</td>
+				<td>'.$totals[12]["Helpline"].'</td>
+				<td> <strong>'.$ototals["Helpline"].'</strong></td>
+			</tr>';
+		}
+		if ($status != 'A - Trainee'){
+			$output .='<tr>
+				<th scope="row">Continuing Ed (CE)</td>
+				<td>10</td>
+				<td>'.$totals[12]["Continuing Ed"].'</td>
+				<td> <strong>'.$ototals["Continuing Ed"].'</strong></td>
+			</tr>';
+		} else {
+			$output .='<tr>
+				<td>Compost</th>
+				<td>5</td>
+				<td>'.$totals[12]["Compost (Trainee)"].'</td>
+				<td> <strong>'.$ototals["Compost (Trainee)"].'</strong></td>
+			</tr>';
+		}
+		$output .='</table><br />';
+		$first_array = $this->set_hrs();
+		$output .= '
+			<table class="table" bordered="1">
+			<tr>';
+		$output .='<th>Entries for 2017</th></tr>';
+		$output .='
+			<tr>
+				<th>Date</th>
+				<th>Type of Hours</th>
+				<th>Number of Hours</th>
+				<th>Description</th>
+			</tr>';
+		foreach ($first_array as $value) {
+			$output .='<tr>
+				<td>'.$value["hdate"].'</td>
+				<td>'.$value["hrstype"].'</td>
+				<td>'.$value["numhrs"].'</td>
+				<td>'.$value["description"].'</td>
+			</tr>';
+		}
+		$output .='</table>';
+
+		return $output;
+	}
+
 	function get_hours_month($whichMonth, $year){
 		global $database;
     $month_array =  array(
@@ -236,62 +331,6 @@ class memberHrs {
 		$temp = $value['numid'];
 		return $temp;
 	}
-
-	// function undoInfo($year=2000){
-	// 	global $database;
-	// 	$hrs_array = $this->set_hrs($year);
-	// 	$changeArray = array();
-	// 	$changeFromArray = array();
-	// 	$deleteArray = array();
-	// 	foreach ($hrs_array as $value) {
-	// 		if ($value['chstatus']=='c' || $value['chstatus']=='d'){
-	// 			$the_date = date('m/d/Y', $value['chdate']);
-	// 			$value['chdate']=$the_date;
-	// 			if ($value['chstatus']=='c'){
-	// 				array_push($changeArray, $value);
-	// 				$id = $value['numid'];
-	// 				$sql="SELECT * FROM orghours WHERE numid='".$id."'";
-	// 		    $result_set = $database->query($sql);
-	// 				$valueFrom = $database->fetch_array($result_set);
-	// 				$holder_array = array();
-	// 				if ($value['hrstype'] != $valueFrom['hrstype']){
-	// 					$temp_array=array(
-	// 						"type" 	=> "hrstype",
-	// 						"from" 	=> $valueFrom['hrstype'],
-	// 						"to"		=> $value['hrstype']
-	// 					);
-	// 					array_push($holder_array, $temp_array);
-	// 				}
-	// 				if ($value['numhrs'] != $valueFrom['numhrs']){
-	// 					$temp_array=array(
-	// 						"type" 	=> "numhrs",
-	// 						"from" 	=> $valueFrom['numhrs'],
-	// 						"to"		=> $value['numhrs']
-	// 					);
-	// 					array_push($holder_array, $temp_array);
-	// 				}
-	// 				if ($value['description'] != $valueFrom['description']){
-	// 					$temp_array=array(
-	// 						"type" 	=> "description",
-	// 						"from" 	=> $valueFrom['description'],
-	// 						"to"		=> $value['description']
-	// 					);
-	// 					array_push($holder_array, $temp_array);
-	// 				}
-	// 				array_push($changeFromArray, $holder_array);
-	// 			} else {
-	// 				array_push($deleteArray, $value);
-	// 			}
-	// 			$returnArray = array(
-	// 				"the_change"  => $changeArray,
-	// 				"change_from" => $changeFromArray,
-	// 				"the_delete"	=> $deleteArray
-	// 			);
-	// 			array_push($returnArray, $value);
-	// 		}
-	// 	}
-	// 	return $returnArray;
-	// }
 
 }
 ?>
