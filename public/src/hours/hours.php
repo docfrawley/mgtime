@@ -331,9 +331,12 @@
                 </tr>
               </thead>
               <tr ng-repeat="items in hctrl.items track by $index"
-                  ng-class="{ 'editedhrs' : items.chstatus==='c',
-                          'deletedhrs': items.chstatus==='d'}">
-                <td ng-if="items.chstatus=='c' || items.chstatus=='d'">
+                  ng-class="{
+                          'addedhrs'  : items.chstatus==='a',
+                          'editedhrs' : items.chstatus==='c',
+                          'deletedhrs': items.chstatus==='d'
+                          }">
+                <td ng-if="items.chstatus=='c' || items.chstatus=='d' || items.chstatus=='a'">
                     <button class='btn btn-sm btn-warning'
                             ng-click="hctrl.toExplain($index)"
                             data-toggle="modal" data-target="#exampleModal">

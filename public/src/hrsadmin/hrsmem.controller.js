@@ -52,6 +52,43 @@ function HrsmemController(HrsadminService, list, info) {
   hmctrl.goUndoModul = false;
   hmctrl.goDeleteModul = false;
 
+  hmctrl.backToAdd = function () {
+    hmctrl.entered = false;
+  };
+
+  hmctrl.cancel = function (hrsForm) {
+    hmctrl.hdate = null;
+    hmctrl.hrstype = '';
+    hmctrl.numhrs = null;
+    hmctrl.description = '';
+    hmctrl.addDescription = '';
+    hrsForm.$setUntouched();
+  };
+
+  hmctrl.submit = function (hrsForm) {
+    HrsadminService.addHrs(hmctrl.memberID, hmctrl.hdate,
+                    hmctrl.hrstype, hmctrl.numhrs, hmctrl.description,
+                    hmctrl.addDescription)
+      .then(function (response){
+        hmctrl.entered = true;
+        hmctrl.hdate = null;
+        hmctrl.hrstype = '';
+        hmctrl.numhrs = null;
+        hmctrl.description = '';
+        hmctrl.addDescription = '';
+        hrsForm.$setUntouched();
+      })
+      .then(function (response) {
+        HrsadminService.getMemInfo(hmctrl.memberID)
+        .then(function (response) {
+        hmctrl.meminfo = response.data;
+      });
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
+
   hmctrl.doEdit = function(index){
     hmctrl.madeUpdates = false;
     hmctrl.goUndoModul = false;

@@ -39,6 +39,29 @@ class memberHrs {
 		return $hrs_array;
 	}
 
+	function enter_hoursAdmin($info){
+		global $database;
+		list($month, $day, $year) = explode("/", $info['hdate']);
+		$themonth = intval($month);
+		$theday = intval($day);
+		$theyear = intval($year);
+		$date = mktime(0,0,0,$themonth,$theday,$theyear);
+		$today = date('U');
+		$info['hdate'] = $date;
+    $sql = "INSERT INTO hours (";
+	  	$sql .= "memberid, hdate, hrstype, numhrs, description, chstatus, chdate, chdescription";
+	  	$sql .= ") VALUES ('";
+	  	$sql .= $this->memberid ."', '";
+	  	$sql .= $database->escape_value($info['hdate']) ."', '";
+      $sql .= $database->escape_value($info['hrstype']) ."', '";
+      $sql .= $database->escape_value($info['numhrs']) ."', '";
+			$sql .= $database->escape_value($info['description']) ."', '";
+			$sql .= "a', '";
+			$sql .= $today ."', '";
+		  $sql .= $database->escape_value($info['chdescription']) ."')";
+		$database->query($sql);
+	}
+
   function enter_hours($info){
     global $database;
 		list($month, $day, $year) = explode("/", $info['hdate']);

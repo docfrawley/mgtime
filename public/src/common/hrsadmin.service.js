@@ -111,6 +111,22 @@ function HrsadminService($http, ApiPath) {
     return response;
   };
 
+  service.addHrs=function(memberID, hdate, hrstype, numhrs, description, addDescription){
+    var response = $http({
+      method: "POST",
+      url: (ApiPath +"addHrsAdmin.php"),
+      data: {
+        id:           memberID,
+        hdate:         hdate,
+        hrstype:      hrstype,
+        numhrs:       numhrs,
+        description:  description,
+        chdescription: addDescription
+      }
+    });
+    return response;
+  };
+
   service.DeleteEntry=function(whatDelete, chdescription){
     var response = $http({
       method: "POST",

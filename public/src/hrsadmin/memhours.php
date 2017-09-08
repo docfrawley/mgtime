@@ -81,9 +81,142 @@
           <show-totals
           list="hmctrl.meminfo"></show-totals>
         </div>
-
       </div>
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="panel panel-default">
+            <div class="panel-body">
+              <h3 class="text-center">Hours Entry Form for {{hmctrl.meminfo.minfo.name}}</h3>
+              <div ng-if="hmctrl.entered" class="alert alert-success" role="alert">
+                hours were added successfully</div>
+              <br />
+              <form name='hrsForm' novalidate>
+              <div class="form-group">
+                <label class="col-sm-2 control-label text-left"
+                for="inputEmail">Date:</label>
+                <!-- Special version of Bootstrap that only affects content wrapped in .bootstrap-iso -->
+                <link rel="stylesheet" href="https://formden.com/static/cdn/bootstrap-iso.css" />
 
+                <!--Font Awesome (added because you use icons in your prepend/append)-->
+                <link rel="stylesheet" href="https://formden.com/static/cdn/font-awesome/4.4.0/css/font-awesome.min.css" />
+
+                <div class="bootstrap-iso">
+                 <div class="container-fluid">
+                  <div class="row">
+                   <div class="col-md-6 col-sm-6 col-xs-12">
+                      <div class="input-group">
+                       <input class="form-control" id="date"
+                       placeholder="MM/DD/YYYY"
+                       type="text" name="date"
+                       ng-model="hmctrl.hdate" ng-click="hmctrl.backToAdd()"
+                       required/>
+                       <div class="input-group-addon">
+                        <span class="fa fa-calendar">
+                        </span>
+                       </div>
+                      </div>
+                   </div>
+                  </div>
+                 </div>
+                 <span class="input_warning"
+                   ng-if="hrsForm.date.$error.required && hrsForm.date.$touched">
+                   Please enter a date for your hours.
+                 </span><br>
+              </div>
+                <!-- Extra JavaScript/CSS added manually in "Settings" tab -->
+                <!-- Include Date Range Picker -->
+                <script type="text/javascript"
+                src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js">
+                </script>
+                <link rel="stylesheet"
+                href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css"/>
+                <script>
+                    $(document).ready(function(){
+                        var date_input=$('input[name="date"]'); //our date input has the name "date"
+                        var container=$('.bootstrap-iso form').length>0 ? $('.bootstrap-iso form').parent() : "body";
+                        date_input.datepicker({
+                            format: 'mm/dd/yyyy',
+                            container: container,
+                            todayHighlight: true,
+                            autoclose: true,
+                        })
+                    })
+                </script>
+
+                <label class="col-sm-2 control-label text-left"
+                for="inputEmail">Type Hrs: </label>
+                <div class="col-sm-4">
+                  <select class="custom-select form-control" ng-model="hmctrl.hrstype"
+                          name="hrstype" ng-click="hmctrl.backToAdd()"
+                          required>
+                    <option value="Mercer County">Mercer County</option>
+                    <option value="Helpline">Helpline</option>
+                    <option ng-show="hmctrl.meminfo.minfo.mgstatus!='A - Trainee'"
+                            value="Continuing Ed">Continuing Ed</option>
+                    <option ng-show="hmctrl.meminfo.minfo.mgstatus=='A - Trainee'"
+                            value="Compost (Trainee)">Compost</option>
+
+                  </select>
+                  <span class="input_warning"
+                    ng-if="hrsForm.hrstype.$error.required && hrsForm.hrstype.$touched">
+                    Please select type of hours.
+                  </span><br>
+               </div>
+
+                <label class="col-sm-2 control-label text-right"
+                for="inputEmail"> # of Hrs: </label>
+                <div class="col-sm-4">
+                <input class="form-control" type="text" name="numhrs"
+                 placeholder="# of Hours" ng-model="hmctrl.numhrs"
+                 ng-click="hmctrl.backToAdd()" required>
+                 <span class="input_warning"
+                   ng-if="hrsForm.numhrs.$error.required && hrsForm.numhrs.$touched">
+                   Please enter number of hours.
+                 </span><br />
+              </div><br />
+              <div class="row">
+                <label class="col-sm-3 control-label text-left">Description: </label>
+                <div class="col-sm-9">
+                <input class="form-control" type="text" name="description"
+                 placeholder="Description" ng-model="hmctrl.description"
+                 ng-click="hmctrl.backToAdd()" required>
+                 <span class="input_warning"
+                   ng-if="hrsForm.description.$error.required && hrsForm.description.$touched">
+                   Please provide a description.
+                 </span><br />
+                </div>
+              </div>
+              <div class="row">
+                 <label class="col-sm-3 control-label text-left"
+                 for="inputEmail">Why this addition? </label>
+                 <div class="col-sm-9">
+                   <input class="form-control" type="text" name="addDescription"
+                    ng-model="hmctrl.addDescription" placeholder="Why adding these hours?" required>
+                    <span class="input_warning"
+                      ng-if="hrsForm.addDescription.$error.required && hrsForm.addDescription.$touched">
+                      Please provide a reason for adding these hours.
+                    </span><br>
+                 </div>
+               </div>
+              <div class="row">
+                <div class="col-xs-3">
+                  <button class='btn btn-sm btn-success' ng-click="hmctrl.submit(hrsForm)"
+                          ng-disabled="hrsForm.$invalid">SUBMIT</button>
+                </div>
+                <div class="col-xs-3">
+                  <button class='btn btn-sm btn-warning' ng-click="hmctrl.cancel(hrsForm)"
+                          >CANCEL</button>
+                </div>
+              </div>
+
+
+              </div>
+            </div>
+          </form>
+
+        </div>
+      </div>
+  </div>
 </div>
 
 <!-- Modal -->

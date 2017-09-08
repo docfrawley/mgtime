@@ -642,6 +642,7 @@ class memadmin {
 					'class'		=>	$member->get_class(),
 					'status'	=>	$member->get_status(),
 					'ytotal'	=>	$totals_array['Total'],
+					'ce'			=>	$totals_array['Continuing Ed'],
 					'ototal'	=>	$ototal
 				);
 				array_push($returnArray, $member_array);
@@ -698,7 +699,8 @@ class memadmin {
 								<th>First Name</th>
 								<th>Class</th>
 								<th>Status</th>
-								<th>'.$year.'</th>
+								<th>Total Volunteer Hrs</th>
+								<th>Total CE</th>
 								<th>Historical</th></tr>';
 		 for ($counter=0; $counter< count($group_array); $counter++) {
 			$output .= '<tr>
@@ -707,6 +709,7 @@ class memadmin {
 								<td>'.$group_array[$counter]['class'].'</td>
 								<td>'.$group_array[$counter]['status'].'</td>
 								<td>'.$group_array[$counter]['ytotal'].'</td>
+								<td>'.$group_array[$counter]['ce'].'</td>
 								<td>'.$group_array[$counter]['ototal'].'</td>
 					 </tr>';
 		 }

@@ -140,14 +140,14 @@ class hrsObject {
 
   function undo_hoursAdmin(){
     global $database;
-    if ($this->chstatus=='d'){
-      $sql = "UPDATE hours SET ";
-      $sql .= "chstatus       ='', ";
-      $sql .= "chdate         ='', ";
-      $sql .= "chdescription  ='' ";
-      $sql .= "WHERE numid='". $this->hrsid. "' ";
-      $database->query($sql);
-    } else {
+    switch ($this->chstatus) {
+      case 'a':
+      $sql = "DELETE FROM hours ";
+	  	$sql .= "WHERE numid=". $this->hrsid;
+	  	$sql .= " LIMIT 1";
+	 	  $database->query($sql);
+        break;
+      case 'c':
       $sql="SELECT * FROM orghours WHERE numid='".$this->hrsid."'";
       $result_set = $database->query($sql);
   		$value = $database->fetch_array($result_set);
@@ -163,10 +163,24 @@ class hrsObject {
   		$database->query($sql);
 
       $sql = "DELETE FROM orghours ";
-  	  	$sql .= "WHERE numid=". $this->hrsid;
-  	  	$sql .= " LIMIT 1";
+	  	$sql .= "WHERE numid=". $this->hrsid;
+	  	$sql .= " LIMIT 1";
   	 	$database->query($sql);
+        break;
+      case 'd':
+      $sql = "UPDATE hours SET ";
+      $sql .= "chstatus       ='', ";
+      $sql .= "chdate         ='', ";
+      $sql .= "chdescription  ='' ";
+      $sql .= "WHERE numid='". $this->hrsid. "' ";
+      $database->query($sql);
+        break;
+
+      default:
+        # code...
+        break;
     }
+    
   }
 
 }

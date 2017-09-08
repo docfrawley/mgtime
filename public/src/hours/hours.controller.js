@@ -8,9 +8,9 @@ HoursController.$inject=['HoursService', 'HrsadminService', 'items', 'totals', '
 function HoursController(HoursService, HrsadminService, items, totals, mgstatus, ototals, pages) {
   var hctrl=this;
    hctrl.items = items.data;
+   console.log(hctrl.items);
    hctrl.totals = totals.data;
    hctrl.ototals = ototals.data;
-   console.log("here", hctrl.ototals);
    hctrl.months = ['January', 'February', 'March', 'April', 'May', 'June',
                   'July', 'August', 'September', 'October', 'November',
                   'December'];

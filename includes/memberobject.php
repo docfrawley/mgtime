@@ -103,7 +103,7 @@ class memberObject {
 		$memberhrs = new memberHrs($this->memberid);
 		$total_array = $memberhrs->overallTotal();
 		if (($total_array['Total'] ==1000 || $total_array['Total'] > 1000)
-					&& $this->status != "Active 1000hrs"){
+					&& $this->status === "A"){
 
 						$sql = "UPDATE memberinfo SET ";
 						$sql .= "mgstatus='Active 1000hrs' ";

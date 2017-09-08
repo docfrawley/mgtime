@@ -1,5 +1,5 @@
 <div class="modal-header">
-  <h5 class="modal-title" id="exampleModalLabel">Explanation of Changes/Deletion</h5>
+  <h5 class="modal-title" id="exampleModalLabel">Explanation of Changes/Deletion/Additions</h5>
   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
     <span aria-hidden="true">&times;</span>
   </button>
@@ -9,6 +9,9 @@
   <div class=row>
     <div class="col-sm-12" ng-if="$ctrl.now.chstatus=='d' && !$ctrl.madeUndo">
       The original entry was deleted on {{$ctrl.now.chdate}}.<br />
+    </div>
+    <div class="col-sm-12" ng-if="$ctrl.now.chstatus=='a' && !$ctrl.madeUndo">
+      The entry was added on {{$ctrl.now.chdate}}.<br />
     </div>
     <div class="col-sm-12" ng-if="$ctrl.now.chstatus=='c' && !$ctrl.madeUndo">
       The changes were made on {{$ctrl.now.chdate}}.<br/>
@@ -46,6 +49,7 @@
         The reason given for
         <span ng-if="$ctrl.now.chstatus=='d'"> this deletion </span>
         <span ng-if="$ctrl.now.chstatus=='c'"> this change </span>
+        <span ng-if="$ctrl.now.chstatus=='a'"> this addition </span>
         is as follows: {{$ctrl.now.chdescription}}.
       </div>
     </div>

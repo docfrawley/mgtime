@@ -118,6 +118,10 @@
   color:red;
 }
 
+.addedhrs {
+  color:orange;
+}
+
 .deletedhrs{
   color:red;
   text-decoration-line: line-through;
