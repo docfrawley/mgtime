@@ -394,47 +394,72 @@ class memadmin {
 		return $hrs_array;
 	}
 
-	function rdlist($page){
-		$this->set_array();
-		$marray = $this->allmem;
+	function rdlist($mgstatus){
+		global $database;
+		$marray = array();
+    $sql="SELECT * FROM memberinfo WHERE mgstatus = '".$mgstatus."' ORDER BY lname";
+		$result_set = $database->query($sql);
+		while ($value = $database->fetch_array($result_set)) {
+			array_push($marray, $value);
+		}
 		$temp_array = array();
 		$year = date('Y');
-		for ($counter=0; $counter< count($marray); $counter++) {
-			if ($marray[$counter]['mgstatus']==$page){
-				$id = $marray[$counter]['id'];
-				$not_below = false;
-			 	$member = new memberObject($id);
-			 	$memberhrs = new memberHrs($id);
-				$t_array = $memberhrs->get_totalss();
-			 	$totals_array = $t_array[12];
-				switch ($page) {
-					case 'A - Trainee':
-							$not_below =  ( $marray[$counter]['class']==$year &&
-									($totals_array['Mercer County']<25 ||
-									$totals_array['Helpline']<30
-									|| $totals_array['Compost (Trainee)']<5 ));
-						break;
-					case 'A':
-							$not_below = ($totals_array['Mercer County']<15 || $totals_array['Helpline']<15
-									|| $totals_array['Continuing Ed']<10 );
-						break;
-					case 'Active 1000hrs':
-							$not_below = ($totals_array['Mercer County']<25
-									|| $totals_array['Continuing Ed']<10 );
-						break;
-					default:
-						break;
-				}
-				if ($not_below){
-					$member_array = array(
-						'lname'		=>	$member->get_lname(),
-						'fname'		=>	$member->get_fname(),
-						'class'		=>	$member->get_class(),
-						'status'	=>	$member->get_status(),
-						'totals'	=>	$totals_array
-					);
-					array_push($temp_array, $member_array);
-				}
+		$howmany = count($marray);
+		for ($counter=0; $counter<count($marray); $counter++) {
+			$id = $marray[$counter]['id'];
+			$not_below = false;
+		 	$memberhrs = new memberHrs($id);
+			$t_array = $memberhrs->get_totalss();
+		 	$totals_array = $t_array[12];
+			$totals_array['newMC']=false;
+			switch ($mgstatus) {
+				case 'A - Trainee':
+						$not_below =  ( $marray[$counter]['class']==$year &&
+								($totals_array['Mercer County']<25 ||
+								$totals_array['Helpline']<30
+								|| $totals_array['Compost (Trainee)']<5 ));
+						if ($not_below && $totals_array['Helpline']>30)	{
+							$diff = ($totals_array['Helpline']-30);
+							$newTotal = $totals_array['Mercer County']+$diff;
+							// if ($newTotal>24.99){
+							// 	$not_below = false;
+							// } else{
+								$newMC=$totals_array['Mercer County']."+".$diff." (from Helpline) = ".$newTotal;
+								$totals_array['Mercer County']=$newTotal;
+								$totals_array['newMC']=true;
+								$totals_array['diff']=$newMC;
+							// }
+						}
+					break;
+				case 'A':
+				$not_below = ($totals_array['Mercer County']<15 ||
+				$totals_array['Helpline']<15
+				|| $totals_array['Continuing Ed']<10 );
+						if ($not_below && $totals_array['Helpline']>15)	{
+							$diff = $totals_array['Helpline']-15;
+							$newTotal = $totals_array['Mercer County']+$diff;
+							$newMC=$totals_array['Mercer County']."+".$diff." (from Helpline) = ".$newTotal;
+							$totals_array['Mercer County']=$newTotal;
+							$totals_array['newMC']=true;
+							$totals_array['diff']=$newMC;
+						}
+					break;
+				case 'Active 1000hrs':
+						$not_below = ($totals_array['Mercer County']<25
+								|| $totals_array['Continuing Ed']<10 );
+					break;
+				default:
+					break;
+			}
+			if ($not_below){
+				$member_array = array(
+					'lname'		=>	$marray[$counter]['lname'],
+					'fname'		=>	$marray[$counter]['fname'],
+					'class'		=>	$marray[$counter]['class'],
+					'status'	=>	$marray[$counter]['mgstatus'],
+					'totals'	=>	$totals_array
+				);
+				array_push($temp_array, $member_array);
 			}
 		}
 		return $temp_array;

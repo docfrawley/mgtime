@@ -44,6 +44,7 @@ function HrsreportController(HrsadminService, list) {
           hrctrl.last = response.data.last;
         } else {
           hrctrl.list = response.data;
+          console.log(hrctrl.list);
           hrctrl.last = hrctrl.page;
         }
         hrctrl.show= true;

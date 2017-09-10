@@ -147,31 +147,8 @@
         <option  value="5000+">5000hrs AND MORE</option>
       </select></span>
     </div>
-    <!-- <div class="col-sm-12 text-center">
-      <div class="row">
-        <div class="col-sm-2" ng-if="$ctrl.last !='l100'">
-          <button class='btn btn-xs btn-warning' ng-click="$ctrl.newRange('l100')"> LESS THAN 100hrs </button>
-        </div>
-        <div class="col-sm-2" ng-if="$ctrl.last !='l250'">
-          <button class='btn btn-xs btn-warning' ng-click="$ctrl.newRange('l250')"> BETWEEN 100 AND 250hrs </button>
-        </div>
-        <div class="col-sm-2" ng-if="$ctrl.last !='l500'">
-          <button class='btn btn-xs btn-warning' ng-click="$ctrl.newRange('l500')">BETWEEN 250 AND 500hrs </button>
-        </div>
-        <div class="col-sm-2" ng-if="$ctrl.last !='l1000'">
-          <button class='btn btn-xs btn-warning' ng-click="$ctrl.newRange('l1000')">BETWEEN 500 AND 1000hrs </button>
-        </div>
-        <div class="col-sm-2" ng-if="$ctrl.last !='l2500'">
-          <button class='btn btn-xs btn-warning'  ng-click="$ctrl.newRange('l2500')">BETWEEN 1000 AND 2500hrs </button>
-        </div>
-        <div class="col-sm-2" ng-if="$ctrl.last !='l5000'">
-          <button class='btn btn-xs btn-warning' ng-click="$ctrl.newRange('l5000')">BETWEEN 2500 AND 5000hrs </button>
-        </div>
-        <div class="col-sm-2" ng-if="$ctrl.last !='5000+'">
-          <button class='btn btn-xs btn-warning' ng-click="$ctrl.newRange('5000+')">5000hrs AND MORE </button>
-        </div>
-      </div>
-    </div> -->
+
+
     <div class="col-sm-12">
       <br/>
       <table class="table table-striped">
@@ -210,18 +187,8 @@
       <option  value="A - Trainee">Active Trainees</option>
       <option  value="Active 1000hrs">Active Members, 1000hrs</option>
     </select></span>
-    <!-- <div class="row">
-      <div class="col-sm-4">
-        <button class='btn btn-xs btn-warning' ng-click="$ctrl.newRange('A')"> Active Members</button>
-      </div>
-      <div class="col-sm-4" >
-        <button class='btn btn-xs btn-warning' ng-click="$ctrl.newRange('A - Trainee')"> Active Trainees </button>
-      </div>
-      <div class="col-sm-4">
-        <button class='btn btn-xs btn-warning' ng-click="$ctrl.newRange('Active 1000hrs')">Active Members, 1000+hrs</button>
-      </div>
-    </div> -->
   </div>
+
   <div class="row">
     <div class="col-sm-12">
       <br/>
@@ -251,14 +218,34 @@
               {{item.totals['Compost (Trainee)']}}</td>
             <td ng-if="$ctrl.last=='A - Trainee' && item.totals['Compost (Trainee)']>=5">{{item.totals['Compost (Trainee)']}}</td>
 
-            <td ng-if="(($ctrl.last=='A - Trainee' || $ctrl.last=='Active 1000hrs')
-            && item.totals['Mercer County']<25)" style="background-color:pink;">
+            <td ng-if="($ctrl.last=='A - Trainee' &&
+                        item.totals['Mercer County']<25  &&
+                        !item.totals.newMC)" style="background-color:pink;">
               {{item.totals['Mercer County']}}</td>
-              <td ng-if="$ctrl.last=='A' && item.totals['Mercer County']<15" style="background-color:pink;">
-                {{item.totals['Mercer County']}}</td>
-            <td ng-if="(($ctrl.last=='A'  && item.totals['Mercer County']>=15)
-                        || (($ctrl.last=='A - Trainee' || $ctrl.last=='Active 1000hrs')
-                        && item.totals['Mercer County']>=25))" >{{item.totals['Mercer County']}}</td>
+            <td ng-if="($ctrl.last=='A - Trainee' &&
+                        item.totals['Mercer County']>=25  &&
+                        !item.totals.newMC)">
+              {{item.totals['Mercer County']}}</td>
+            <td ng-if="$ctrl.last=='A - Trainee' && item.totals.newMC" style="background-color:orange;">
+              {{item.totals.diff}}</td>
+
+            <td ng-if="$ctrl.last=='A' &&
+                      item.totals['Mercer County']<15 &&
+                      !item.totals.newMC" style="background-color:pink;">
+              {{item.totals['Mercer County']}}</td>
+            <td ng-if="($ctrl.last=='A' &&
+                      item.totals['Mercer County']>=15 &&
+                      !item.totals.newMC)">
+              {{item.totals['Mercer County']}}</td>
+            <td ng-if="$ctrl.last=='A' && item.totals.newMC" style="background-color:orange;">
+              {{item.totals.diff}}</td>
+
+            <td ng-if="$ctrl.last=='Active 1000hrs' &&
+                      item.totals['Mercer County']>=25" >
+                      {{item.totals['Mercer County']}}</td>
+            <td ng-if="$ctrl.last=='Active 1000hrs' &&
+                      item.totals['Mercer County']<25" style="background-color:pink;">
+                      {{item.totals['Mercer County']}}</td>
 
             <td ng-if="(($ctrl.last=='A - Trainee' && item.totals.Helpline<30) ||
                         ($ctrl.last=='A' && item.totals.Helpline<15))" style="background-color:pink;">
@@ -279,4 +266,6 @@
       </table>
     </div>
   </div>
+
+
 </div>

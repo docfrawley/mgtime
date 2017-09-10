@@ -19,6 +19,7 @@ function srController(HrsadminService, $scope, $element) {
 
   $ctrl.page = 1;
   $ctrl.listLength = $ctrl.list.length;
+
   var d = new Date();
   $ctrl.year = d.getFullYear();
   switch ($ctrl.whichreport) {
