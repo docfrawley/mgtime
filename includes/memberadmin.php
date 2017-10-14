@@ -397,7 +397,7 @@ class memadmin {
 	function rdlist($mgstatus){
 		global $database;
 		$marray = array();
-    $sql="SELECT * FROM memberinfo WHERE mgstatus = '".$mgstatus."' ORDER BY lname";
+    	$sql="SELECT * FROM memberinfo WHERE mgstatus = '".$mgstatus."' ORDER BY lname";
 		$result_set = $database->query($sql);
 		while ($value = $database->fetch_array($result_set)) {
 			array_push($marray, $value);
@@ -463,6 +463,87 @@ class memadmin {
 			}
 		}
 		return $temp_array;
+	}
+
+	function rdlistDownload($mgstatus){
+		$rdlist_array = $this->rdlist($mgstatus);
+		$mstatus = ($mgstatus==='A') ? "Active Members" : $mgstatus;
+		$output = "";
+		$output .= '
+			<table class="table" bordered="1">
+			<tr>';
+		$output .='<th>Requirement Deficiencies Report: '.$mstatus.'</th></tr>';
+		$output .='
+			<tr>
+				<th>Last Name</th>
+				<th>First Name</th>
+				<th>Class</th>
+				<th>Status</th>';
+		switch ($mgstatus) {
+			case 'A':
+				$output .='
+					<th>Mercer County (15hrs)</th>
+					<th>Helpline (15hrs)</th>
+					<th>Continuing Ed (10hrs)</th>';
+				break;
+			case 'A - Trainee':
+				$output .='
+					<th>Compost (5hrs)</th>
+					<th>Mercer County (25hrs)</th>
+					<th>Helpline (30hrs)</th>';
+				break;
+			case 'Active 1000hrs':
+				$output .='
+					<th>Mercer County (25hrs)</th>
+					<th>Continuing Ed (10hrs)</th>';
+				break;
+			default:
+				# code...
+				break;
+		}
+		$output .='<th>Annual Total</th></tr>';
+		foreach($rdlist_array as $member){
+			$output .="<tr>
+						<td>".$member['lname']."</td>
+						<td>".$member['fname']."</td>
+						<td>".$member['class']."</td>
+						<td>".$member['status']."</td>";
+			switch ($mgstatus) {
+				case 'A':
+					if ($member['totals']['newMC']){
+						$output .="<td>".$member['totals']['diff']."</td>";
+					} else {
+						$output .="<td>".$member['totals']['Mercer County']."</td>";
+					}
+					$output .="
+							<td>".$member['totals']['Helpline']."</td>
+							<td>".$member['totals']['Continuing Ed']."</td>
+							<td>".$member['totals']['Total']."</td></tr>";
+					break;
+				case 'A - Trainee':
+					$output .="<td>".$member['totals']['Compost (Trainee)']."</td>";
+					if ($member['totals']['newMC']){
+						$output .="<td>".$member['totals']['diff']."</td>";
+					} else {
+						$output .="<td>".$member['totals']['Mercer County']."</td>";
+					}
+					$output .="
+							<td>".$member['totals']['Helpline']."</td>
+							<td>".$member['totals']['Total']."</td></tr>";
+					break;
+				case 'Active 1000hrs':
+						$output .="
+							<td>".$member['totals']['Mercer County']."</td>
+							<td>".$member['totals']['Continuing Ed']."</td>
+							<td>".$member['totals']['Total']."</td></tr>";
+					break;
+				default:
+					# code...
+					break;
+			}
+		}
+	return $output;
+
 	}
 
 	function nclist($page=1){
