@@ -35,15 +35,16 @@ function HrsadminService($http, ApiPath) {
     return response;
   };
 
-  service.getmList = function(filter, filterwhich, page){
+  service.getmList = function(filter, filterwhich, page, year){
     var response = $http({
       method: "GET",
       url: (ApiPath +"loginajaxfiles.php"),
       params: {
-        task:   'hrsmlist',
+        task:         'hrsmlist',
         filter:       filter,
         filterwhich:  filterwhich,
-        page:         page
+        page:         page,
+        year:         year
       }
     });
     return response;
@@ -71,26 +72,28 @@ function HrsadminService($http, ApiPath) {
     return response;
   };
 
-  service.getMemInfo=function(memberID){
+  service.getMemInfo=function(memberID, year){
     var response = $http({
       method: "GET",
       url: (ApiPath +"loginajaxfiles.php"),
       params: {
         task:     'getMemInfo',
-        memberID: memberID
+        memberID: memberID,
+        year:     year
       }
     });
     return response;
   };
 
-  service.getHList=function(memberID, pageIndex){
+  service.getHList=function(memberID, pageIndex, year){
     var response = $http({
       method: "GET",
       url: (ApiPath +"loginajaxfiles.php"),
       params: {
         task:     'getHlist',
         memberID: memberID,
-        page:     pageIndex
+        page:     pageIndex,
+        year:     year
       }
     });
     return response;
@@ -176,14 +179,15 @@ function HrsadminService($http, ApiPath) {
     return response;
   }
 
-  service.rList=function(whichlist, page){
+  service.rList=function(whichlist, page, year){
     var response = $http({
       method: "GET",
       url: (ApiPath +"loginajaxfiles.php"),
       params: {
         task:     'rlist',
-        report:    whichlist,
-        page:     page
+        report:   whichlist,
+        page:     page,
+        year:     year
       }
     });
     return response;

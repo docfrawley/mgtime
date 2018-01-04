@@ -33,10 +33,10 @@ function RoutesConfig($stateProvider, $urlRouterProvider) {
     url: '/reports',
     controller: 'HrsreportController',
     controllerAs: 'hrctrl',
-    templateUrl: 'src/hrsadmin/hoursreport.php',
+    templateUrl: 'src/hrsadmin/hoursreport.html',
     resolve: {
       list: ['HrsadminService',function (HrsadminService) {
-        return HrsadminService.rList('nclist', 1);
+        return HrsadminService.rList('nclist', 1, 2000);
       }]
     }
   })
@@ -44,10 +44,10 @@ function RoutesConfig($stateProvider, $urlRouterProvider) {
     url: '/memhours',
     controller: 'HrsmemController',
     controllerAs: 'hmctrl',
-    templateUrl: 'src/hrsadmin/memhours.php',
+    templateUrl: 'src/hrsadmin/memhours.html',
     resolve: {
       list: ['HrsadminService',function (HrsadminService) {
-        return HrsadminService.getmList('full', 'full', 1);
+        return HrsadminService.getmList('full', 'full', 1, 2000);
       }],
       info: ['MemadminService',function (MemadminService) {
         return MemadminService.getInitialInfo();

@@ -7,7 +7,8 @@ angular.module('HadminApp')
   controller: showMComponentController,
   bindings: {
     list:           '<',
-    gotMemberid:    '&'
+    gotMemberid:    '&',
+    year:           '<'
   }
 });
 
@@ -15,9 +16,8 @@ angular.module('HadminApp')
 showMComponentController.$inject = ['$scope', '$element']
 function showMComponentController($scope, $element) {
   var $ctrl = this;
-  var the_date = new Date();
-  $ctrl.year = the_date.getYear()+1900;
-  $ctrl.gotId = function (idindex) {
+
+    $ctrl.gotId = function (idindex) {
     $ctrl.gotMemberid({ index: $ctrl.list[idindex].id});
   };
 

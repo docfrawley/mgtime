@@ -4,9 +4,6 @@ session_start();
 $member_admin = new memadmin();
 $params = json_decode(file_get_contents('php://input'),true);
 $member_admin->addMember($params);
-
-
-
 $data = array(
   'success'=>true
 );

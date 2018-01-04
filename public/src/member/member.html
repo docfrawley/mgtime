@@ -1,6 +1,6 @@
 <div class="row justify-content-md-center">
   <div ng-if="!mctrl.triedUpdate" class="col-sm-12 text-center">
-    <h4>You can change your username, password, and/or email below.</h4>
+    <h5>You can change your username, password, and contact information below.</h5>
   </div>
   <div ng-if="mctrl.updated" class="alert alert-success" role="alert">
     <h4>Updates were successful!</h4></div>
@@ -58,31 +58,6 @@
    </div>
  </div>
 
-  <!-- <label class="col-sm-3 control-label text-left"
-  for="inputEmail">Password</label>
-  <div class="col-sm-8">
-  <input class="form-control" type="password" name="password"
-   placeholder="" ng-model="mctrl.password" required
-   minlength = 4>
-   <span class="input_warning"
-     ng-if="(getForm.password.$error.minlength || getForm.password.$error.required) && getForm.password.$touched">
-     Please enter a password that is at lest 4 characters long.
-   </span><br>
-</div>
-<div ng-if="getForm.password.$touched">
-  <label class="col-sm-3 control-label text-left"
-  for="inputEmail">Confirm Password</label>
-  <div class="col-sm-8">
-  <input class="form-control" type="password" name="password"
-   placeholder="" ng-model="mctrl.password" required
-   minlength = 4>
-   <span class="input_warning"
-     ng-if="(getForm.password.$error.minlength || getForm.password.$error.required) && getForm.password.$touched">
-     Please enter a password that is at lest 4 characters long.
-   </span><br>
-  </div>
-</div> -->
-
 
 <div class="row">
   <label class="col-sm-3 control-label text-left"
@@ -97,8 +72,98 @@
   </div>
 </div>
 
-  <button class='btn btn-lg btn-success'
+<div class="row">
+  <label class="col-sm-3 control-label text-left"
+    for="street">Street Address:</label>
+  <div class="col-sm-3">
+  <input class="form-control" type="text" name="street"
+     placeholder="Street Address" ng-model="mctrl.street">
+     <!-- <span class="input_warning"
+       ng-if="getForm.street.$invalid && getForm.street.$touched">
+       Please enter an email address in a valid format.
+     </span><br> -->
+  </div>
+  <label class="col-sm-3 control-label text-left"
+    for="street">Town:</label>
+  <div class="col-sm-3">
+  <input class="form-control" type="text" name="town"
+     placeholder="Town" ng-model="mctrl.town">
+  </div>
+</div>
+
+<div class="row"><br />
+  <label class="col-sm-3 control-label text-left"
+    for="street">State:</label>
+  <div class="col-sm-3" >
+    <select ng-model="mctrl.state">
+      <option ng-if="mctrl.state=='NJ'" value = "NJ" selected>New Jersey</option>
+      <option ng-if="mctrl.state=='PA'" value = "PA" selected>Pennsylvania</option>
+      <option ng-if="mctrl.state=='PA' || mctrl.state==''" value = "NJ" >New Jersey</option>
+      <option ng-if="mctrl.state=='NJ' || mctrl.state==''" value = "PA" >Pennsylvania</option>
+    </select>
+  <!-- <input class="form-control" type="text" name="state"
+     placeholder="State" ng-model="mctrl.state"> -->
+     <!-- <span class="input_warning"
+       ng-if="getForm.street.$invalid && getForm.street.$touched">
+       Please enter an email address in a valid format.
+     </span><br> -->
+  </div>
+  <label class="col-sm-3 control-label text-left"
+    for="street">Zip:</label>
+  <div class="col-sm-3">
+  <input class="form-control" type="text" name="zip"
+     placeholder="Zip" ng-model="mctrl.zip">
+     <!-- <span class="input_warning"
+       ng-if="getForm.street.$invalid && getForm.street.$touched">
+       Please enter an email address in a valid format.
+     </span><br> -->
+  </div>
+</div>
+
+<div class="row"><br />
+  <label class="col-sm-3 control-label text-left"
+    for="street">Home Phone:</label>
+  <div class="col-sm-3">
+  <input class="form-control" type="text" name="hphone"
+     placeholder="Home Phone" ng-model="mctrl.hphone">
+     <!-- <span class="input_warning"
+       ng-if="getForm.street.$invalid && getForm.street.$touched">
+       Please enter an email address in a valid format.
+     </span><br> -->
+  </div>
+  <label class="col-sm-3 control-label text-left"
+    for="street">Cell Phone:</label>
+  <div class="col-sm-3">
+  <input class="form-control" type="text" name="cphone"
+     placeholder="Cell Phone" ng-model="mctrl.cphone">
+     <!-- <span class="input_warning"
+       ng-if="getForm.street.$invalid && getForm.street.$touched">
+       Please enter an email address in a valid format.
+     </span><br> -->
+  </div>
+</div>
+<div class="row"><br /><br />
+  <div class="col-sm-3 text-left">
+    <label>Preferred Number</label>
+  </div>
+  <div class="col-sm-9 text-left">
+    <div class="form-check">
+      <label class="form-check-label">
+        <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="hphone" ng-model="mctrl.preferred">
+          Home Phone
+      </label>
+    </div>
+    <div class="form-check">
+      <label class="form-check-label">
+        <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="cphone" ng-model="mctrl.preferred">
+          Cell Phone
+      </label>
+    </div>
+  </div>
+</div>
+
+  <br /><button class='btn btn-lg btn-success'
   ng-disabled="getForm.$invalid"
-  ng-click="mctrl.submit()">SUBMIT</button>
+  ng-click="mctrl.submit()">UPDATE</button>
 </div>
 </form>

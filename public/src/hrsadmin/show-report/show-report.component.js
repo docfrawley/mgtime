@@ -9,7 +9,8 @@ angular.module('HadminApp')
     list:         '<',
     whichreport:  '<',
     last:         '<',
-    rangeChange:  '&'
+    rangeChange:  '&',
+    year:         '<'
   }
 });
 
@@ -20,8 +21,8 @@ function srController(HrsadminService, $scope, $element) {
   $ctrl.page = 1;
   $ctrl.listLength = $ctrl.list.length;
 
-  var d = new Date();
-  $ctrl.year = d.getFullYear();
+  // var d = new Date();
+  // $ctrl.year = d.getFullYear();
   switch ($ctrl.whichreport) {
     case 'nclist':
         $ctrl.wreport = "New Class Report"
@@ -34,6 +35,9 @@ function srController(HrsadminService, $scope, $element) {
       break;
     case 'rdlist':
         $ctrl.wreport = "Requirement Deficiencies Report"
+      break;
+    case 'endlist':
+        $ctrl.wreport = "End of Year Report"
       break;
     default:
       break;

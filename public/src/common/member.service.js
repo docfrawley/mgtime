@@ -11,14 +11,22 @@ function MemberService($http, ApiPath) {
   var service = this;
 
 
-  service.updateLogin = function(uname, pword, email) {
+  service.updateLogin = function(uname, pword, email, street, town, state, zip,
+                                  hphone, cphone, preferred) {
     var response = $http({
       method: "POST",
       url: (ApiPath +"registerajaxfiles.php"),
       data: {
         uname:  uname,
         pword:  pword,
-        email:  email
+        email:  email,
+        street: street,
+        town:   town,
+        state:  state,
+        zip:    zip,
+        hphone: hphone,
+        cphone: cphone,
+        preferred:  preferred
       }
     });
     return response;

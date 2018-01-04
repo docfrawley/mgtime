@@ -14,6 +14,34 @@ function HrsmemController(HrsadminService, list, info) {
   hmctrl.filter = "full";
   hmctrl.filterwhich ="full";
   hmctrl.lookAtMember=false;
+  hmctrl.start_year = 2017;
+  var d = new Date();
+  hmctrl.this_year = d.getFullYear();
+  hmctrl.which_year = hmctrl.this_year;
+  hmctrl.years = [];
+  for (var i = hmctrl.start_year; i <= hmctrl.this_year; i++) {
+    hmctrl.years.push(i);
+  }
+
+  hmctrl.returnToThisYear = function(){
+    hmctrl.which_year = hmctrl.this_year;
+    hmctrl.get_which_year();
+  }
+
+  hmctrl.get_which_year = function(){
+    if (hmctrl.lookAtMember){
+      hmctrl.whenGotId(hmctrl.memberID);
+    } else {
+      HrsadminService.getmList(hmctrl.filter, hmctrl.filterwhich, hmctrl.page, hmctrl.which_year)
+        .then(function (response){
+          hmctrl.list = response.data;
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    }
+
+  }
 
   hmctrl.memberLists = function (){
     hmctrl.lookAtMember = false;
@@ -22,7 +50,7 @@ function HrsmemController(HrsadminService, list, info) {
 
   hmctrl.whenGotId = function(index){
     hmctrl.memberID = index;
-    HrsadminService.getMemInfo(hmctrl.memberID)
+    HrsadminService.getMemInfo(hmctrl.memberID, hmctrl.which_year)
       .then(function (response){
         hmctrl.meminfo = response.data;
         hmctrl.trange = [];
@@ -31,13 +59,6 @@ function HrsmemController(HrsadminService, list, info) {
         }
         hmctrl.lookAtMember = true;
       })
-      // .then(function (response) {
-      //   HrsadminService.getChHistory(hmctrl.memberID, 2017)
-      //   .then(function (response) {
-      //   hmctrl.whatChanged = response.data.the_change;
-      //   hmctrl.whatNow = response.data.change_from;
-      // });
-      // })
       .catch(function (error) {
         console.log(error);
       });
@@ -194,8 +215,9 @@ function HrsmemController(HrsadminService, list, info) {
   };
 
   hmctrl.getNewPage = function(index){
-    HrsadminService.getmList(hmctrl.filter, hmctrl.filterwhich, index)
+    HrsadminService.getmList(hmctrl.filter, hmctrl.filterwhich, index, hmctrl.which_year)
       .then(function (response){
+        hmctrl.page = index;
         hmctrl.list = response.data;
       })
       .catch(function (error) {
@@ -210,7 +232,7 @@ function HrsmemController(HrsadminService, list, info) {
   };
 
   hmctrl.getNewHPage = function(pageIndex){
-    HrsadminService.getHList(hmctrl.memberID, pageIndex)
+    HrsadminService.getHList(hmctrl.memberID, pageIndex, hmctrl.which_year)
       .then(function (response){
         hmctrl.meminfo.annual = response.data;
       })

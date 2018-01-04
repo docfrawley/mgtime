@@ -1,36 +1,46 @@
 <div class="row">
   <div class="col-sm-3">
-    <div class="panel panel-default">
-      <div class="panel-body">
-        <h3>Search for Member</h3>
-        <div class="form-group">
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="panel panel-default">
+          <div class="panel-body">
+            <h3>Search for Member</h3>
+            <div class="form-group">
 
-          <div class="row" ng-if="mactrl.not_multiple">
-              <div class="col-sm-12">
-                <label ng-if="!mactrl.did_search">Enter Last Name</label><br/>
-                <label ng-if="mactrl.did_search && !mactrl.found">No Match. Please try again.</label><br/>
-                <input class="form-control" type="text"
-                 placeholder="Last Name" ng-model="mactrl.search_lname"><br/>
+              <div class="row" ng-if="mactrl.not_multiple">
+                  <div class="col-sm-12">
+                    <label ng-if="!mactrl.did_search">Enter Last Name</label><br/>
+                    <label ng-if="mactrl.did_search && !mactrl.found">No Match. Please try again.</label><br/>
+                    <input class="form-control" type="text"
+                     placeholder="Last Name" ng-model="mactrl.search_lname"><br/>
+                  </div>
+                  <div class="col-sm-3">
+                    <button class='btn btn-lg btn-success' ng-click="mactrl.goLook()">SEARCH</button>
+                  </div>
               </div>
-              <div class="col-sm-3">
-                <button class='btn btn-lg btn-success' ng-click="mactrl.goLook()">SEARCH</button>
-              </div>
-          </div>
 
-          <div class="row" ng-if="!mactrl.not_multiple">
-            <div class="col-sm-12">
-              <label>Please click on the appropriate member.</label><br/>
-              <div class="col-sm-12" ng-repeat="items in mactrl.found_list">
-                <div><button class='btn btn-sm btn-info buttonx' ng-click="mactrl.gomodull($index)">
-                  {{items.fname}} {{items.lname}}</button></div><br/>
+              <div class="row" ng-if="!mactrl.not_multiple">
+                <div class="col-sm-12">
+                  <label>Please click on the appropriate member.</label><br/>
+                  <div class="col-sm-12" ng-repeat="items in mactrl.found_list">
+                    <div><button class='btn btn-sm btn-info buttonx' ng-click="mactrl.gomodull($index)">
+                      {{items.fname}} {{items.lname}}</button></div><br/>
+                  </div>
+                </div>
               </div>
+
             </div>
           </div>
-
-
         </div>
       </div>
+
+      <div class="col-sm-12">
+        <form action="excel.php?task=contactList" method="post">
+             <input type="submit" name="export_excel" value="Download Contact List" class='btn btn-lg btn-info'/>
+        </form>
+      </div>
     </div>
+
   </div>
 
   <div class="col-sm-9" >
@@ -87,6 +97,7 @@
                   <option value="E">Emeritus</option>
                   <option value="IA">Inactive</option>
                   <option value="T/NotG">Trainee - Did not Graduate</option>
+                  <option value="Sustaining">Sustaining</option>
                 </select>
                 <span class="input_warning"
                   ng-if="addForm.mgofmcstatus.$error.required && addForm.mgofmcstatus.$touched">
@@ -102,6 +113,97 @@
                 </select><br/>
               </div>
            </div>
+
+           <div class="row">
+             <label class="col-sm-3 control-label text-left"
+               for="street">Street Address:</label>
+             <div class="col-sm-3">
+             <input class="form-control" type="text" name="street"
+                placeholder="Street Address" ng-model="mactrl.street">
+                <!-- <span class="input_warning"
+                  ng-if="getForm.street.$invalid && getForm.street.$touched">
+                  Please enter an email address in a valid format.
+                </span><br> -->
+             </div>
+             <label class="col-sm-3 control-label text-left"
+               for="street">Town:</label>
+             <div class="col-sm-3">
+             <input class="form-control" type="text" name="town"
+                placeholder="Town" ng-model="mactrl.town">
+             </div>
+           </div>
+
+           <div class="row"><br />
+             <label class="col-sm-3 control-label text-left"
+               for="street">State:</label>
+             <div class="col-sm-3" >
+               <select ng-model="mactrl.state">
+                 <option ng-if="mactrl.state=='NJ'" value = "NJ" selected>New Jersey</option>
+                 <option ng-if="mactrl.state=='PA'" value = "PA" selected>Pennsylvania</option>
+                 <option ng-if="mactrl.state=='PA' || mactrl.state==''" value = "NJ" >New Jersey</option>
+                 <option ng-if="mactrl.state=='NJ' || mactrl.state==''" value = "PA" >Pennsylvania</option>
+               </select>
+             <!-- <input class="form-control" type="text" name="state"
+                placeholder="State" ng-model="mactrl.state"> -->
+                <!-- <span class="input_warning"
+                  ng-if="getForm.street.$invalid && getForm.street.$touched">
+                  Please enter an email address in a valid format.
+                </span><br> -->
+             </div>
+             <label class="col-sm-3 control-label text-left"
+               for="street">Zip:</label>
+             <div class="col-sm-3">
+             <input class="form-control" type="text" name="zip"
+                placeholder="Zip" ng-model="mactrl.zip">
+                <!-- <span class="input_warning"
+                  ng-if="getForm.street.$invalid && getForm.street.$touched">
+                  Please enter an email address in a valid format.
+                </span><br> -->
+             </div>
+           </div>
+
+           <div class="row"><br />
+             <label class="col-sm-3 control-label text-left"
+               for="street">Home Phone:</label>
+             <div class="col-sm-3">
+             <input class="form-control" type="text" name="hphone"
+                placeholder="Home Phone" ng-model="mactrl.hphone">
+                <!-- <span class="input_warning"
+                  ng-if="getForm.street.$invalid && getForm.street.$touched">
+                  Please enter an email address in a valid format.
+                </span><br> -->
+             </div>
+             <label class="col-sm-3 control-label text-left"
+               for="street">Cell Phone:</label>
+             <div class="col-sm-3">
+             <input class="form-control" type="text" name="cphone"
+                placeholder="Cell Phone" ng-model="mactrl.cphone">
+                <!-- <span class="input_warning"
+                  ng-if="getForm.street.$invalid && getForm.street.$touched">
+                  Please enter an email address in a valid format.
+                </span><br> -->
+             </div>
+           </div>
+           <div class="row"><br /><br />
+             <div class="col-sm-3 text-left">
+               <label>Preferred Number</label>
+             </div>
+             <div class="col-sm-9 text-left">
+               <div class="form-check">
+                 <label class="form-check-label">
+                   <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="hphone" ng-model="mactrl.preferred">
+                     Home Phone
+                 </label>
+               </div>
+               <div class="form-check">
+                 <label class="form-check-label">
+                   <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="cphone" ng-model="mactrl.preferred">
+                     Cell Phone
+                 </label>
+               </div>
+             </div>
+           </div>
+
           <div class="row">
             <div class="col-sm-3">
               <button class='btn btn-lg btn-success' ng-click="mactrl.asubmit(addForm)"
@@ -164,6 +266,7 @@
                   <option value="E">Emeritus</option>
                   <option value="IA">Inactive</option>
                   <option value="T/NotG">Trainee - Did not Graduate</option>
+                  <option value="Sustaining">Sustaining</option>
                 </select>
                 <span class="input_warning"
                   ng-if="editForm.mgofmcstatus.$error.required && editForm.mgofmcstatus.$touched">
@@ -179,7 +282,95 @@
                 </select><br/>
               </div>
            </div>
+           <div class="row">
+             <label class="col-sm-3 control-label text-left"
+               for="street">Street Address:</label>
+             <div class="col-sm-3">
+             <input class="form-control" type="text" name="street"
+                placeholder="Street Address" ng-model="mactrl.edItems.street">
+                <!-- <span class="input_warning"
+                  ng-if="getForm.street.$invalid && getForm.street.$touched">
+                  Please enter an email address in a valid format.
+                </span><br> -->
+             </div>
+             <label class="col-sm-3 control-label text-left"
+               for="street">Town:</label>
+             <div class="col-sm-3">
+             <input class="form-control" type="text" name="town"
+                placeholder="Town" ng-model="mactrl.edItems.town">
+             </div>
+           </div>
 
+           <div class="row"><br />
+             <label class="col-sm-3 control-label text-left"
+               for="street">State:</label>
+             <div class="col-sm-3" >
+               <select ng-model="mactrl.edItems.state">
+                 <option ng-if="mactrl.edItems.state=='NJ'" value = "NJ" selected>New Jersey</option>
+                 <option ng-if="mactrl.edItems.state=='PA'" value = "PA" selected>Pennsylvania</option>
+                 <option ng-if="mactrl.edItems.state=='PA' || mactrl.edItems.state==''" value = "NJ" >New Jersey</option>
+                 <option ng-if="mactrl.edItems.state=='NJ' || mactrl.edItems.state==''" value = "PA" >Pennsylvania</option>
+               </select>
+             <!-- <input class="form-control" type="text" name="state"
+                placeholder="State" ng-model="mactrl.state"> -->
+                <!-- <span class="input_warning"
+                  ng-if="getForm.street.$invalid && getForm.street.$touched">
+                  Please enter an email address in a valid format.
+                </span><br> -->
+             </div>
+             <label class="col-sm-3 control-label text-left"
+               for="street">Zip:</label>
+             <div class="col-sm-3">
+             <input class="form-control" type="text" name="zip"
+                placeholder="Zip" ng-model="mactrl.edItems.zip">
+                <!-- <span class="input_warning"
+                  ng-if="getForm.street.$invalid && getForm.street.$touched">
+                  Please enter an email address in a valid format.
+                </span><br> -->
+             </div>
+           </div>
+
+           <div class="row"><br />
+             <label class="col-sm-3 control-label text-left"
+               for="street">Home Phone:</label>
+             <div class="col-sm-3">
+             <input class="form-control" type="text" name="hphone"
+                placeholder="Home Phone" ng-model="mactrl.edItems.hphone">
+                <!-- <span class="input_warning"
+                  ng-if="getForm.street.$invalid && getForm.street.$touched">
+                  Please enter an email address in a valid format.
+                </span><br> -->
+             </div>
+             <label class="col-sm-3 control-label text-left"
+               for="street">Cell Phone:</label>
+             <div class="col-sm-3">
+             <input class="form-control" type="text" name="cphone"
+                placeholder="Cell Phone" ng-model="mactrl.edItems.cphone">
+                <!-- <span class="input_warning"
+                  ng-if="getForm.street.$invalid && getForm.street.$touched">
+                  Please enter an email address in a valid format.
+                </span><br> -->
+             </div>
+           </div>
+           <div class="row"><br /><br />
+             <div class="col-sm-3 text-left">
+               <label>Preferred Number</label>
+             </div>
+             <div class="col-sm-9 text-left">
+               <div class="form-check">
+                 <label class="form-check-label">
+                   <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="hphone" ng-model="mactrl.edItems.preferred">
+                     Home Phone
+                 </label>
+               </div>
+               <div class="form-check">
+                 <label class="form-check-label">
+                   <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="cphone" ng-model="mactrl.edItems.preferred">
+                     Cell Phone
+                 </label>
+               </div>
+             </div>
+           </div>
 
           <div class="row">
             <div class="col-sm-3">
@@ -236,7 +427,8 @@
             <h2 ng-switch-when="A - Trainee">Member List for MG Status: Active Trainee</h2>
             <h2 ng-switch-when="E">Member List for MG Status: Emeritus</h2>
             <h2 ng-switch-when="IA">Member List for MG Status: Inactive</h2>
-            <h2 ng-switch-when="T/NotG">Member List for MG Status: Trainee - Did not Graduate</h2></div>
+            <h2 ng-switch-when="T/NotG">Member List for MG Status: Trainee - Did not Graduate</h2>
+            <h2 ng-switch-when="Sustaining">Member List for MG Status: Sustaining</h2></div>
 
             <div ng-show="mactrl.allToActive" class="alert alert-success" role="alert">
               Trainies have been switched to Active</div>
@@ -303,6 +495,7 @@
                 <option value="E">Emeritus</option>
                 <option value="IA">Inactive</option>
                 <option value="T/NotG">Trainee - Did not Graduate</option>
+                <option value="Sustaining">Sustaining</option>
               </select></span><br><br>
             </div>
           </div>
@@ -339,6 +532,7 @@
                   <span ng-switch-when="E">Emeritus</span>
                   <span ng-switch-when="IA">Inactive</span>
                   <span ng-switch-when="T/NotG">Trainee - Did not Graduate</span>
+                  <span ng-switch-when="Sustaining">Sustainging</span>
                 </td>
                 <td ng-if="mactrl.Mgstatus == 'A - Trainee' && !mactrl.makeAllChecked">
                   <input  type="checkbox" value="{{items}}"

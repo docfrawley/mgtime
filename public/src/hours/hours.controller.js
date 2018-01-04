@@ -8,7 +8,6 @@ HoursController.$inject=['HoursService', 'HrsadminService', 'items', 'totals', '
 function HoursController(HoursService, HrsadminService, items, totals, mgstatus, ototals, pages) {
   var hctrl=this;
    hctrl.items = items.data;
-   console.log(hctrl.items);
    hctrl.totals = totals.data;
    hctrl.ototals = ototals.data;
    hctrl.months = ['January', 'February', 'March', 'April', 'May', 'June',
@@ -32,6 +31,42 @@ function HoursController(HoursService, HrsadminService, items, totals, mgstatus,
    hctrl.previousYear = false;
    hctrl.showlast = false;
    hctrl.litems = [];
+
+   hctrl.start_year = 2017;
+   hctrl.showAddHours = true;
+   var d = new Date();
+   hctrl.this_year = d.getFullYear();
+   hctrl.which_year = hctrl.this_year;
+   hctrl.years = [];
+   for (var i = hctrl.start_year; i <= hctrl.this_year; i++) {
+     hctrl.years.push(i);
+   }
+
+   hctrl.get_which_year = function(){
+     HoursService.getEverything(hctrl.which_year)
+       .then(function (response){
+         if (hctrl.which_year == hctrl.this_year){
+           hctrl.showAddHours = true;
+         } else if (hctrl.which_year+1 == hctrl.this_year) {
+           if (d.getMontth()==0 && d.getDate()<19){
+             hctrl.showAddHours = true;
+           }
+         } else {
+           hctrl.showAddHours = true;
+         }
+         hctrl.pastLimit = false;
+         hctrl.items = response.data.hours_info;
+         hctrl.last = response.data.num_pages.last;
+         hctrl.totals = response.data.hours_totals;
+         hctrl.ototals = response.data.overall_totals;
+         hctrl.pastLimit = false;
+
+       })
+       .catch(function (error) {
+         console.log(error);
+       });
+   }
+
 
 
    hctrl.page = 1;
@@ -250,6 +285,11 @@ function HoursController(HoursService, HrsadminService, items, totals, mgstatus,
             console.log(error);
           });
     };
+
+    hctrl.returnToThisYear = function(){
+      hctrl.which_year = hctrl.this_year;
+      hctrl.get_which_year();
+    }
 
     hctrl.hdelete = function () {
         HoursService.deleteHrs(hctrl.edItems.numid)

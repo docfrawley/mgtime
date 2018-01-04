@@ -29,10 +29,20 @@ function MemberController(MemberService, info) {
    mctrl.email = mctrl.items.email;
    mctrl.updated = false;
    mctrl.triedUpdate = false;
+   mctrl.street = mctrl.items.street;
+   mctrl.town = info.data.town;
+   mctrl.state = info.data.state;
+   mctrl.zip = info.data.zip;
+   mctrl.hphone = info.data.hphone;
+   mctrl.cphone = info.data.cphone;
+   mctrl.preferred = info.data.preferred;
 
 
   mctrl.submit = function () {
-      MemberService.updateLogin(mctrl.username, mctrl.password, mctrl.email)
+      MemberService.updateLogin(mctrl.username, mctrl.password, mctrl.email,
+                                mctrl.street, mctrl.town, mctrl.state,
+                                mctrl.zip, mctrl.hphone, mctrl.cphone,
+                                mctrl.preferred)
           .then(function (response) {
             mctrl.updated = response.data.success;
             mctrl.triedUpdate = true;

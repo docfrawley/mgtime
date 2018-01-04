@@ -13,6 +13,13 @@ function MemadminController(MemadminService, info, list, flist, hlist) {
   mactrl.class = "";
   mactrl.mgstatus = "";
   mactrl.admin_status = "";
+  mactrl.street = "";
+  mactrl.town = "";
+  mactrl.state = "";
+  mactrl.zip = "";
+  mactrl.hphone = "";
+  mactrl.cphone = "";
+  mactrl.preferred = "";
   mactrl.added = false;
   mactrl.addhrs = true;
   mactrl.edited = false;
@@ -30,7 +37,6 @@ function MemadminController(MemadminService, info, list, flist, hlist) {
   mactrl.filter='full';
   mactrl.filterwhich='full';
   mactrl.list = list.data;
-
   mactrl.fulladmin = flist.data;
   mactrl.hrsadmin = hlist.data;
 
@@ -215,13 +221,22 @@ function MemadminController(MemadminService, info, list, flist, hlist) {
 
   mactrl.asubmit = function(addForm){
     MemadminService.addMember(mactrl.fname, mactrl.lname, mactrl.class,
-      mactrl.mgstatus, mactrl.admin_status)
+                              mactrl.mgstatus, mactrl.admin_status, mactrl.street,
+                              mactrl.town, mactrl.state, mactrl.zip, mactrl.hphone,
+                              mactrl.cphone, mactrl.preferred)
       .then(function (response){
         mactrl.fname = "";
         mactrl.lname = "";
         mactrl.class = "";
         mactrl.mgstatus = "";
         mactrl.admin_status = "";
+        mactrl.street = "";
+        mactrl.town = "";
+        mactrl.state = "";
+        mactrl.zip = "";
+        mactrl.hphone = "";
+        mactrl.cphone = "";
+        mactrl.preferred = "";
         mactrl.added = true;
         addForm.$setUntouched();
       })
@@ -297,6 +312,7 @@ function MemadminController(MemadminService, info, list, flist, hlist) {
   };
 
   mactrl.esubmit = function(){
+    console.log(mactrl.edItems);
     MemadminService.editMember(mactrl.edItems)
       .then(function (response){
         mactrl.edited = true;

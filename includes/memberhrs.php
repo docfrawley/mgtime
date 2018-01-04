@@ -5,10 +5,12 @@ class memberHrs {
 
 	private $memhrs;
 	private $memberid;
+	private $the_year;
 
 	function __construct($id) {
     $this->memhrs =  array();
 		$this->memberid = $id;
+		$this->the_year = date('Y');
 	}
 
 	function num_entries(){
@@ -22,16 +24,17 @@ class memberHrs {
 		return $temp;
 	}
 
-	function set_hrs($year=2000){
+	function set_hrs($year){
 		global $database;
-		if ($year=2000) {$year=date("Y");}
+		$which_year = $database->escape_value($year);
+		if ($which_year == "") {$which_year = $this->the_year;}
     $hrs_array =  array();
     $sql="SELECT * FROM hours WHERE memberid='".$this->memberid."' ORDER BY hdate DESC";
     $result_set = $database->query($sql);
 		while ($value = $database->fetch_array($result_set)) {
       $hrsobject = new hrsObject($value['numid']);
 			$whatYear = date('Y', $hrsobject->get_date());
-			if ($year == $whatYear){
+			if ($which_year == $whatYear){
 				$temp_array = $hrsobject->set_in_array();
 				array_push($hrs_array, $temp_array);
 			}
@@ -89,8 +92,11 @@ class memberHrs {
 	 	$database->query($sql);
 	}
 
-	function get_num_pages(){
-		$the_array = $this->set_hrs();
+	function get_num_pages($year){
+		global $database;
+		$which_year = $database->escape_value($year);
+		if ($which_year == "") {$which_year = $this->the_year;}
+		$the_array = $this->set_hrs($which_year);
 		$numarray = count($the_array);
 		$temp_array = array();
 		$temp_array['entries'] = $numarray;
@@ -98,8 +104,11 @@ class memberHrs {
 		return $temp_array;
 	}
 
-	function get_hours($page=1){
-		$first_array = $this->set_hrs();
+	function get_hours($page=1, $year=2000){
+		global $database;
+		$which_year = $database->escape_value($year);
+		if ($which_year == 2000) {$which_year = $this->the_year;}
+		$first_array = $this->set_hrs($which_year);
 		$index = 20;
 		$start = $page*$index-$index;
 		$temp_array = array();
@@ -109,15 +118,25 @@ class memberHrs {
 		return $temp_array;
 	}
 
-	function indDownload(){
+	function indDownload($year=2000){
+		global $database;
+		$which_year = $database->escape_value($year);
+		if ($which_year == 2000) {$which_year = $this->the_year;}
 		$member = new memberObject($this->memberid);
 		$status = $member->get_status();
-		$totals = $this->get_totalss();
-		$ototals = $this->overallTotal();
+		$totals = $this->get_totalss($which_year);
+		$ototals = $this->overallTotal($which_year);
 		switch ($status) {
 			case 'Active 1000hrs':
-				$vhrs = 25;
-				$mc = 25;
+				if (date('Y')==2017) {
+					$vhrs = 25;
+					$mc = 25;
+					$hl = 0;
+				} else {
+					$vhrs = 25;
+					$mc = 20;
+					$hl = 5;
+				}
 				break;
 			case 'A':
 				$vhrs = 30;
@@ -136,7 +155,7 @@ class memberHrs {
 		$output .= '
 			<table class="table" bordered="1">
 			<tr>';
-		$output .='<th>Yearly Hour Totals for 2017: '.$member->get_fullname().'</th></tr>';
+		$output .='<th>Yearly Hour Totals for '.$year.': '.$member->get_fullname().'</th></tr>';
 		$output .='
 			<tr>
 				<th></th>
@@ -155,14 +174,12 @@ class memberHrs {
 					 <td>'.$totals[12]["Mercer County"].'</td>
 					 <td> <strong>'.$ototals["Mercer County"].'</strong></td>
 				 </tr>';
-		if ($status !='Active 1000hrs'){
 			$output .='<tr>
-				<td>&nbsp;&nbsp;&nbsp;&nbsp;Helpline</td>
+				<td>&nbsp;&nbsp;&nbsp;&nbsp;GardenCore</td>
 				<td>'.$hl.'</td>
-				<td>'.$totals[12]["Helpline"].'</td>
-				<td> <strong>'.$ototals["Helpline"].'</strong></td>
+				<td>'.$totals[12]["GardenCore"].'</td>
+				<td> <strong>'.$ototals["GardenCore"].'</strong></td>
 			</tr>';
-		}
 		if ($status != 'A - Trainee'){
 			$output .='<tr>
 				<th scope="row">Continuing Ed (CE)</td>
@@ -179,11 +196,11 @@ class memberHrs {
 			</tr>';
 		}
 		$output .='</table><br />';
-		$first_array = $this->set_hrs();
+		$first_array = $this->set_hrs($year);
 		$output .= '
 			<table class="table" bordered="1">
 			<tr>';
-		$output .='<th>Entries for 2017</th></tr>';
+		$output .='<th>Entries for '.$year.'</th></tr>';
 		$output .='
 			<tr>
 				<th>Date</th>
@@ -206,17 +223,20 @@ class memberHrs {
 
 	function get_hours_month($whichMonth, $year){
 		global $database;
+		$which_year = $database->escape_value($year);
+		if ($which_year == "") {$which_year = $this->the_year;}
     $month_array =  array(
 			"Mercer County" 					=> 0,
 			"Helpline" 								=> 0,
+			"GardenCore" 							=> 0,
 			"Continuing Ed" 					=> 0,
 			"Compost (Trainee)" 			=> 0,
 			"Other (Trainee)"   			=> 0,
 			"Total"										=> 0
 		);
-		$date_range1 = mktime(0,0,0,$whichMonth,1,$year);
-		$num_days = cal_days_in_month(CAL_GREGORIAN, $whichMonth , $year );
-		$date_range2 = mktime(23,59,59,$whichMonth,$num_days,$year);
+		$date_range1 = mktime(0,0,0,$whichMonth,1,$which_year);
+		$num_days = cal_days_in_month(CAL_GREGORIAN, $whichMonth , $which_year);
+		$date_range2 = mktime(23,59,59,$whichMonth,$num_days,$which_year);
     $sql="SELECT * FROM hours WHERE memberid='".$this->memberid."'
 		AND hdate>= '".$date_range1."' AND hdate <='".$date_range2."'
 		ORDER BY hdate";
@@ -234,15 +254,18 @@ class memberHrs {
 	}
 
 	function get_totalss($year=2000){
-		if ($year=2000){$year=date('Y');}
-		$totals_array = $this->set_hrs($year);
+		global $database;
+		$which_year = $database->escape_value($year);
+		if ($which_year == 2000) {$which_year = $this->the_year;}
+		$totals_array = $this->set_hrs($which_year);
 		$months_array = array();
 		for ($month=1; $month<=12; $month++){
-			array_push($months_array, $this->get_hours_month($month, $year));
+			array_push($months_array, $this->get_hours_month($month, $which_year));
 		}
 		$total_array =  array(
 			"Mercer County" 					=> 0,
 			"Helpline" 								=> 0,
+			"GardenCore" 							=> 0,
 			"Continuing Ed" 					=> 0,
 			"Compost (Trainee)"				=> 0,
 			"Other (Trainee)"					=> 0,
@@ -257,6 +280,7 @@ class memberHrs {
 			}
 		}
 		$total_array['Total']=$total_array['Total']-$total_array['Continuing Ed'];
+		$total_array['GardenCore'] = $total_array['GardenCore'] + $total_array['Helpline'];
 		array_push($months_array, $total_array);
 	return $months_array;
 }
@@ -283,11 +307,14 @@ class memberHrs {
 		return $months_array;
 	}
 
-	function overallTotal(){
+	function overallTotal($year){
 		global $database;
+		$which_year = $database->escape_value($year);
+		if ($which_year == "") {$which_year = $this->the_year;}
 		$total_array =  array(
 			"Mercer County" 					=> 0.0,
 			"Helpline" 								=> 0.0,
+			"GardenCore" 							=> 0.0,
 			"Continuing Ed" 					=> 0.0,
 			"Compost (Trainee)"				=> 0.0,
 			"Total"										=> 0.0
@@ -304,16 +331,20 @@ class memberHrs {
 
     $sql="SELECT * FROM hours WHERE memberid='".$this->memberid."' ORDER BY hdate ASC";
     $result_set = $database->query($sql);
-		$year = 2017;
 		$ceTotal = 0.0;
 		while ($value = $database->fetch_array($result_set)) {
-			if ($value['chstatus']!='d'){
+			$hrsobject = new hrsObject($value['numid']);
+			$whatYear = date('Y', $hrsobject->get_date());
+			if ($value['chstatus']!='d' && $whatYear <= $which_year){
 				switch ($value['hrstype']) {
 					case "Mercer County":
 						$total_array['Mercer County'] += $value['numhrs'];
 						break;
 					case "Helpline":
 						$total_array['Helpline'] += $value['numhrs'];
+						break;
+					case "GardenCore":
+						$total_array['GardenCore'] += $value['numhrs'];
 						break;
 					case "Compost (Trainee)":
 						$total_array['Compost (Trainee)'] += $value['numhrs'];
@@ -331,7 +362,9 @@ class memberHrs {
 		// } else{
 		// 	$total_array['Continuing Ed'] += $ceTotal;
 		// }
-		$total_array['Total'] = $total_array['Mercer County'] + $total_array['Helpline']+$total_array['Compost (Trainee)'];
+		$total_array['Total'] = $total_array['Mercer County'] + $total_array['Helpline']
+									+$total_array['GardenCore']+$total_array['Compost (Trainee)'];
+		$total_array['GardenCore'] = $total_array['GardenCore'] + $total_array['Helpline'];
 		return $total_array;
 	}
 
@@ -353,6 +386,19 @@ class memberHrs {
 		$value = $database->fetch_array($result_set);
 		$temp = $value['numid'];
 		return $temp;
+	}
+
+	function get_everything($year){
+		global $database;
+		$which_year = $database->escape_value($year);
+		if ($which_year == "") {$which_year = $this->the_year;}
+		$returnArray = array (
+			"num_pages" 		=> $this->get_num_pages($which_year),
+			"hours_info"		=> $this->get_hours(1, $which_year),
+			"hours_totals"	=> $this->get_totalss($which_year),
+			"overall_totals"=> $this->overallTotal($which_year)
+		);
+		return $returnArray;
 	}
 
 }

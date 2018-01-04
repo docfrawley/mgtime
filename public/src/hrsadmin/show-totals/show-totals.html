@@ -1,8 +1,9 @@
 <div class="panel panel-default">
   <div class="panel-body text-center">
-    <h3>Yearly Hour Totals for 2017</h3><br>
+    <h3>Yearly Hour Totals for {{$ctrl.year}}</h3><br>
     <form action="excel.php?task=admInd" method="post">
-         <input type="submit" name="export_excel" value="Download Annual Entries" class='btn btn-sm btn-info'/>
+         <input type="submit" name="export_excel" value="Download {{$ctrl.year}} Entries" class='btn btn-sm btn-info'/>
+         <input type="hidden" name="year" value="{{$ctrl.year}}"/>
     </form><br />
 
     <table class="table table-bordered table-hover">
@@ -25,17 +26,20 @@
          </tr>
          <tr>
            <th scope="row">&nbsp;&nbsp;&nbsp;&nbsp;Mercer County</th>
-           <td ng-if="$ctrl.list.minfo.mgstatus=='A - Trainee' ||
-                      $ctrl.list.minfo.mgstatus=='Active 1000hrs'">25</td>
+           <td ng-if="$ctrl.list.minfo.mgstatus=='A - Trainee'">25</td>
+           <td ng-if="$ctrl.list.minfo.mgstatus=='Active 1000hrs' && $ctrl.year <'2018'">25</td>
+           <td ng-if="$ctrl.list.minfo.mgstatus=='Active 1000hrs' && $ctrl.year >'2017'">20</td>
            <td ng-if="$ctrl.list.minfo.mgstatus=='A'">15</td>
            <td>{{$ctrl.list.totals[12]['Mercer County']}}</td>
            <td>{{$ctrl.list.historical['Mercer County']}}</td>
          </tr>
          <tr>
-           <th scope="row">&nbsp;&nbsp;&nbsp;&nbsp;Helpline</th>
+           <th scope="row" ng-if="$ctrl.year<'2018'">&nbsp;&nbsp;&nbsp;&nbsp;Helpline</th>
+           <th scope="row" ng-if="$ctrl.year>'2017'">&nbsp;&nbsp;&nbsp;&nbsp;GardenCore</th>
            <td ng-if="$ctrl.list.minfo.mgstatus=='A - Trainee'">30</td>
            <td ng-if="$ctrl.list.minfo.mgstatus=='A'">15</td>
-           <td ng-if="$ctrl.list.minfo.mgstatus=='Active 1000hrs'"> </td>
+           <td ng-if="$ctrl.list.minfo.mgstatus=='Active 1000hrs' && $ctrl.year <'2018'"> </td>
+           <td ng-if="$ctrl.list.minfo.mgstatus=='Active 1000hrs' && $ctrl.year >'2017'">5</td>
            <td>{{$ctrl.list.totals[12]['Helpline']}}</td>
            <td> {{$ctrl.list.historical['Helpline']}}</td>
          </tr>

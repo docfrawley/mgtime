@@ -1,75 +1,98 @@
 <div class="row">
   <div class=" offset-sm-12 text-center">
     <br /><br /><form ng-if="$ctrl.whichreport=='nclist'" action="excel.php?task=nclist" method="post">
-           <input type="submit" name="export_excel" value="Download {{$ctrl.wreport}}" class='btn btn-lg btn-info'/>
+           <input type="submit" name="export_excel" value="Download {{$ctrl.year}} {{$ctrl.wreport}}:" class='btn btn-lg btn-info'/>
+           <input type="hidden" name="year" value="{{$ctrl.year}}"/>
       </form>
       <form ng-if="$ctrl.whichreport=='slist'" action="excel.php?task=slist" method="post">
-           <input type="submit" name="export_excel" value="Download {{$ctrl.wreport}}" class='btn btn-lg btn-info'/>
+           <input type="submit" name="export_excel" value="Download {{$ctrl.year}} {{$ctrl.wreport}}" class='btn btn-lg btn-info'/>
+           <input type="hidden" name="year" value="{{$ctrl.year}}"/>
+      </form>
+      <form ng-if="$ctrl.whichreport=='endlist'" action="excel.php?task=endlist" method="post">
+           <input type="submit" name="export_excel" value="Download {{$ctrl.year}} {{$ctrl.wreport}}" class='btn btn-lg btn-info'/>
+           <input type="hidden" name="year" value="{{$ctrl.year}}"/>
       </form>
       <div ng-if="$ctrl.last=='l100'">
         <form action="excel.php?task=l100" method="post">
-             <input type="submit" name="export_excel" value="Download {{$ctrl.wreport}}: Members {{$ctrl.mRange}}" class='btn btn-lg btn-info'/>
+             <input type="submit" name="export_excel" value="Download {{$ctrl.year}} {{$ctrl.wreport}}: Members {{$ctrl.mRange}}" class='btn btn-lg btn-info'/>
+             <input type="hidden" name="year" value="{{$ctrl.year}}"/>
         </form><br />
         <form action="excel.php?task=msAll" method="post">
-             <input type="submit" name="export_excel" value="Download {{$ctrl.wreport}}: All Members" class='btn btn-sm btn-success'/>
+             <input type="submit" name="export_excel" value="Download {{$ctrl.year}} {{$ctrl.wreport}}: All Members" class='btn btn-sm btn-success'/>
+             <input type="hidden" name="year" value="{{$ctrl.year}}"/>
         </form>
       </div>
       <div ng-if="$ctrl.last=='l250'" >
         <form action="excel.php?task=l250" method="post">
-             <input type="submit" name="export_excel" value="Download {{$ctrl.wreport}}: Members {{$ctrl.mRange}}" class='btn btn-lg btn-info'/>
+             <input type="submit" name="export_excel" value="Download {{$ctrl.year}} {{$ctrl.wreport}}: Members {{$ctrl.mRange}}" class='btn btn-lg btn-info'/>
+             <input type="hidden" name="year" value="{{$ctrl.year}}"/>
         </form><br />
         <form action="excel.php?task=msAll" method="post">
-             <input type="submit" name="export_excel" value="Download {{$ctrl.wreport}}: All Members" class='btn btn-sm btn-success'/>
+             <input type="submit" name="export_excel" value="Download {{$ctrl.year}} {{$ctrl.wreport}}: All Members" class='btn btn-sm btn-success'/>
+             <input type="hidden" name="year" value="{{$ctrl.year}}"/>
         </form>
       </div>
       <div ng-if="$ctrl.last=='l500'" >
         <form action="excel.php?task=l500" method="post">
-             <input type="submit" name="export_excel" value="Download {{$ctrl.wreport}}: Members {{$ctrl.mRange}}" class='btn btn-lg btn-info'/>
+             <input type="submit" name="export_excel" value="Download {{$ctrl.year}} {{$ctrl.wreport}}: Members {{$ctrl.mRange}}" class='btn btn-lg btn-info'/>
+             <input type="hidden" name="year" value="{{$ctrl.year}}"/>
         </form><br />
         <form action="excel.php?task=msAll" method="post">
-             <input type="submit" name="export_excel" value="Download {{$ctrl.wreport}}: All Members" class='btn btn-sm btn-success'/>
+             <input type="submit" name="export_excel" value="Download {{$ctrl.year}} {{$ctrl.wreport}}: All Members" class='btn btn-sm btn-success'/>
+             <input type="hidden" name="year" value="{{$ctrl.year}}"/>
         </form>
       </div>
       <div ng-if="$ctrl.last=='l1000'" >
         <form action="excel.php?task=l1000" method="post">
-             <input type="submit" name="export_excel" value="Download {{$ctrl.wreport}}: Members {{$ctrl.mRange}}" class='btn btn-lg btn-info'/>
+             <input type="submit" name="export_excel" value="Download {{$ctrl.year}} {{$ctrl.wreport}}: Members {{$ctrl.mRange}}" class='btn btn-lg btn-info'/>
+             <input type="hidden" name="year" value="{{$ctrl.year}}"/>
         </form><br />
         <form action="excel.php?task=msAll" method="post">
-             <input type="submit" name="export_excel" value="Download {{$ctrl.wreport}}: All Members" class='btn btn-sm btn-success'/>
+             <input type="submit" name="export_excel" value="Download {{$ctrl.year}} {{$ctrl.wreport}}: All Members" class='btn btn-sm btn-success'/>
+             <input type="hidden" name="year" value="{{$ctrl.year}}"/>
         </form>
       </div>
       <div ng-if="$ctrl.last=='l2500'" >
         <form action="excel.php?task=l2500" method="post">
-             <input type="submit" name="export_excel" value="Download {{$ctrl.wreport}}: Members {{$ctrl.mRange}}" class='btn btn-lg btn-info'/>
+             <input type="submit" name="export_excel" value="Download {{$ctrl.year}} {{$ctrl.wreport}}: Members {{$ctrl.mRange}}" class='btn btn-lg btn-info'/>
+             <input type="hidden" name="year" value="{{$ctrl.year}}"/>
         </form><br />
         <form action="excel.php?task=msAll" method="post">
-             <input type="submit" name="export_excel" value="Download {{$ctrl.wreport}}: All Members" class='btn btn-sm btn-success'/>
+             <input type="submit" name="export_excel" value="Download {{$ctrl.year}} {{$ctrl.wreport}}: All Members" class='btn btn-sm btn-success'/>
+             <input type="hidden" name="year" value="{{$ctrl.year}}"/>
         </form>
       </div>
       <div ng-if="$ctrl.last=='l5000'">
         <form action="excel.php?task=l5000" method="post">
-             <input type="submit" name="export_excel" value="Download {{$ctrl.wreport}}: Members {{$ctrl.mRange}}" class='btn btn-lg btn-info'/>
+             <input type="submit" name="export_excel" value="Download {{$ctrl.year}} {{$ctrl.wreport}}: Members {{$ctrl.mRange}}" class='btn btn-lg btn-info'/>
+             <input type="hidden" name="year" value="{{$ctrl.year}}"/>
         </form><br />
         <form action="excel.php?task=msAll" method="post">
-             <input type="submit" name="export_excel" value="Download {{$ctrl.wreport}}: All Members" class='btn btn-sm btn-success'/>
+             <input type="submit" name="export_excel" value="Download {{$ctrl.year}} {{$ctrl.wreport}}: All Members" class='btn btn-sm btn-success'/>
+             <input type="hidden" name="year" value="{{$ctrl.year}}"/>
         </form>
       </div>
       <div ng-if="$ctrl.last=='5000+'" >
         <form action="excel.php?task=plus5000" method="post">
-             <input type="submit" name="export_excel" value="Download {{$ctrl.wreport}}: Members {{$ctrl.mRange}}" class='btn btn-lg btn-info'/>
+             <input type="submit" name="export_excel" value="Download {{$ctrl.year}} {{$ctrl.wreport}}: Members {{$ctrl.mRange}}" class='btn btn-lg btn-info'/>
+             <input type="hidden" name="year" value="{{$ctrl.year}}"/>
         </form><br />
         <form action="excel.php?task=msAll" method="post">
-             <input type="submit" name="export_excel" value="Download {{$ctrl.wreport}}: All Members" class='btn btn-sm btn-success'/>
+             <input type="submit" name="export_excel" value="Download {{$ctrl.year}} {{$ctrl.wreport}}: All Members" class='btn btn-sm btn-success'/>
+             <input type="hidden" name="year" value="{{$ctrl.year}}"/>
         </form>
       </div>
       <form ng-if="$ctrl.last=='A - Trainee'" action="excel.php?task=ATrainee" method="post">
-           <input type="submit" name="export_excel" value="Download {{$ctrl.wreport}}: {{$ctrl.mRange}}" class='btn btn-lg btn-info'/>
+           <input type="submit" name="export_excel" value="Download {{$ctrl.year}} {{$ctrl.wreport}}: {{$ctrl.mRange}}" class='btn btn-lg btn-info'/>
+           <input type="hidden" name="year" value="{{$ctrl.year}}"/>
       </form>
       <form ng-if="$ctrl.last=='A'" action="excel.php?task=A" method="post">
-           <input type="submit" name="export_excel" value="Download {{$ctrl.wreport}}: {{$ctrl.mRange}}" class='btn btn-lg btn-info'/>
+           <input type="submit" name="export_excel" value="Download {{$ctrl.year}} {{$ctrl.wreport}}: {{$ctrl.mRange}}" class='btn btn-lg btn-info'/>
+           <input type="hidden" name="year" value="{{$ctrl.year}}"/>
       </form>
       <form ng-if="$ctrl.last=='Active 1000hrs'" action="excel.php?task=ActiveK" method="post">
-           <input type="submit" name="export_excel" value="Download {{$ctrl.wreport}}: {{$ctrl.mRange}}" class='btn btn-lg btn-info'/>
+           <input type="submit" name="export_excel" value="Download {{$ctrl.year}} {{$ctrl.wreport}}: {{$ctrl.mRange}}" class='btn btn-lg btn-info'/>
+           <input type="hidden" name="year" value="{{$ctrl.year}}"/>
       </form>
   </div><br />
 </div>
@@ -95,7 +118,7 @@
             <th>First Name</th>
             <th>Class</th>
             <th>Status</th>
-            <th>Helpline</th>
+            <th>GardenCore</th>
             <th ng-show="$ctrl.whichreport=='nclist'">Compost</th>
             <th>MC & Other</th>
             <th>Total H,C, MC</th>
@@ -109,11 +132,65 @@
             <td>{{item.fname}}</td>
             <td>{{item.class}}</td>
             <td>{{item.status}}</td>
-            <td>{{item.totals.Helpline}}</td>
+            <td>{{item.totals.GardenCore}}</td>
             <td ng-show="$ctrl.whichreport=='nclist'">{{item.totals['Compost (Trainee)']}}</td>
             <td>{{item.totals['Mercer County']}}</td>
             <td>{{item.totals.Total}}</td>
             <td>{{item.totals['Continuing Ed']}}</td>
+            <td>{{item.totals.ototal}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+    <div class="row" ng-if='$ctrl.last>1'>
+      <div class="col-sm-12 text-center">
+        <page-turn
+            range         = "$ctrl.range"
+            new-page      = "$ctrl.getNewPage(index)"
+            option-page   = "$ctrl.optionPage(index)">
+        </page-turn><br>
+      </div>
+    </div>
+</div>
+
+<div ng-if="$ctrl.whichreport=='endlist'">
+  <div class="row" ng-if='$ctrl.last>1'>
+    <div class="col-sm-12 text-center">
+      <page-turn
+          range         = "$ctrl.range"
+          new-page      = "$ctrl.getNewPage(index)"
+          option-page   = "$ctrl.optionPage(index)">
+      </page-turn><br>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-12">
+      <br/>
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Last Name</th>
+            <th>First Name</th>
+            <th>Class</th>
+            <th>Mercer County</th>
+            <th>GardenCore</th>
+            <th>CE</th>
+            <th>Total</th>
+            <th>Overall Total</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat='item in $ctrl.list'>
+            <td>{{item.lname}}</td>
+            <td>{{item.fname}}</td>
+            <td>{{item.class}}</td>
+            <td>{{item.totals['Mercer County']}}</td>
+            <td>{{item.totals.GardenCore}}</td>
+            <td>{{item.totals['Continuing Ed']}}</td>
+            <td>{{item.totals.Total}}</td>
             <td>{{item.totals.ototal}}</td>
           </tr>
         </tbody>
@@ -158,9 +235,10 @@
             <th>First Name</th>
             <th>Class</th>
             <th>Status</th>
-            <th>Total Volunteer Hrs</th>
+
             <th>Total CE</th>
-            <th>Overall Total</th>
+            <!-- <th>Overall Total</th> -->
+            <th>Total Volunteer Hrs</th>
           </tr>
         </thead>
         <tbody>
@@ -169,9 +247,10 @@
             <td>{{item.fname}}</td>
             <td>{{item.class}}</td>
             <td>{{item.status}}</td>
-            <td>{{item.ytotal}}</td>
+
             <td>{{item.ce}}</td>
-            <td>{{item.ototal}}</td>
+            <!-- <td>{{item.ototal}}</td> -->
+            <td>{{item.ytotal}}</td>
           </tr>
         </tbody>
       </table>
@@ -200,10 +279,13 @@
             <th>Class</th>
             <th>Status</th>
             <th ng-if="$ctrl.last=='A - Trainee'">Compost (5hrs)</th>
-            <th ng-if="$ctrl.last=='A - Trainee' || $ctrl.last=='Active 1000hrs'">Mercer County (25hrs)</th>
+            <th ng-if="$ctrl.last=='A - Trainee'">Mercer County (25hrs)</th>
             <th ng-if="$ctrl.last=='A'">Mercer County (15hrs)</th>
-            <th ng-if="$ctrl.last=='A - Trainee'">Helpline (30hrs)</th>
-            <th ng-if="$ctrl.last=='A'">Helpline (15hrs)</th>
+            <th ng-if="$ctrl.last=='A - Trainee'">GardenCore (30hrs)</th>
+            <th ng-if="$ctrl.last=='A'">GardenCore (15hrs)</th>
+            <th ng-if="$ctrl.last=='Active 1000hrs' && $ctrl.year<2018">Mercer County (25hrs)</th>
+            <th ng-if="$ctrl.last=='Active 1000hrs' && $ctrl.year>2017">Mercer County (20hrs)</th>
+            <th ng-if="$ctrl.last=='Active 1000hrs' && $ctrl.year>2017">GardenCore (5hrs)</th>
             <th ng-if="$ctrl.last!='A - Trainee'">Continuing Ed (10hrs)</th>
             <th>Annual Total</th>
           </tr>
@@ -233,30 +315,40 @@
                       item.totals['Mercer County']<15 &&
                       !item.totals.newMC" style="background-color:pink;">
               {{item.totals['Mercer County']}}</td>
-            <td ng-if="($ctrl.last=='A' &&
+            <td ng-if="$ctrl.last=='A' &&
                       item.totals['Mercer County']>=15 &&
-                      !item.totals.newMC)">
+                      !item.totals.newMC">
               {{item.totals['Mercer County']}}</td>
             <td ng-if="$ctrl.last=='A' && item.totals.newMC" style="background-color:orange;">
               {{item.totals.diff}}</td>
 
             <td ng-if="$ctrl.last=='Active 1000hrs' &&
-                      item.totals['Mercer County']>=25" >
+                      item.totals['Mercer County']>=25 && $ctrl.year<2018" >
                       {{item.totals['Mercer County']}}</td>
             <td ng-if="$ctrl.last=='Active 1000hrs' &&
-                      item.totals['Mercer County']<25" style="background-color:pink;">
+                      item.totals['Mercer County']<25 && $ctrl.year<2018" style="background-color:pink;">
+                      {{item.totals['Mercer County']}}</td>
+            <td ng-if="$ctrl.last=='Active 1000hrs' &&
+                      item.totals['Mercer County']>=20 && $ctrl.year>2017">
+                      {{item.totals['Mercer County']}}</td>
+            <td ng-if="$ctrl.last=='Active 1000hrs' &&
+                      item.totals['Mercer County']<20 && $ctrl.year>2017"  style="background-color:pink;">
                       {{item.totals['Mercer County']}}</td>
 
             <td ng-if="(($ctrl.last=='A - Trainee' && item.totals.Helpline<30) ||
-                        ($ctrl.last=='A' && item.totals.Helpline<15))" style="background-color:pink;">
-              {{item.totals.Helpline}}</td>
-            <td  ng-if="(($ctrl.last=='A - Trainee' && item.totals.Helpline>=30) ||
-                        ($ctrl.last=='A' && item.totals.Helpline>=15))" >{{item.totals.Helpline}}</td>
+                        ($ctrl.last=='A' && item.totals.GardenCore<15))" style="background-color:pink;">
+              {{item.totals.GardenCore}}</td>
+            <td  ng-if="(($ctrl.last=='A - Trainee' && item.totals.GardenCore>=30) ||
+                        ($ctrl.last=='A' && item.totals.GardenCore>=15))" >{{item.totals.GardenCore}}</td>
+
+            <td ng-if="$ctrl.last=='Active 1000hrs' && item.totals.GardenCore<5 && $ctrl.year>2017" style="background-color:pink;">
+              {{item.totals.GardenCore}}</td>
+            <td  ng-if="$ctrl.last=='Active 1000hrs' && item.totals.GardenCore>=5 && $ctrl.year>2017" >{{item.totals.GardenCore}}</td>
 
             <td ng-if="(($ctrl.last=='A' || $ctrl.last=='Active 1000hrs')
             && item.totals['Continuing Ed']<10)" style="background-color:pink;">
               {{item.totals['Continuing Ed']}}</td>
-            <td  ng-if="(($ctrl.last=='A' || $ctrl.last=='Active 1000hrs') && item.totals['Continuing Ed']>=10)">
+            <td  ng-if="($ctrl.last=='A' || $ctrl.last=='Active 1000hrs') && item.totals['Continuing Ed']>=10">
               {{item.totals['Continuing Ed']}}</td>
               <td>
                 {{item.totals.Total}}

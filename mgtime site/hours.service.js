@@ -25,6 +25,18 @@ function HoursService($http, ApiPath) {
     return response;
   };
 
+  service.getEverything = function(year) {
+    var response = $http({
+      method: "GET",
+      url: (ApiPath +"loginajaxfiles.php"),
+      params: {
+        task:   'get_everything',
+        year:   year
+      }
+    });
+    return response;
+  };
+
   service.updateHours = function(info) {
     var response = $http({
       method: "POST",

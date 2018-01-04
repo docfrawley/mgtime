@@ -9,6 +9,12 @@ if ($task=='lookupMem'){
   echo json_encode($temp_array);
 }
 
+if ($task=='get_everything'){
+  $memberhrs = new memberHrs($_SESSION['memberid']);
+  $temp_array = $memberhrs->get_everything($_GET['year']);
+  echo json_encode($temp_array);
+}
+
 if ($task=='deleteMem'){
   $member_admin->deleteMember($_GET['memberid']);
   $data = array(
@@ -47,9 +53,10 @@ if ($task=='hrsadlist'){
 
 if ($task=='hrsmlist'){
   $page = $_GET['page'];
+  $year = $_GET['year'];
   $filter = $_GET['filter'];
   $filterwhich = $_GET['filterwhich'];
-  $temp_array = $member_admin->get_hrmlist($filter, $filterwhich, $page);
+  $temp_array = $member_admin->get_hrmlist($filter, $filterwhich, $page, $year);
   echo json_encode($temp_array);
 }
 
@@ -104,9 +111,17 @@ if ($task=='login'){
 if ($task=='getinfo'){
   $member = new memberObject($_SESSION['memberid']);
   $returnArray = array(
-    "username"  => $member->get_username(),
-    "password"  => $member->get_password(),
-    "email"     =>  $member->get_email()
+    "username"    =>  $member->get_username(),
+    "password"    =>  $member->get_password(),
+    "email"       =>  $member->get_email(),
+    "street"      =>  $member->get_street(),
+    "town"        =>  $member->get_town(),
+    "state"       =>  $member->get_state(),
+    "zip"         =>  $member->get_zip(),
+    "hphone"      =>  $member->get_hphone(),
+    "cphone"      =>  $member->get_cphone(),
+    "preferred"   =>  $member->get_preferred()
+
   );
   echo json_encode($returnArray);
 }
@@ -127,8 +142,9 @@ if ($task=='hours_info'){
 
 if ($task=='getHlist'){
   $memberID = $_GET['memberID'];
+  $year = $_GET['year'];
   $member = new memberHrs($memberID);
-  $returnArray = $member->get_hours($_GET['page']);
+  $returnArray = $member->get_hours($_GET['page'], $year);
   echo json_encode($returnArray);
 }
 
@@ -200,6 +216,7 @@ if ($task=='hrsNonlist'){
 
 if ($task=='getMemInfo'){
   $memberID = $_GET['memberID'];
+  $year = $_GET['year'];
   $memberInfo = new memberObject($memberID);
   $memberInfo->set_session();
   $member = new memberHrs($memberID);
@@ -210,10 +227,10 @@ if ($task=='getMemInfo'){
     "id"        => $memberID
   );
   // $year = date('Y');
-  $annual_array = $member->get_hours(1);
-  $total_array = $member->get_totalss();
-  $historical_array = $member->overallTotal();
-  $numpages = $member->get_num_pages();
+  $annual_array = $member->get_hours(1, $year);
+  $total_array = $member->get_totalss($year);
+  $historical_array = $member->overallTotal($year);
+  $numpages = $member->get_num_pages($year);
   $returnArray = array(
     "minfo"     =>  $member_array,
     "annual"    =>  $annual_array,
@@ -233,20 +250,24 @@ if ($task == 'getWhatUndo'){
 
 if ($task == 'rlist'){
   $whichlist = $_GET['report'];
+  $year = $_GET['year'];
   $page = $_GET['page'];
   $member_admin = new memadmin();
   switch ($whichlist) {
     case 'nclist':
-      $returnArray =$member_admin->nclist();
+      $returnArray =$member_admin->nclist($page, $year);
       break;
     case 'mlist':
-      $returnArray =$member_admin->mlist($page);
+      $returnArray =$member_admin->mlist($page, $year);
       break;
     case 'slist':
-      $returnArray =$member_admin->slist($page);
+      $returnArray =$member_admin->slist($page, $year);
       break;
     case 'rdlist':
-      $returnArray =$member_admin->rdlist($page);
+      $returnArray =$member_admin->rdlist($page, $year);
+      break;
+    case 'endlist':
+      $returnArray =$member_admin->endlist($page, $year);
       break;
     default:
       break;

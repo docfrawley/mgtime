@@ -12,7 +12,7 @@ $member = new memberObject($_SESSION['memberid']);
 ?>
   <div="container">
     <div class="col-sm-12 text-center">
-      <h1>Member Administration</h1><br/>
+      <h1>Member Administration</h1>
     </div>
   </div>
   <div class="container" ng-app='MadminApp' ng-strict-di>

@@ -94,7 +94,8 @@ function MemadminService($http, ApiPath) {
     return response;
   };
 
-  service.addMember = function(fname, lname, aclass, mgstatus, adstatus) {
+  service.addMember = function(fname, lname, aclass, mgstatus, adstatus,
+                              street, town, state, zip, hphone, cphone, preferred) {
     var response = $http({
       method: "POST",
       url: (ApiPath +"addmember.php"),
@@ -103,7 +104,14 @@ function MemadminService($http, ApiPath) {
         lname:    lname,
         aclass:   aclass,
         mgstatus: mgstatus,
-        adstatus: adstatus
+        adstatus: adstatus,
+        street:   street,
+        town:     town,
+        state:    state,
+        zip:      zip,
+        hphone:   hphone,
+        cphone:   cphone,
+        preferred:  preferred
       }
     });
     return response;

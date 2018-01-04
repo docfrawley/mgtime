@@ -26,6 +26,9 @@ function redirect_to($new_location) {
 			case 'T/NotG':
 				return "Trainee - Did Not Graduate";
 				break;
+			case 'Sustaining':
+				return "Sustaining";
+					break;
 			default:
 				break;
 		}

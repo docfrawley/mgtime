@@ -26,6 +26,9 @@ function change_status($info){
 		case 'T/NotG':
 			return "Trainee - Did Not Graduate";
 			break;
+		case 'Sustaining':
+			return "Sustaining";
+				break;
 		default:
 			break;
 	}

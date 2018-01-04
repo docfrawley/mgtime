@@ -15,6 +15,24 @@ function HrsreportController(HrsadminService, list) {
   hrctrl.page = 1;
   hrctrl.show = true;
   hrctrl.last = list.data.last;
+  console.log('initial: ', hrctrl.list, hrctrl.last);
+  hrctrl.start_year = 2017;
+  var d = new Date();
+  hrctrl.this_year = d.getFullYear();
+  hrctrl.which_year = hrctrl.this_year;
+  hrctrl.years = [];
+  for (var i = hrctrl.start_year; i <= hrctrl.this_year; i++) {
+    hrctrl.years.push(i);
+  }
+
+  hrctrl.returnToThisYear = function(){
+    hrctrl.which_year = hrctrl.this_year;
+    hrctrl.changeB(hrctrl.active);
+  }
+
+  hrctrl.get_which_year = function(){
+    hrctrl.changeB(hrctrl.active);
+  }
 
   hrctrl.changeRange = function(index){
     if (hrctrl.active=='mlist'){
@@ -37,10 +55,11 @@ function HrsreportController(HrsadminService, list) {
     } else if (hrctrl.active == 'rdlist') {
       hrctrl.page = hrctrl.deficient;
     }
-    HrsadminService.rList(hrctrl.active, hrctrl.page)
+    HrsadminService.rList(hrctrl.active, hrctrl.page, hrctrl.which_year)
       .then(function (response){
         if (hrctrl.active != 'mlist' && hrctrl.active != 'rdlist') {
           hrctrl.list = response.data.reportArray;
+          console.log("result: ",hrctrl.list);
           hrctrl.last = response.data.last;
         } else {
           hrctrl.list = response.data;
